@@ -14,11 +14,11 @@ public class Castle extends GameComponents {
 		this.rank = r;
 	}
 
-	enum Color{
+	public enum Color{
 		RED, YELLOW, BLUE, GREEN;
 	}
 
-	enum Rank{
+	public enum Rank{
 		ONE, TWO, THREE, FOUR;
 	}
 
