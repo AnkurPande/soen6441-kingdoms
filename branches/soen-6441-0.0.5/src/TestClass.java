@@ -1,3 +1,4 @@
+import gameinstance.GameInstance;
 import view.*;
 
 
@@ -10,7 +11,12 @@ public class TestClass {
 		// TODO Auto-generated method stub
 		//System.out.println("Hello SOEN");
 		
-		new GameWindow();
+		GameView gv = new GameView();
+		
+		
+		GameInstance gi = new GameInstance();
+		
+		System.out.println(gi.toString());
 	}
 
 }
