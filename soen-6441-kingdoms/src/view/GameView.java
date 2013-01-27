@@ -11,7 +11,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
+/**
+ * This class basically contains the game view.
+ * 
+ * @author Ankur
+ *
+ */
 
 
 public class GameView extends JFrame {
@@ -39,7 +44,11 @@ public class GameView extends JFrame {
         setVisible(true);
         pack();
     }
-    
+    /**
+     * This is main function.
+     * It returns arguments.
+     * @param args
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
