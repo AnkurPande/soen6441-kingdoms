@@ -3,7 +3,7 @@ package view;
 public class GameWindow extends javax.swing.JFrame {
 
     /**
-     * Creates new form mainFrame
+     * Creates new form in mainFrame
      */
     public GameWindow() {
         initComponents();
