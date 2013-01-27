@@ -60,7 +60,9 @@ public class GameView extends JFrame {
     
     class BoardArea extends JPanel {
         public Field[][] fields = new Field[5][6];
-        
+      /**
+       * This function deals with creating the board area.  
+       */
         public BoardArea() {
             setLayout(new GridLayout(5, 6));
             setMinimumSize(new Dimension(600, 600));
@@ -107,7 +109,7 @@ public class GameView extends JFrame {
     }
     
     class ScoringArea extends JPanel {
-        
+   // Player score is displayed here.     
         public ScoringArea() {
             setLayout(new GridLayout(5, 6));
             setMinimumSize(new Dimension(300, 600));
