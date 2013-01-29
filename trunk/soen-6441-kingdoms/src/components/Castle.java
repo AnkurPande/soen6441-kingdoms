@@ -1,24 +1,34 @@
 package components;
 
+import gameinstance.GameInstance.PlayerColor;
+
 public class Castle extends GameComponents {
 	
-	private Color color;
-	private Rank rank;
-		
-	public Castle(){
-		
-	}
-	
-	public Castle(Color c, Rank r){
-		this.color = c;
-		this.rank = r;
+	private PlayerColor color;
+	private CastleRank rank;
+
+	public Castle(PlayerColor c, CastleRank r){
+		this.setColor(c);
+		this.setRank(r);
 	}
 
-	public enum Color{
-		RED, YELLOW, BLUE, GREEN;
+	public PlayerColor getColor() {
+		return color;
 	}
 
-	public enum Rank{
+	public void setColor(PlayerColor color) {
+		this.color = color;
+	}
+
+	public CastleRank getRank() {
+		return rank;
+	}
+
+	public void setRank(CastleRank rank) {
+		this.rank = rank;
+	}
+
+	public enum CastleRank{
 		ONE, TWO, THREE, FOUR;
 	}
 
