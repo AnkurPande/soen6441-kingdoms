@@ -3,10 +3,18 @@ package components;
 
 public class Tile extends GameComponents {
 	
-	private Type type;
+	private TileType type;
 	
-	public Tile(){
-		
+	public TileType getType() {
+		return type;
+	}
+
+	public void setType(TileType type) {
+		this.type = type;
+	}
+
+	public Tile(TileType t){
+		this.type = t;
 	}
 	
 	public int getValue(){
@@ -32,7 +40,7 @@ public class Tile extends GameComponents {
 		
 	}
 	
-	enum Type{
+	public enum TileType{
 		RESOURCES,	HAZARD , MOUNTAIN , DRAGON , GOLDMINE, WIZARD;
 	}
 
