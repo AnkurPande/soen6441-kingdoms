@@ -8,7 +8,7 @@ public abstract class GameComponents {
 		if(this.iconFileName != "")
 			return this.iconFileName;
 		else
-			return this.toString();
+			return this.getClass().getName();
 			
 	}
 	
