@@ -98,8 +98,8 @@ public class GameView extends JFrame {
         private void fillBoardWithGameState(){
         	for (int i = 0; i < Config.NO_OF_COLS; ++i) {
                 for (int j = 0; j < Config.NO_OF_ROWS; ++j) {
-                    if(game.gameComponentsOnBoard[i][j] != null){
-                    	fields[i][j].drawCompononent(game.gameComponentsOnBoard[i][j]);
+                    if(game.gameBoard[i][j] != null){
+                    	fields[i][j].drawCompononent(game.gameBoard[i][j]);
                     }
                 }
             }
