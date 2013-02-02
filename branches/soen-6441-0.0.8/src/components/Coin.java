@@ -1,16 +1,20 @@
 package components;
 
-public class Coins extends GameComponents {
+public class Coin extends GameComponents {
 	
 	private Material material;
 	private int value;
 	
-	public Coins(Material m, int val){
+	public int getValue() {
+		return value;
+	}
+
+	public Coin(Material m, int val){
 		this.material = m;
 		this.value = val;
 	}
 	
-	private enum Material{
+	public enum Material{
 		COPPER, SILVER, GOLD;
 	}
 
