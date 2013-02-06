@@ -1,5 +1,7 @@
 package view;
 
+import controller.GameInstance;
+
 public class GameWindow extends javax.swing.JFrame {
 
     /**
@@ -88,7 +90,7 @@ public class GameWindow extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-      new  GameView().setVisible(true);
+      new  GameView(new GameInstance()).setVisible(true);
     	GameWindow mainf = new GameWindow();
       mainf.pack();
       mainf.setVisible(false);
