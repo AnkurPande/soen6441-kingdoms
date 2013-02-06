@@ -1,6 +1,6 @@
 package components;
 
-import gameinstance.GameInstance.PlayerColor;
+import controller.GameInstance.PlayerColor;
 
 public class Castle extends GameComponents {
 	
