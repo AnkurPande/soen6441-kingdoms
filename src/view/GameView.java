@@ -6,14 +6,20 @@ import gameinstance.GameInstance.Config;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.BevelBorder;
 
 import components.Castle;
 import components.GameComponents;
@@ -46,7 +52,7 @@ public class GameView extends JFrame {
         board = new BoardArea();
         scoringArea = new ScoringArea();
         playerInfoArea = new PlayerInfoArea();
-        
+        playerInfoArea.createPlayersPanel();
         //Set the layout
         setLayout(new BorderLayout());
         add(scoringArea, BorderLayout.WEST);
@@ -158,13 +164,58 @@ public class GameView extends JFrame {
     class PlayerInfoArea extends JPanel {
    
 		private static final long serialVersionUID = 1L;
-
+		
+		
 		public PlayerInfoArea() {
-            setLayout(new GridLayout(Config.NO_OF_COLS, Config.NO_OF_ROWS));
-            setMinimumSize(new Dimension(900, 200));
-            setPreferredSize(new Dimension(900, 200));
-            setBackground(Color.decode(Config.PLAYER_INFO_AREA_COLOR));
-            
+           setLayout(new GridLayout(0,5));
+           setMinimumSize(new Dimension(900, 200));
+           setPreferredSize(new Dimension(900, 198));
+           setBackground(Color.decode(Config.PLAYER_INFO_AREA_COLOR));
+           JPanel settingsPanel = new JPanel();
+           settingsPanel.setMinimumSize(new Dimension(180, 200));
+           settingsPanel.setPreferredSize(new Dimension(180, 198));
+           settingsPanel.setLayout(null);
+           settingsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+	 	    
+           JButton add = new JButton("ADD PLAYER");
+           add.setBounds(5,5,160,40);
+           settingsPanel.add(add);
+	 	    
+           JButton save = new JButton("SAVE GAME");
+           save.setBounds(5,55,160,40);
+           settingsPanel.add(save);
+           add(settingsPanel);
+           
+           JButton load = new JButton("LOAD GAME");
+	 	   load.setBounds(5,105,160,40);
+	 	   settingsPanel.add(load);
+	 	   
+	 	   JButton exit = new JButton("  EXIT  ");
+	 	   exit.setBounds(5,155,160,40);
+	 	   settingsPanel.add(exit);
+			
         }
+		public  void createPlayersPanel(){
+			
+	 	    JPanel[] player = new JPanel[4];
+	 	    JLabel[] label = new JLabel[4];
+			for (int i=0; i<=3; i++){
+				   player[i] = new JPanel();
+				   label[i] = new JLabel("        PLAYER  "+(i+1));
+				   player[i].setMinimumSize(new Dimension(180, 190));
+				   player[i].setPreferredSize(new Dimension(180, 190));
+		 	       player[i].setBorder(BorderFactory.createLineBorder(Color.black));
+		 	       player[i].setLayout(null);
+		 	       label[i].setBounds(0, 0, 280, 40);
+		 	       label[i].setOpaque(true);
+		 	       
+		 	       label[i].setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+		 	       this.add(player[i]);
+		 	       player[i].add(label[i]);
+		 	       
+		 	       
+			}
+		}
+		
     }
 }
