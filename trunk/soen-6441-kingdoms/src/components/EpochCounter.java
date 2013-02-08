@@ -1,23 +1,26 @@
 package components;
 
+import javax.xml.bind.annotation.XmlAttribute;
+
 public class EpochCounter extends GameComponents {
-	private int currentEpoch;
+	private int currentEpochNo;
 	
 	public EpochCounter(){
-		this.currentEpoch = 1;
+		this.currentEpochNo = 1;
 	}
 	
 	public EpochCounter(int currentEpoch){
-		setCurrentEpoch(currentEpoch);
+		setCurrentEpochNo(currentEpoch);
+	}
+	
+	@XmlAttribute
+	public int getCurrentEpochNo() {
+		return this.currentEpochNo;
 	}
 
-	public int getCurrentEpoch() {
-		return currentEpoch;
-	}
-
-	public void setCurrentEpoch(int currentEpoch) {
+	public void setCurrentEpochNo(int currentEpoch) {
 		if(currentEpoch > 0 && currentEpoch <=3) 
-			this.currentEpoch = currentEpoch;
+			this.currentEpochNo = currentEpoch;
 	}
 
 }

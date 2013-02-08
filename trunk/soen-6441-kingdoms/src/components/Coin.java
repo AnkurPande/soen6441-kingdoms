@@ -1,12 +1,15 @@
 package components;
 
+import javax.xml.bind.annotation.XmlAttribute;
+
 public class Coin extends GameComponents {
-	
+	@XmlAttribute
 	private Material material;
 	private int value;
 	
+	@XmlAttribute
 	public int getValue() {
-		return value;
+		return this.value;
 	}
 
 	public Coin(Material m, int val){
