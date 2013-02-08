@@ -12,6 +12,12 @@ public class Castle extends GameComponents {
 		this.setRank(r);
 	}
 
+	public Castle(PlayerColor c, CastleRank r,String iconFilename){
+		this.setColor(c);
+		this.setRank(r);
+		super.setIconFileName(iconFilename);
+	}
+
 	public PlayerColor getColor() {
 		return color;
 	}
