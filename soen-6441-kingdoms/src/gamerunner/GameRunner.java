@@ -13,6 +13,7 @@ public class GameRunner {
 		
 		GameInstance gi = new GameInstance();
 		GameView gv = new GameView(gi);
+		gi.saveGameState();
 
 	}
 
