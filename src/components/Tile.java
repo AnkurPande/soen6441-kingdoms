@@ -7,6 +7,10 @@ public class Tile extends GameComponents {
 	
 	private TileType type;
 	
+	public Tile(){
+		
+	}
+	
 	@XmlAttribute
 	public TileType getType() {
 		return type;

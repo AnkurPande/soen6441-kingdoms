@@ -8,6 +8,10 @@ public class Castle extends GameComponents {
 	
 	private PlayerColor color;
 	private CastleRank rank;
+	
+	public Castle(){
+		
+	}
 
 	public Castle(PlayerColor c, CastleRank r){
 		this.setColor(c);
