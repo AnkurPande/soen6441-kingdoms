@@ -10,6 +10,7 @@ import components.Tile.TileType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -29,7 +30,7 @@ public class GameInstance {
 	private EpochCounter currentEpoch;
 	
 	@XmlElementWrapper(name="gameBoard")
-	@XmlElement(name="placeOnBoard", defaultValue="")
+	@XmlElement(name="placeOnBoard", nillable=true,defaultValue="")
 	public GameComponents[][] gameBoard;
 	
 	@XmlElementWrapper(name="tilebank")
@@ -169,6 +170,12 @@ public class GameInstance {
 	private void initGameBoard(){
 		//Initialize the game board to hold the game components
 		gameBoard = new GameComponents[gameConfig.NO_OF_COLS][gameConfig.NO_OF_ROWS];
+		
+		for(int i = 0; i < gameBoard.length; i++){
+			for(int j = 0; j < gameBoard[0].length; j++){
+				gameBoard[i][j] = new Placeholder();
+			}
+		}
 	}
 	
 	public static void shuffleTiles(Tile[] tiles) {
@@ -210,11 +217,55 @@ public class GameInstance {
 	public void setCurrentPlayerIndex(int newPlayerIndex) {
 		this.currentPlayerIndex = newPlayerIndex;
 	}
+	
+	public GameInstance loadGame(String fileName){
+		
+		File file;
+		if(fileName == null || fileName == ""){
+			file = new File("default_game_save.xml");
+		}
+		else{
+			file = new File(fileName);
+		}
+		
+		return loadGameState(file);
+		
+	}
 
-	public void saveGameState(){
+	
+	public GameInstance loadGameState(File file){
+		GameInstance gi = null;
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(GameInstance.class);
+
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			gi = (GameInstance) jaxbUnmarshaller.unmarshal(file);
+			//System.out.println(gi);
+
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+		
+		return gi;
+	}
+	
+	public void saveGame(String fileName){
+		
+		File file;
+		if(fileName == null || fileName == ""){
+			file = new File("default_game_save.xml");
+		}
+		else{
+			file = new File(fileName);
+		}
+		
+		saveGameState(file);
+		
+	}
+	
+	private void saveGameState(File file){
 		try {
 
-			File file = new File("game_state.xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(GameInstance.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
@@ -222,8 +273,7 @@ public class GameInstance {
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 			jaxbMarshaller.marshal(this, file);
-			jaxbMarshaller.marshal(this, System.out);
-
+			//jaxbMarshaller.marshal(this, System.out);
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
