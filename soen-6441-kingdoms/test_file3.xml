@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<gameInstance currentPlayerIndex="0">
+<gameInstance currentPlayerIndex="2">
     <gameConfig>
         <NO_OF_PLAYERS>4</NO_OF_PLAYERS>
         <NO_OF_RANK1CASTLES_PER_PLAYER>4</NO_OF_RANK1CASTLES_PER_PLAYER>
@@ -80,7 +80,7 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile type="WIZARD"/>
+                <tile type="MOUNTAIN"/>
             </playerTiles>
         </player>
         <player name="Player3" score="0">
@@ -106,7 +106,7 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile type="RESOURCES"/>
+                <tile type="WIZARD"/>
             </playerTiles>
         </player>
         <player name="Player4" score="0">
@@ -132,16 +132,16 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile type="HAZARD"/>
+                <tile type="RESOURCES"/>
             </playerTiles>
         </player>
     </players>
     <gameBoard>
         <placeOnBoard>
             <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="RED" rank="ONE"/>
-            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
-            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
-            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="RED" rank="ONE"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="RED" rank="ONE"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="BLUE" rank="TWO"/>
             <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
             <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
         </placeOnBoard>
@@ -182,21 +182,21 @@
         <tile type="RESOURCES"/>
         <tile type="RESOURCES"/>
         <tile type="RESOURCES"/>
-        <tile type="RESOURCES"/>
         <tile type="MOUNTAIN"/>
-        <tile type="RESOURCES"/>
-        <tile type="RESOURCES"/>
+        <tile type="DRAGON"/>
         <tile type="HAZARD"/>
+        <tile type="HAZARD"/>
+        <tile type="RESOURCES"/>
         <tile type="RESOURCES"/>
         <tile type="RESOURCES"/>
         <tile type="RESOURCES"/>
         <tile type="GOLDMINE"/>
-        <tile type="DRAGON"/>
-        <tile type="MOUNTAIN"/>
-        <tile type="HAZARD"/>
         <tile type="HAZARD"/>
         <tile type="RESOURCES"/>
         <tile type="HAZARD"/>
+        <tile type="HAZARD"/>
+        <tile type="RESOURCES"/>
+        <tile type="RESOURCES"/>
         <tile type="HAZARD"/>
     </tilebank>
     <coinBank>

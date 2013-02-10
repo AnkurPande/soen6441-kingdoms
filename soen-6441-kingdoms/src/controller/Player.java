@@ -46,6 +46,10 @@ class Player{
 	
 	private Config gameConfig = new Config();
 	
+	public Player(){
+		
+	}
+	
 	public Player(PlayerColor color, String name){
 		
 		//Set the player color & name
