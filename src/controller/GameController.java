@@ -25,5 +25,10 @@ public class GameController {
 		assignTileToPlayer(this.game, playerIndex, tileIndex);
 	}
 	// total score of each player(row+)
-	
+	int totalScore(int index){
+		//for(int index=0;index<ginew.players.length;index++){
+			finalscore = ginew.players[index].total_score();
+			//}
+		return finalscore;
+	}
 }
