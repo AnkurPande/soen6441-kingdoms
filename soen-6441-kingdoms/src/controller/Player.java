@@ -125,4 +125,17 @@ class Player{
 	public void setScore(int score) {
 		this.score = score;
 	}
+	//calculate total score as per game continues
+	public int  total_score()
+	{
+		int totalrow=0;
+		int totalcolumn=0;
+		for(int row=0; row<6;row++ ){
+			for(int column=0;column<5;column++){
+				totalcolumn+=totalcolumn;
+			}
+			totalrow+= totalrow;
+		}
+		return totalrow+totalcolumn;
+	}
 }

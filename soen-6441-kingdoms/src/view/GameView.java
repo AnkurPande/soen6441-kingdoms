@@ -16,7 +16,7 @@ import controller.GameInstance;
 /**
  * This class basically contains the game view.
  * 
- * @author Ankur
+ * @author
  *
  */
 
@@ -52,7 +52,7 @@ public class GameView extends JFrame {
         add(scoringArea, BorderLayout.WEST);
         add(board, BorderLayout.CENTER);
         add(playerInfoArea, BorderLayout.SOUTH);
-        
+        //addMouseListener(this);
         setTitle("Kingdoms");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
