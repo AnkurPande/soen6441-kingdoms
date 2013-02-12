@@ -158,15 +158,15 @@ public class GameView extends JFrame {
             
             ImageIcon icon = new ImageIcon("images/castle_blue_rank1.jpg");
             JLabel label = new JLabel(icon);
-            scorePanel.add(label);
-            
-            
-            
-            scorePanel.setSize(600, 600);
-            scorePanel.setBackground(Color.DARK_GRAY);
-            add(scorePanel);
-            add(goldAreaPanel);
-            add(tileAreaPanel);
+//            scorePanel.add(label);
+//            
+//            
+//            
+//            scorePanel.setSize(600, 600);
+//            scorePanel.setBackground(Color.DARK_GRAY);
+//            add(scorePanel);
+//            add(goldAreaPanel);
+//            add(tileAreaPanel);
         }
     }
     
@@ -180,7 +180,7 @@ public class GameView extends JFrame {
            setMinimumSize(new Dimension(900, 200));
            setOpaque(true);
            setPreferredSize(new Dimension(900, 198));
-           setBackground(Color.decode(Config.PLAYER_INFO_AREA_COLOR));
+           setBackground(Color.decode(game.gameConfig.PLAYER_INFO_AREA_COLOR));
            JPanel settingsPanel = new JPanel();
            settingsPanel.setMinimumSize(new Dimension(180, 200));
            settingsPanel.setPreferredSize(new Dimension(180, 198));
