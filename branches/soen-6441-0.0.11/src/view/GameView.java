@@ -147,10 +147,26 @@ public class GameView extends JFrame {
 
 		// Player score is displayed here.     
         public ScoringArea() {
-            setLayout(new GridLayout(game.gameConfig.NO_OF_COLS, game.gameConfig.NO_OF_ROWS));
+            setLayout(new GridLayout(3,0));
             setMinimumSize(new Dimension(300, 600));
             setPreferredSize(new Dimension(300, 600));
             setBackground(Color.decode(game.gameConfig.SCORING_AREA_COLOR));
+            JPanel scorePanel = new JPanel();
+            JPanel goldareaPanel = new JPanel();
+            JPanel tileareaPanel = new JPanel();
+            
+            ImageIcon icon = new ImageIcon("images/player score.png");
+            ImageIcon icon2 = new ImageIcon("images/gold bank.png");
+            
+            JLabel scoreLable = new JLabel(icon);
+            JLabel goldLabel = new JLabel(icon2);
+            add(scorePanel);
+            add(goldareaPanel);
+            add(tileareaPanel);
+            scorePanel.add(scoreLable);
+            goldareaPanel.add(goldLabel);
+            
+            
             
         }
     }

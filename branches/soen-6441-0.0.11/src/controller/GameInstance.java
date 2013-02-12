@@ -52,8 +52,8 @@ public class GameInstance {
 		initGameBoard();
 		
 		
-		players[2].rank2Castles[2].setIconFileName("images/castle_green_rank1.jpg");
-		players[3].rank2Castles[2].setIconFileName("images/castle_red_rank1.jpg");
+		players[2].rank2Castles[2].setIconFileName("images/dragon.png");
+		players[3].rank2Castles[2].setIconFileName("images/hazard.jpg");
 		gameBoard[0][0] = players[0].rank1Castles[0];
 		gameBoard[3][2] = players[2].rank2Castles[2];
 		
