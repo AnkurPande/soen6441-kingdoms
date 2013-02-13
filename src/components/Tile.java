@@ -1,17 +1,10 @@
 package components;
 
-import javax.xml.bind.annotation.XmlAttribute;
-
 
 public class Tile extends GameComponents {
 	
 	private TileType type;
 	
-	public Tile(){
-		
-	}
-	
-	@XmlAttribute
 	public TileType getType() {
 		return type;
 	}
@@ -42,6 +35,7 @@ public class Tile extends GameComponents {
 				return 0;
 			default:
 				return 0;
+		
 		}
 		
 	}

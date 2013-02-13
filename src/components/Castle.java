@@ -1,24 +1,23 @@
 package components;
 
-import javax.xml.bind.annotation.XmlAttribute;
-
 import controller.GameInstance.PlayerColor;
 
 public class Castle extends GameComponents {
 	
 	private PlayerColor color;
 	private CastleRank rank;
-	
-	public Castle(){
-		
-	}
 
 	public Castle(PlayerColor c, CastleRank r){
 		this.setColor(c);
 		this.setRank(r);
 	}
-	
-	@XmlAttribute
+
+	public Castle(PlayerColor c, CastleRank r,String iconFilename){
+		this.setColor(c);
+		this.setRank(r);
+		super.setIconFileName(iconFilename);
+	}
+
 	public PlayerColor getColor() {
 		return color;
 	}
@@ -26,8 +25,7 @@ public class Castle extends GameComponents {
 	public void setColor(PlayerColor color) {
 		this.color = color;
 	}
-	
-	@XmlAttribute
+
 	public CastleRank getRank() {
 		return rank;
 	}

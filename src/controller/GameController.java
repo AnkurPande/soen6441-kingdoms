@@ -3,8 +3,7 @@ package controller;
 public class GameController {
 	
 	GameInstance game;
-	int finalscore;
-	GameInstance ginew;//for score
+	
 	public GameController(GameInstance game){
 		this.game = game;
 	}
@@ -18,12 +17,9 @@ public class GameController {
 		}
 		gi.players[playerIndex].playerTiles[i] = gi.tileBank[tileIndex];
 		gi.tileBank[tileIndex] = null;
-		ginew = gi;
 	}
 	
 	void assignTileToPlayer(int playerIndex, int tileIndex){
 		assignTileToPlayer(this.game, playerIndex, tileIndex);
 	}
-	// total score of each player(row+)
-	
 }

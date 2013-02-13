@@ -12,10 +12,6 @@ public class GameRunner {
 		// TODO Auto-generated method stub
 		
 		GameInstance gi = new GameInstance();
-		
-		//gi.saveGame("test_file1.xml");
-		
-		gi = gi.loadGame("test_file3.xml");
 		GameView gv = new GameView(gi);
 
 	}
