@@ -99,26 +99,34 @@ public class GameInstance {
 		int j = -1;
 		for(int i = 0; i < gameConfig.NO_OF_RESOURCE_TILES; i++){
 			tileBank[++j] = new Tile(TileType.RESOURCES);
+			
 		}
+		
+
 		
 		for(int i = 0; i < gameConfig.NO_OF_HAZARD_TILES; i++){
 			tileBank[++j] = new Tile(TileType.HAZARD);
+			tileBank[++j].setIconFileName("images/hazard.png");	
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_MOUNTAIN_TILES; i++){
 			tileBank[++j] = new Tile(TileType.MOUNTAIN);
+			tileBank[++j].setIconFileName("images/mountain.png");
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_DRAGON_TILES; i++){
 			tileBank[++j] = new Tile(TileType.DRAGON);
+			tileBank[++j].setIconFileName("images/dragon.png");
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_GOLDMINE_TILES; i++){
 			tileBank[++j] = new Tile(TileType.GOLDMINE);
+			tileBank[++j].setIconFileName("images/gold.png");
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_WIZARD_TILES; i++){
 			tileBank[++j] = new Tile(TileType.WIZARD);
+			tileBank[++j].setIconFileName("images/wizard.png");
 		}
 	}
 	
@@ -130,22 +138,27 @@ public class GameInstance {
 		int j = -1;
 		for(int i = 0; i < gameConfig.NO_OF_COPPER_COINS_VAL1; i++){
 			coinBank[++j] = new Coin(Material.COPPER, gameConfig.COPPER_COINS_VAL1_VAL);
+			coinBank[++j].setIconFileName("images/copper_coin_1.png");
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_COPPER_COINS_VAL5; i++){
 			coinBank[++j] = new Coin(Material.COPPER, gameConfig.COPPER_COINS_VAL5_VAL);
+			coinBank[++j].setIconFileName("images/copper_coin_5.png");
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_SILVER_COINS; i++){
 			coinBank[++j] = new Coin(Material.SILVER, gameConfig.SILVER_COINS_VAL);
+			coinBank[++j].setIconFileName("images/silver_coin_10.png");
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_GOLD_COINS_VAL50; i++){
 			coinBank[++j] = new Coin(Material.GOLD, gameConfig.GOLD_COINS_VAL50_VAL);
+			coinBank[++j].setIconFileName("images/copper_coin_50.png");
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_GOLD_COINS_VAL100; i++){
 			coinBank[++j] = new Coin(Material.GOLD, gameConfig.GOLD_COINS_VAL100_VAL);
+			coinBank[++j].setIconFileName("images/copper_coin_100.png");
 		}
 	}
 	
