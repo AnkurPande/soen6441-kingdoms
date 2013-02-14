@@ -99,6 +99,7 @@ public class GameInstance {
 		int j = -1;
 		for(int i = 0; i < gameConfig.NO_OF_RESOURCE_TILES; i++){
 			tileBank[++j] = new Tile(TileType.RESOURCES);
+			
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_HAZARD_TILES; i++){
