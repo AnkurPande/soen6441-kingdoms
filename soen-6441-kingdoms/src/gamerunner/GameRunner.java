@@ -15,7 +15,7 @@ public class GameRunner {
 		
 		//gi.saveGame("test_file1.xml");
 		
-		gi = gi.loadGame("test_file3.xml");
+		//gi = gi.loadGame("test_file3.xml");
 		GameView gv = new GameView(gi);
 
 	}

@@ -24,7 +24,7 @@ public class GameInstance {
 	
 	@XmlElementWrapper(name="players")
 	@XmlElement(name="player")
-	protected Player[] players;
+	public Player[] players;
 	
 	private int currentPlayerIndex;	
 	private EpochCounter currentEpoch;
@@ -72,13 +72,13 @@ public class GameInstance {
 		initGameBoard();
 		
 		
-		players[2].rank2Castles[2].setIconFileName("images/castle_green_rank1.jpg");
-		players[3].rank2Castles[2].setIconFileName("images/castle_red_rank1.jpg");
-		gameBoard[0][0] = players[0].rank1Castles[0];
-		gameBoard[3][2] = players[2].rank2Castles[2];
-		
-		gameBoard[3][3] = new Tile(TileType.HAZARD); 
-		gameBoard[3][4] = players[3].rank2Castles[2]; 
+//		players[2].rank2Castles[2].displayIcon();
+//		players[3].rank2Castles[2].setIconFileName("images/castle_red_rank1.jpg");
+//		gameBoard[0][0] = players[0].rank1Castles[0];
+//		gameBoard[3][2] = players[2].rank2Castles[2];
+//		
+//		gameBoard[3][3] = new Tile(TileType.HAZARD); 
+//		gameBoard[3][4] = players[3].rank2Castles[2]; 
 		
 	}
 	

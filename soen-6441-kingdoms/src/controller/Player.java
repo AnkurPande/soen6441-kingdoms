@@ -12,7 +12,7 @@ import components.Coin.Material;
 import controller.GameInstance.PlayerColor;
 
 
-class Player{
+public class Player{
 	
 	private String name;
 	
@@ -20,29 +20,31 @@ class Player{
 	
 	@XmlElementWrapper(name="rank1Castles")
 	@XmlElement(name="castle") 
-	Castle[] rank1Castles;
+	public Castle[] rank1Castles;
 	
 	@XmlElementWrapper(name="rank2Castles")
 	@XmlElement(name="castle") 
-	Castle[] rank2Castles;
+	public Castle[] rank2Castles;
 	
 	@XmlElementWrapper(name="rank3Castles")
 	@XmlElement(name="castle")
-	private Castle[] rank3Castles;
+	public Castle[] rank3Castles;
 	
 	@XmlElementWrapper(name="rank4Castles")
 	@XmlElement(name="castle")
-	private Castle[] rank4Castles;
+	public Castle[] rank4Castles;
 	
 	@XmlElementWrapper(name="playerCoins")
 	@XmlElement(name="coin")
-	private Coin[] playerCoins;
+	public Coin[] playerCoins;
 	
 	@XmlElementWrapper(name="playerTiles")
 	@XmlElement(name="tile")
 	protected Tile[] playerTiles;
 	
-	private PlayerColor playerColor;
+	public PlayerColor playerColor;
+	
+	
 	
 	private Config gameConfig = new Config();
 	
@@ -80,21 +82,25 @@ class Player{
 		//Create the Rank 1 castles
 		for(int i=0;i<gameConfig.NO_OF_RANK1CASTLES_PER_PLAYER;i++){
 			rank1Castles[i] = new Castle(this.playerColor, CastleRank.ONE);
+			rank1Castles[i].setIconFileName("images/castle_yellow_rank1.jpg");
 		}
-		
+	
 		//Create the Rank 2 castles
 		for(int i=0;i<gameConfig.NO_OF_RANK2CASTLES_PER_PLAYER;i++){
 			rank2Castles[i] = new Castle(this.playerColor, Castle.CastleRank.TWO);
+			rank2Castles[i].setIconFileName("images/castle_green_rank1.jpg");
 		}
 		
 		//Create the Rank 3 castles
 		for(int i=0;i<gameConfig.NO_OF_RANK3CASTLES_PER_PLAYER;i++){
 			rank3Castles[i] = new Castle(this.playerColor, Castle.CastleRank.THREE);
+			rank3Castles[i].setIconFileName("images/castle_red_rank1.jpg");
 		}
 		
 		//Create the Rank 4 castles
 		for(int i=0;i<gameConfig.NO_OF_RANK4CASTLES_PER_PLAYER;i++){
 			rank4Castles[i] = new Castle(this.playerColor, Castle.CastleRank.FOUR);
+			rank4Castles[i].setIconFileName("images/castle_blue_rank1.jpg");
 		}
 		
 	}
