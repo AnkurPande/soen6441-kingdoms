@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * This is an abstract class for all game components.
  * Examples of game components are castles, coins, epoch counter, tiles, etc.
  * This class would contain methods that are common for all game components.
- *
+ * @author Team B
  */
 public abstract class GameComponents {
 	

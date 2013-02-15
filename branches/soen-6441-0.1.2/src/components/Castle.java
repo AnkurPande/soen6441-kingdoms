@@ -6,7 +6,7 @@ import model.GameInstance.PlayerColor;
 
 /**
  * This class defines the castle components for the game.
- *
+ * @author Team B
  */
 public class Castle extends GameComponents {
 	/**

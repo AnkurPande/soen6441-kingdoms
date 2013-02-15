@@ -14,6 +14,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import controller.GameController;
 
 @XmlRootElement
+/**
+ * This class represents the instance or model of a game.
+ * The status of a game, it's components and players, etc. is stored in objects of this class.
+ * @author Team B
+ */
 public class GameInstance {
 	
 	public GameController controller;
@@ -39,14 +44,12 @@ public class GameInstance {
 	protected Coin[] coinBank;
 	
 	/**
-	 * 
+	 * Default constructor. Creates a new game by default.
 	 */
 	public GameInstance(){
 		
-		//controller = new GameController(this);
-		
 		//Create a configuration object for the game
-		this.gameConfig = new Config(4);
+		this.gameConfig = new Config();
 		
 		//Initialize the epoch counter
 		setCurrentEpoch(new EpochCounter());
@@ -60,8 +63,10 @@ public class GameInstance {
 		
 		//Initialize the players (player objects)
 		initPlayers();
+		
 		//Randomly select a current player
 		this.currentPlayerIndex = new Random().nextInt(gameConfig.NO_OF_PLAYERS);
+		
 		//Give each player a random first tile
 		assignFirstSetOfTilesToPlayers();
 		
@@ -70,15 +75,21 @@ public class GameInstance {
 		
 	}
 	
+	/**
+	 * Initialize the player objects of the game.
+	 */
 	private void initPlayers(){
 		//Initialize the player objects
 		players = new Player[gameConfig.NO_OF_PLAYERS];
 		for(int i=0;i<players.length;i++){
-			players[i] = new Player(PlayerColor.values()[i],"Player"+(i+1));
+			players[i] = new Player(PlayerColor.values()[i],"Player"+(i+1), this.gameConfig);
 		}
 			
 	}
 	
+	/**
+	 * Initialize the tile bank of the game.
+	 */
 	private void initTileBank(){
 		
 		tileBank = new Tile[countNoOfTiles()];
@@ -111,6 +122,9 @@ public class GameInstance {
 		}
 	}
 	
+	/**
+	 * Initialize the coin bank of the game.
+	 */
 	private void initCoinBank(){
 		
 		coinBank = new Coin[countNoOfCoins()];
@@ -138,6 +152,11 @@ public class GameInstance {
 		}
 	}
 	
+	/**
+	 * Method to count the no of tiles in the game.
+	 * 
+	 * @return Returns the on of tiles in the game.
+	 */
 	private int countNoOfTiles(){
 		
 		return 	gameConfig.NO_OF_RESOURCE_TILES 
@@ -148,6 +167,11 @@ public class GameInstance {
 					+ gameConfig.NO_OF_WIZARD_TILES;
 	}
 	
+	/**
+	 * Method to count the no of coins in the game.
+	 * 
+	 * @return Returns the no of coins in the game.
+	 */
 	private int countNoOfCoins(){
 		return gameConfig.NO_OF_COPPER_COINS_VAL1 
 				+ gameConfig.NO_OF_COPPER_COINS_VAL5 
@@ -156,6 +180,9 @@ public class GameInstance {
 				+ gameConfig.NO_OF_GOLD_COINS_VAL100;
 	}
 	
+	/**
+	 * Method to initialize the the game board.
+	 */
 	private void initGameBoard(){
 		//Initialize the game board to hold the game components
 		gameBoard = new GameComponents[gameConfig.NO_OF_COLS][gameConfig.NO_OF_ROWS];
@@ -167,6 +194,11 @@ public class GameInstance {
 		}
 	}
 	
+	/**
+	 * Method to shuffle the tiles bank.
+	 * 
+	 * @param tiles An array of tiles (the tile bank).
+	 */
 	public static void shuffleTiles(Tile[] tiles) {
 		int n = tiles.length;
 		Random random = new Random();
@@ -177,12 +209,23 @@ public class GameInstance {
 		}
 	}
 
+	/**
+	 * Method of swapping two tile objects in a tile array.
+	 * 
+	 * @param a The tile array whose components are to be swapped.
+	 * @param i The index of the tile object to swap to.
+	 * @param change The index of the tile object to swap from.
+	 */
 	private static void swap(Tile[] a, int i, int change) {
 		Tile helper = a[i];
 		a[i] = a[change];
 		a[change] = helper;
 	}
 	
+	/**
+	 * Method to assign a new random tile to a player. 
+	 * This is done on the beginning of a new game.
+	 */
 	private void assignFirstSetOfTilesToPlayers(){
 		for(int i = 0; i < gameConfig.NO_OF_PLAYERS; i++){
 			//controller.assignTileToPlayer(i, i);
@@ -190,24 +233,46 @@ public class GameInstance {
 	}
 
 	@XmlElement
+	/**
+	 * Gets the current epoch of the game.
+	 * 
+	 * @return Returns the current epoch of the game.
+	 */
 	public EpochCounter getCurrentEpoch() {
 		return this.currentEpoch;
 	}
 
+	/**
+	 * Sets the current epoch of the game.
+	 * 
+	 * @param newEpoch The new epoch to set the game to.
+	 */
 	public void setCurrentEpoch(EpochCounter newEpoch) {
 		this.currentEpoch = newEpoch;
 	}
 
 	@XmlAttribute
+	/**
+	 * Gets the current players index - i.e. whose turn it is.
+	 * @return The index of the current player - the player whose turn it is now.
+	 */
 	public int getCurrentPlayerIndex() {
 		return this.currentPlayerIndex;
 	}
-
+	
+	/**
+	 * Sets the current player index to the one defined in the parameter.
+	 *  
+	 * @param newPlayerIndex The new player index - change turn to this player.
+	 */
 	public void setCurrentPlayerIndex(int newPlayerIndex) {
 		this.currentPlayerIndex = newPlayerIndex;
 	}
 	
-	
+	/**
+	 * An enum to restrict the player colors.
+	 *
+	 */
 	public enum PlayerColor{
 		RED, YELLOW, BLUE, GREEN;
 	}
