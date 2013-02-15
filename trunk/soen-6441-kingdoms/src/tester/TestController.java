@@ -16,6 +16,11 @@ import org.junit.Test;
 
 import controller.GameController;
 
+/**
+ * Class to run tests on the classes inside the "controller" package
+ * @author Team B
+ *
+ */
 public class TestController {
 	
 	GameController gc;
@@ -33,6 +38,9 @@ public class TestController {
 	}
 
 	@Test
+	/**
+	 * Tests the game loading from file functionality.
+	 */
 	public void testLoadGame() {
 		
 		String file1 = "test_file1.xml";
@@ -55,6 +63,9 @@ public class TestController {
 	}
 
 	@Test
+	/**
+	 * Tests the game saving to file functionality.
+	 */
 	public void testSaveGame() {
 		String file1 = "test_file1.xml";
 		String file2 = "test_file2.xml";
@@ -65,6 +76,13 @@ public class TestController {
 		assertTrue(compareFileContents(file1, file2));
 	}
 	
+	/**
+	 * Method to compare if the contents of two files are identical.
+	 * 
+	 * @param file1 The first file to compare.
+	 * @param file2 The second file to compare.
+	 * @return Returns true if the contents of the two files are identical - returns false otherwise.
+	 */
 	public boolean compareFileContents(String file1, String file2){
 		
 		BufferedReader brFile1 = null;

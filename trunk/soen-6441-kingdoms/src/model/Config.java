@@ -1,5 +1,9 @@
 package model;
 
+/**
+ * This class contains all the configuration parameters for the game.
+ * @author Team B
+ */
 public class Config{
 		
 	public final int NO_OF_PLAYERS;
@@ -40,30 +44,51 @@ public class Config{
 	public final int NO_OF_GOLDMINE_TILES = 1;
 	public final int NO_OF_WIZARD_TILES = 1;
 	
-	public Config(int no_of_players){
-		if(!(no_of_players >= 2 && no_of_players <= 4)){
+	/**
+	 * Constructor specifying the number of players. The no of players determines the no of rank 1 castles in the game.
+	 * @param noOfPlayers The no of players in the game. 
+	 */
+	public Config(int noOfPlayers){
+		
+		if(!(noOfPlayers >= 2 && noOfPlayers <= 4)){
 			System.out.println("Invalid no of players. Resetting to 4.");
-			no_of_players = 4;
+			noOfPlayers = 4;
 		}
 		
-		int no_of_rank1castles = 0;
-		switch(no_of_players){
-			case 2: no_of_rank1castles = 4;
-					break;
-			case 3: no_of_rank1castles = 3;
-					break;
-			case 4: no_of_rank1castles = 2;
-					break;
-			default:no_of_rank1castles = 2;
-					break;
-		}
-		
-		NO_OF_PLAYERS = no_of_players;
-		NO_OF_RANK1CASTLES_PER_PLAYER = no_of_rank1castles;
+		NO_OF_PLAYERS = noOfPlayers;
+		NO_OF_RANK1CASTLES_PER_PLAYER =  calculateNoOfRank1Castles(NO_OF_PLAYERS);
 	}
 	
+	/**
+	 * Default constructor. No of players by default would be 4.
+	 */
 	public Config(){
 		NO_OF_PLAYERS = 4;
-		NO_OF_RANK1CASTLES_PER_PLAYER = 2;
+		NO_OF_RANK1CASTLES_PER_PLAYER =  calculateNoOfRank1Castles(NO_OF_PLAYERS);
+	}
+	
+	/**
+	 * This method calculates the no of rank 1 castles based on the no of players.
+	 * This calculation is done by the rules of of the game.
+	 * 
+	 * @param noOfPlayers The no of players in the game.
+	 * @return Returns the no of rank 1 castles computed.
+	 */
+	private int calculateNoOfRank1Castles(int noOfPlayers){
+		
+		int noOfRank1Castles = 0;
+		switch(noOfPlayers){
+		case 2: noOfRank1Castles = 4;
+				break;
+		case 3: noOfRank1Castles = 3;
+				break;
+		case 4: noOfRank1Castles = 2;
+				break;
+		default:noOfRank1Castles = 2;
+				break;
+		}
+		
+		return noOfRank1Castles;
+		
 	}
 }

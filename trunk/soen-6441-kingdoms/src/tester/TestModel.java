@@ -9,6 +9,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Class to test the classes of the "model" package.
+ * @author Team B
+ *
+ */
 public class TestModel {
 
 	@Before
