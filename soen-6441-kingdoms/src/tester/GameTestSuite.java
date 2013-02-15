@@ -10,7 +10,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 
 @RunWith(Suite.class)
-@SuiteClasses({ TestController.class, TestComponents.class })
+@SuiteClasses({ TestController.class})
 public class GameTestSuite extends TestSuite{
 
 	@Test
