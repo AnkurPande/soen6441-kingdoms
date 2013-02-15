@@ -1,6 +1,6 @@
 package view;
 
-import controller.GameInstance;
+import model.GameInstance;
 
 public class GameWindow extends javax.swing.JFrame {
 
