@@ -23,35 +23,28 @@ import javax.swing.TransferHandler;
 import model.GameInstance;
 
 import components.GameComponents;
+
 /**
- * This class basically contains the game view.
- * 
- * @author
+ * The GameView class displays the game on the screen in graphical format.
+ * This class can render a GameInstance object and create elements on the screen accordingly.
+ * @author Team B
  *
  */
-
-
 public class GameView extends JFrame {
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private BoardArea board;
     private ScoringArea scoringArea;
     private PlayerInfoArea playerInfoArea;
     
-    final int NO_OF_COLS, NO_OF_ROWS;
+    private final int NO_OF_COLS, NO_OF_ROWS;
     
     private GameInstance game;
-    
-    public GameInstance getGame() {
-		return game;
-	}
-    
-	public void setGame(GameInstance game) {
-		this.game = game;
-	}
 	
+    /**
+     * Constructor. Takes a GameInstance as a parameter and renders the game according to the this GameInsance.
+     * @param gi The GameInstance to render.
+     */
 	public GameView(GameInstance gi) {
     	
 		this.setGame(gi);
@@ -75,6 +68,23 @@ public class GameView extends JFrame {
         setVisible(true);
         pack();
     }
+	
+	/**
+	 * Gets the current GameInstace of the view.
+	 * @return The current GameInstace of the view.
+	 */
+	public GameInstance getGame() {
+		return game;
+	}
+    
+	/**
+	 * Sets the current GameInstance to another GameInstance as desired. 
+	 * @param game The new GameInstance object that will become the views current GameInstance.
+	 */
+	public void setGame(GameInstance game) {
+		this.game = game;
+	}
+	
     /**
      * This is main function.
      * It returns arguments.
@@ -89,12 +99,19 @@ public class GameView extends JFrame {
         });
     }
     
-    class BoardArea extends JPanel {
+    /**
+     * This class defines the board area of the game.
+     *
+     */
+    private class BoardArea extends JPanel {
     	MyListener listener = new MyListener();
 		private static final long serialVersionUID = 1L;
 		
 		public Field[][] fields = new Field[NO_OF_COLS][NO_OF_ROWS];
-
+		
+		/**
+		 * Constructor.
+		 */
         public BoardArea() {
             setLayout(new GridLayout(NO_OF_COLS, NO_OF_ROWS));
             setMinimumSize(new Dimension(600, 600));
@@ -104,6 +121,9 @@ public class GameView extends JFrame {
             fillBoardWithGameState();
         }
         
+        /**
+         * Method to initialize the board.
+         */
         private void fillBoard() {
             for (int i = 0; i < NO_OF_COLS; ++i) {
                 for (int j = 0; j < NO_OF_ROWS; ++j) {
@@ -115,6 +135,9 @@ public class GameView extends JFrame {
             }
         }
         
+        /**
+         * Method to load the game board with game components.
+         */
         private void fillBoardWithGameState(){
         	for (int i = 0; i < NO_OF_COLS; ++i) {
                 for (int j = 0; j < NO_OF_ROWS; ++j) {
@@ -126,7 +149,11 @@ public class GameView extends JFrame {
         }
     }
     
-    
+    /**
+     * This class is to represent each field or place on the game board.
+     * Each square place of the game board is a "Field"
+     *
+     */
     class Field extends JLabel implements MouseListener{
 
 		private static final long serialVersionUID = 1L;
@@ -146,6 +173,11 @@ public class GameView extends JFrame {
             }
         }
         
+        /**
+         * Method to draw the image icon of a game component on screen.
+         * 
+         * @param gc The game component whose icon file is to be drawn on screen.
+         */
         private void drawCompononent(GameComponents gc){
         	
         	String iconFile = gc.displayIcon();
@@ -193,11 +225,17 @@ public class GameView extends JFrame {
         
     }
     
+    /**
+     * This class holds the scoring area of the game screen.
+     *
+     */
     class ScoringArea extends JPanel {
 
 		private static final long serialVersionUID = 1L;
 
-		// Player score is displayed here.     
+		/**
+		 * Constructor. The scores of the players is to be displayed here.     
+		 */
         public ScoringArea() {
             setLayout(new GridLayout(NO_OF_COLS, NO_OF_ROWS));
             setMinimumSize(new Dimension(300, 600));
@@ -206,10 +244,17 @@ public class GameView extends JFrame {
         }
     }
     
+    /**
+     * This class holds the player information panel - i.e. the list of players and their resources, etc.
+     *
+     */
     class PlayerInfoArea extends JPanel {
    
 		private static final long serialVersionUID = 1L;
-				   
+		
+		/**
+		 * Constructor.		   
+		 */
 		public PlayerInfoArea(){
 			
 			MyListener listener = new MyListener();
@@ -288,7 +333,7 @@ public class GameView extends JFrame {
 			JLabel[] coinsIcon = new JLabel[NO_OF_PLAYER];
 			JLabel[] playerColor = new JLabel[NO_OF_PLAYER];
 			
-			for (int i=0; i<NO_OF_PLAYER; i++){
+			for (int i=0; i < NO_OF_PLAYER; i++){
 
 				player[i] = new JPanel();
 				player[i].setMinimumSize(new Dimension(180, 190));
@@ -329,12 +374,10 @@ public class GameView extends JFrame {
 				rank1Icon[i] = new JLabel(icon);
 				rank1Icon[i].setBounds(185, 50, 30, 20);
 
-
 				path = game.players[0].rank2Castles[0].displayIcon();
 				icon = new ImageIcon(path);
 				rank2Icon[i] = new JLabel(icon);
 				rank2Icon[i].setBounds(185, 75, 30, 20);
-
 
 				path = game.players[0].rank3Castles[0].displayIcon();
 				icon = new ImageIcon(path);
@@ -389,12 +432,16 @@ public class GameView extends JFrame {
     }
 } 
 
+/**
+ * This is a listener class that listens to mouse events.
+ * This is to facilitate drag and drop of game components onto the game board.
+ *
+ */
 class MyListener extends MouseAdapter{
 
 	public void mousePressed(MouseEvent evt) {
 		JComponent comp = (JComponent) evt.getSource();
 		TransferHandler th = comp.getTransferHandler();
-		//System.out.println("hi");
 		th.exportAsDrag(comp, evt, TransferHandler.COPY);
 
 	}

@@ -1,18 +1,18 @@
 package gamerunner;
 
-import model.GameInstance;
 import view.GameView;
 import controller.GameController;
 
+/**
+ * This class is like a driver class used to run the game.
+ * @author Team B
+ */
 public class GameRunner {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-//		GameInstance gi = new GameInstance();
 		
 		GameController gameController = new GameController();
 		gameController.saveGame("test_file1.xml");

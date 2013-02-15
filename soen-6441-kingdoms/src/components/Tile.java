@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 /**
  * This class is for creating the tiles objects in the game.
  * Tiles are similar to cards that can be placed on the game board.
- *
+ * @author Team B
  */
 public class Tile extends GameComponents {
 	
@@ -39,7 +39,7 @@ public class Tile extends GameComponents {
 
 	/**
 	 * Gets the value of the tile for score computation purposes.
-	 * @return
+	 * @return Returns the numeric value of the tile to be considered in score computation.
 	 */
 	public int getValue(){
 		

@@ -12,7 +12,11 @@ import components.Coin;
 import components.Tile;
 import components.Coin.Material;
 
-
+/**
+ * This class creates the player object.
+ * The parameters of a player such as color, name, etc. is managed by this class.
+ * @author Team B
+ */
 public class Player{
 	
 	private String name;
@@ -41,20 +45,34 @@ public class Player{
 	@XmlElement(name="tile")
 	public Tile[] playerTiles;
 	
-	public PlayerColor playerColor;
+	private PlayerColor playerColor;
 	
-	private Config gameConfig = new Config(4);
+	private Config gameConfig;
 	
+	
+	/**
+	 * Default constructor.
+	 */
 	public Player(){
 		
 	}
 	
-	public Player(PlayerColor color, String name){
+	/**
+	 * Creates a player with a specified color, name and configuration.
+	 * 
+	 * @param color The color of the player - is linked with the color of the players castles.
+	 * @param name The name of the player.
+	 * @param config The configuration object to use for this player. This is coming from the GameInstance that is loading this player.
+	 */
+	public Player(PlayerColor color, String name, Config config){
 		
 		//Set the player color & name
-		this.playerColor = color;			
+		this.setPlayerColor(color);			
 		this.setName(name);
-	
+		
+		//Set the configuration object of the current player.
+		this.gameConfig = config;
+		
 		//Initialize the castle objects owned by the players
 		initCastles();
 		
@@ -66,7 +84,11 @@ public class Player{
 
 	}
 	
+	/**
+	 * Initialize the castle objects of this player.
+	 */
 	private void initCastles(){
+		
 		//Initialize the castles
 		rank1Castles = new Castle[gameConfig.NO_OF_RANK1CASTLES_PER_PLAYER];
 		rank2Castles = new Castle[gameConfig.NO_OF_RANK2CASTLES_PER_PLAYER];
@@ -99,6 +121,9 @@ public class Player{
 		
 	}
 	
+	/**
+	 * Initialize the coin object for this player.
+	 */
 	private void initPlayerCoins(){
 		playerCoins = new Coin[1000];
 		playerCoins[0] = new Coin(Material.GOLD, 50);
@@ -109,12 +134,38 @@ public class Player{
 	}
 	
 	@XmlAttribute
+	/**
+	 * Gets the name of a player.
+	 * @return The name of the player is returned.
+	 */
 	public String getName() {
 		return name;
 	}
-
-	public void setName(String name) {
+	
+	/**
+	 * Sets the name of a player.
+	 * @param name The name to assign to the player
+	 */
+	private void setName(String name) {
 		this.name = name;
+	}
+	
+	/**
+	 * Gets the player color.
+	 * 
+	 * @return The color of the player.
+	 */
+	public PlayerColor getPlayerColor() {
+		return playerColor;
+	}
+	
+	/**
+	 * Set the player color
+	 * 
+	 * @param playerColor The color to set the player.
+	 */
+	private void setPlayerColor(PlayerColor playerColor) {
+		this.playerColor = playerColor;
 	}
 	
 }
