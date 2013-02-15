@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  * The EpochCounter object is to keep track of the current epoch of the game.
  * The 'epoch' is numeric value that is synonymous to "round" in a game.
  * It can have values between a predefined range (integers between 1 and 3 as of build 1)
+ * @author Team B
  */
 public class EpochCounter extends GameComponents {
 	private int currentEpochNo;
