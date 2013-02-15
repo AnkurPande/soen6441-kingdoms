@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 import java.io.File;
 import java.util.Random;
@@ -16,11 +16,14 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import controller.Config;
+import controller.GameController;
+
 @XmlRootElement
 public class GameInstance {
 	
-	GameController controller;
-	public Config gameConfig;
+	public GameController controller;
+	public final Config gameConfig;
 	
 	@XmlElementWrapper(name="players")
 	@XmlElement(name="player")
@@ -35,7 +38,7 @@ public class GameInstance {
 	
 	@XmlElementWrapper(name="tilebank")
 	@XmlElement(name="tile")
-	protected Tile[] tileBank;
+	public Tile[] tileBank;
 	
 	@XmlElementWrapper(name="coinBank")
 	@XmlElement(name="coin")
@@ -46,7 +49,7 @@ public class GameInstance {
 	 */
 	public GameInstance(){
 		
-		controller = new GameController(this);
+		//controller = new GameController(this);
 		
 		//Create a configuration object for the game
 		this.gameConfig = new Config();
@@ -70,15 +73,6 @@ public class GameInstance {
 		
 		//Initialize the game board
 		initGameBoard();
-		
-		
-//		players[2].rank2Castles[2].displayIcon();
-//		players[3].rank2Castles[2].setIconFileName("images/castle_red_rank1.jpg");
-//		gameBoard[0][0] = players[0].rank1Castles[0];
-//		gameBoard[3][2] = players[2].rank2Castles[2];
-//		
-//		gameBoard[3][3] = new Tile(TileType.HAZARD); 
-//		gameBoard[3][4] = players[3].rank2Castles[2]; 
 		
 	}
 	
@@ -197,7 +191,7 @@ public class GameInstance {
 	
 	private void assignFirstSetOfTilesToPlayers(){
 		for(int i = 0; i < gameConfig.NO_OF_PLAYERS; i++){
-			controller.assignTileToPlayer(i, i);
+			//controller.assignTileToPlayer(i, i);
 		}
 	}
 
@@ -219,66 +213,6 @@ public class GameInstance {
 		this.currentPlayerIndex = newPlayerIndex;
 	}
 	
-	public GameInstance loadGame(String fileName){
-		
-		File file;
-		if(fileName == null || fileName == ""){
-			file = new File("default_game_save.xml");
-		}
-		else{
-			file = new File(fileName);
-		}
-		
-		return loadGameState(file);
-		
-	}
-
-	
-	public GameInstance loadGameState(File file){
-		GameInstance gi = null;
-		try {
-			JAXBContext jaxbContext = JAXBContext.newInstance(GameInstance.class);
-
-			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			gi = (GameInstance) jaxbUnmarshaller.unmarshal(file);
-			//System.out.println(gi);
-
-		} catch (JAXBException e) {
-			e.printStackTrace();
-		}
-		
-		return gi;
-	}
-	
-	public void saveGame(String fileName){
-		
-		File file;
-		if(fileName == null || fileName == ""){
-			file = new File("default_game_save.xml");
-		}
-		else{
-			file = new File(fileName);
-		}
-		
-		saveGameState(file);
-		
-	}
-	
-	private void saveGameState(File file){
-		try {
-
-			JAXBContext jaxbContext = JAXBContext.newInstance(GameInstance.class);
-			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
-			// output pretty printed
-			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-			jaxbMarshaller.marshal(this, file);
-			//jaxbMarshaller.marshal(this, System.out);
-		} catch (JAXBException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	public enum PlayerColor{
 		RED, YELLOW, BLUE, GREEN;

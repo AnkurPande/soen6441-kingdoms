@@ -1,7 +1,8 @@
 package gamerunner;
 
+import model.GameInstance;
 import view.GameView;
-import controller.GameInstance;
+import controller.GameController;
 
 public class GameRunner {
 
@@ -11,12 +12,18 @@ public class GameRunner {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		GameInstance gi = new GameInstance();
+//		GameInstance gi = new GameInstance();
 		
-		//gi.saveGame("test_file1.xml");
+		GameController gameController = new GameController();
+		gameController.saveGame("test_file1.xml");
 		
-		//gi = gi.loadGame("test_file3.xml");
-		GameView gv = new GameView(gi);
+		gameController.setGame(gameController.loadGame("test_file3.xml"));
+		
+//		gi.controller.saveGame("test_file1.xml");
+//		
+//		gi = gi.controller.loadGame("test_file3.xml");
+		
+		GameView gv = new GameView(gameController.getGame());
 
 	}
 
