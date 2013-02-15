@@ -1,4 +1,4 @@
-package model;
+package controller;
 
 import java.io.File;
 import java.util.Random;
@@ -16,18 +16,15 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import controller.Config;
-import controller.GameController;
-
 @XmlRootElement
 public class GameInstance {
 	
-	public GameController controller;
-	public final Config gameConfig;
+	GameController controller;
+	public Config gameConfig;
 	
 	@XmlElementWrapper(name="players")
 	@XmlElement(name="player")
-	public Player[] players;
+	protected Player[] players;
 	
 	private int currentPlayerIndex;	
 	private EpochCounter currentEpoch;
@@ -38,7 +35,7 @@ public class GameInstance {
 	
 	@XmlElementWrapper(name="tilebank")
 	@XmlElement(name="tile")
-	public Tile[] tileBank;
+	protected Tile[] tileBank;
 	
 	@XmlElementWrapper(name="coinBank")
 	@XmlElement(name="coin")
@@ -49,7 +46,7 @@ public class GameInstance {
 	 */
 	public GameInstance(){
 		
-		//controller = new GameController(this);
+		controller = new GameController(this);
 		
 		//Create a configuration object for the game
 		this.gameConfig = new Config();
@@ -74,6 +71,15 @@ public class GameInstance {
 		//Initialize the game board
 		initGameBoard();
 		
+		
+		players[2].rank2Castles[2].setIconFileName("images/castle_green_rank1.jpg");
+		players[3].rank2Castles[2].setIconFileName("images/castle_red_rank1.jpg");
+		gameBoard[0][0] = players[0].rank1Castles[0];
+		gameBoard[3][2] = players[2].rank2Castles[2];
+		
+		gameBoard[3][3] = new Tile(TileType.HAZARD); 
+		gameBoard[3][4] = players[3].rank2Castles[2]; 
+		
 	}
 	
 	private void initPlayers(){
@@ -96,24 +102,31 @@ public class GameInstance {
 			
 		}
 		
+
+		
 		for(int i = 0; i < gameConfig.NO_OF_HAZARD_TILES; i++){
 			tileBank[++j] = new Tile(TileType.HAZARD);
+			tileBank[++j].setIconFileName("images/hazard.png");	
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_MOUNTAIN_TILES; i++){
 			tileBank[++j] = new Tile(TileType.MOUNTAIN);
+			tileBank[++j].setIconFileName("images/mountain.png");
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_DRAGON_TILES; i++){
 			tileBank[++j] = new Tile(TileType.DRAGON);
+			tileBank[++j].setIconFileName("images/dragon.png");
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_GOLDMINE_TILES; i++){
 			tileBank[++j] = new Tile(TileType.GOLDMINE);
+			tileBank[++j].setIconFileName("images/gold.png");
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_WIZARD_TILES; i++){
 			tileBank[++j] = new Tile(TileType.WIZARD);
+			tileBank[++j].setIconFileName("images/wizard.png");
 		}
 	}
 	
@@ -125,22 +138,27 @@ public class GameInstance {
 		int j = -1;
 		for(int i = 0; i < gameConfig.NO_OF_COPPER_COINS_VAL1; i++){
 			coinBank[++j] = new Coin(Material.COPPER, gameConfig.COPPER_COINS_VAL1_VAL);
+			coinBank[++j].setIconFileName("images/copper_coin_1.png");
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_COPPER_COINS_VAL5; i++){
 			coinBank[++j] = new Coin(Material.COPPER, gameConfig.COPPER_COINS_VAL5_VAL);
+			coinBank[++j].setIconFileName("images/copper_coin_5.png");
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_SILVER_COINS; i++){
 			coinBank[++j] = new Coin(Material.SILVER, gameConfig.SILVER_COINS_VAL);
+			coinBank[++j].setIconFileName("images/silver_coin_10.png");
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_GOLD_COINS_VAL50; i++){
 			coinBank[++j] = new Coin(Material.GOLD, gameConfig.GOLD_COINS_VAL50_VAL);
+			coinBank[++j].setIconFileName("images/copper_coin_50.png");
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_GOLD_COINS_VAL100; i++){
 			coinBank[++j] = new Coin(Material.GOLD, gameConfig.GOLD_COINS_VAL100_VAL);
+			coinBank[++j].setIconFileName("images/copper_coin_100.png");
 		}
 	}
 	
@@ -191,7 +209,7 @@ public class GameInstance {
 	
 	private void assignFirstSetOfTilesToPlayers(){
 		for(int i = 0; i < gameConfig.NO_OF_PLAYERS; i++){
-			//controller.assignTileToPlayer(i, i);
+			controller.assignTileToPlayer(i, i);
 		}
 	}
 
@@ -213,6 +231,66 @@ public class GameInstance {
 		this.currentPlayerIndex = newPlayerIndex;
 	}
 	
+	public GameInstance loadGame(String fileName){
+		
+		File file;
+		if(fileName == null || fileName == ""){
+			file = new File("default_game_save.xml");
+		}
+		else{
+			file = new File(fileName);
+		}
+		
+		return loadGameState(file);
+		
+	}
+
+	
+	public GameInstance loadGameState(File file){
+		GameInstance gi = null;
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(GameInstance.class);
+
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			gi = (GameInstance) jaxbUnmarshaller.unmarshal(file);
+			//System.out.println(gi);
+
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+		
+		return gi;
+	}
+	
+	public void saveGame(String fileName){
+		
+		File file;
+		if(fileName == null || fileName == ""){
+			file = new File("default_game_save.xml");
+		}
+		else{
+			file = new File(fileName);
+		}
+		
+		saveGameState(file);
+		
+	}
+	
+	private void saveGameState(File file){
+		try {
+
+			JAXBContext jaxbContext = JAXBContext.newInstance(GameInstance.class);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+			// output pretty printed
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+			jaxbMarshaller.marshal(this, file);
+			//jaxbMarshaller.marshal(this, System.out);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public enum PlayerColor{
 		RED, YELLOW, BLUE, GREEN;

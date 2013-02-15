@@ -109,7 +109,7 @@
                 <tile type="WIZARD"/>
             </playerTiles>
         </player>
-        <player name="Player4222" score="0">
+        <player name="Player4" score="0">
             <rank1Castles>
                 <castle color="GREEN" rank="ONE"/>
                 <castle color="GREEN" rank="ONE"/>

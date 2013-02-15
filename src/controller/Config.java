@@ -1,7 +1,7 @@
 package controller;
 
 public class Config{
-	public final int NO_OF_PLAYERS = 2;
+	public final int NO_OF_PLAYERS = 4;
 	
 	public final int NO_OF_RANK1CASTLES_PER_PLAYER = 4;
 	public final int NO_OF_RANK2CASTLES_PER_PLAYER = 3;

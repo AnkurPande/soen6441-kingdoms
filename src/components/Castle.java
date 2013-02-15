@@ -2,8 +2,7 @@ package components;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
-import model.GameInstance.PlayerColor;
-
+import controller.GameInstance.PlayerColor;
 
 public class Castle extends GameComponents {
 	
