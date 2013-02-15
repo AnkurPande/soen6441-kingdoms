@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<gameInstance currentPlayerIndex="0">
+<gameInstance currentPlayerIndex="2">
     <gameConfig>
-        <NO_OF_PLAYERS>2</NO_OF_PLAYERS>
-        <NO_OF_RANK1CASTLES_PER_PLAYER>4</NO_OF_RANK1CASTLES_PER_PLAYER>
+        <NO_OF_PLAYERS>4</NO_OF_PLAYERS>
+        <NO_OF_RANK1CASTLES_PER_PLAYER>2</NO_OF_RANK1CASTLES_PER_PLAYER>
         <NO_OF_RANK2CASTLES_PER_PLAYER>3</NO_OF_RANK2CASTLES_PER_PLAYER>
         <NO_OF_RANK3CASTLES_PER_PLAYER>2</NO_OF_RANK3CASTLES_PER_PLAYER>
         <NO_OF_RANK4CASTLES_PER_PLAYER>1</NO_OF_RANK4CASTLES_PER_PLAYER>
@@ -35,8 +35,6 @@
             <rank1Castles>
                 <castle color="RED" rank="ONE"/>
                 <castle color="RED" rank="ONE"/>
-                <castle color="RED" rank="ONE"/>
-                <castle color="RED" rank="ONE"/>
             </rank1Castles>
             <rank2Castles>
                 <castle color="RED" rank="TWO"/>
@@ -60,8 +58,6 @@
             <rank1Castles>
                 <castle color="YELLOW" rank="ONE"/>
                 <castle color="YELLOW" rank="ONE"/>
-                <castle color="YELLOW" rank="ONE"/>
-                <castle color="YELLOW" rank="ONE"/>
             </rank1Castles>
             <rank2Castles>
                 <castle color="YELLOW" rank="TWO"/>
@@ -80,6 +76,52 @@
             </playerCoins>
             <playerTiles/>
             <playerColor>YELLOW</playerColor>
+        </player>
+        <player name="Player3">
+            <rank1Castles>
+                <castle color="BLUE" rank="ONE"/>
+                <castle color="BLUE" rank="ONE"/>
+            </rank1Castles>
+            <rank2Castles>
+                <castle color="BLUE" rank="TWO"/>
+                <castle color="BLUE" rank="TWO"/>
+                <castle color="BLUE" rank="TWO"/>
+            </rank2Castles>
+            <rank3Castles>
+                <castle color="BLUE" rank="THREE"/>
+                <castle color="BLUE" rank="THREE"/>
+            </rank3Castles>
+            <rank4Castles>
+                <castle color="BLUE" rank="FOUR"/>
+            </rank4Castles>
+            <playerCoins>
+                <coin material="GOLD" value="50"/>
+            </playerCoins>
+            <playerTiles/>
+            <playerColor>BLUE</playerColor>
+        </player>
+        <player name="Player4">
+            <rank1Castles>
+                <castle color="GREEN" rank="ONE"/>
+                <castle color="GREEN" rank="ONE"/>
+            </rank1Castles>
+            <rank2Castles>
+                <castle color="GREEN" rank="TWO"/>
+                <castle color="GREEN" rank="TWO"/>
+                <castle color="GREEN" rank="TWO"/>
+            </rank2Castles>
+            <rank3Castles>
+                <castle color="GREEN" rank="THREE"/>
+                <castle color="GREEN" rank="THREE"/>
+            </rank3Castles>
+            <rank4Castles>
+                <castle color="GREEN" rank="FOUR"/>
+            </rank4Castles>
+            <playerCoins>
+                <coin material="GOLD" value="50"/>
+            </playerCoins>
+            <playerTiles/>
+            <playerColor>GREEN</playerColor>
         </player>
     </players>
     <gameBoard>
@@ -125,26 +167,26 @@
         </placeOnBoard>
     </gameBoard>
     <tilebank>
-        <tile type="RESOURCES"/>
         <tile type="MOUNTAIN"/>
         <tile type="HAZARD"/>
-        <tile type="RESOURCES"/>
-        <tile type="RESOURCES"/>
-        <tile type="WIZARD"/>
-        <tile type="GOLDMINE"/>
-        <tile type="HAZARD"/>
-        <tile type="RESOURCES"/>
-        <tile type="RESOURCES"/>
-        <tile type="MOUNTAIN"/>
-        <tile type="RESOURCES"/>
-        <tile type="HAZARD"/>
-        <tile type="RESOURCES"/>
-        <tile type="RESOURCES"/>
         <tile type="HAZARD"/>
         <tile type="DRAGON"/>
+        <tile type="WIZARD"/>
+        <tile type="RESOURCES"/>
+        <tile type="RESOURCES"/>
+        <tile type="HAZARD"/>
+        <tile type="MOUNTAIN"/>
+        <tile type="RESOURCES"/>
+        <tile type="RESOURCES"/>
+        <tile type="RESOURCES"/>
+        <tile type="RESOURCES"/>
         <tile type="RESOURCES"/>
         <tile type="HAZARD"/>
         <tile type="RESOURCES"/>
+        <tile type="HAZARD"/>
+        <tile type="RESOURCES"/>
+        <tile type="RESOURCES"/>
+        <tile type="GOLDMINE"/>
         <tile type="RESOURCES"/>
         <tile type="RESOURCES"/>
         <tile type="HAZARD"/>

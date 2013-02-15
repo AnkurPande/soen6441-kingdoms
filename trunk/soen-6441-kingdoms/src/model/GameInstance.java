@@ -1,22 +1,16 @@
 package model;
 
-import java.io.File;
 import java.util.Random;
 
 import components.*;
 import components.Coin.Material;
 import components.Tile.TileType;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import controller.Config;
 import controller.GameController;
 
 @XmlRootElement
@@ -52,7 +46,7 @@ public class GameInstance {
 		//controller = new GameController(this);
 		
 		//Create a configuration object for the game
-		this.gameConfig = new Config();
+		this.gameConfig = new Config(4);
 		
 		//Initialize the epoch counter
 		setCurrentEpoch(new EpochCounter());
