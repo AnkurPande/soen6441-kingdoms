@@ -1,9 +1,10 @@
-package controller;
+package model;
 
 public class Config{
-	public final int NO_OF_PLAYERS = 2;
+		
+	public final int NO_OF_PLAYERS;
+	public final int NO_OF_RANK1CASTLES_PER_PLAYER;
 	
-	public final int NO_OF_RANK1CASTLES_PER_PLAYER = 4;
 	public final int NO_OF_RANK2CASTLES_PER_PLAYER = 3;
 	public final int NO_OF_RANK3CASTLES_PER_PLAYER = 2;
 	public final int NO_OF_RANK4CASTLES_PER_PLAYER = 1;
@@ -38,4 +39,31 @@ public class Config{
 	public final int NO_OF_DRAGON_TILES = 1;
 	public final int NO_OF_GOLDMINE_TILES = 1;
 	public final int NO_OF_WIZARD_TILES = 1;
+	
+	public Config(int no_of_players){
+		if(!(no_of_players >= 2 && no_of_players <= 4)){
+			System.out.println("Invalid no of players. Resetting to 4.");
+			no_of_players = 4;
+		}
+		
+		int no_of_rank1castles = 0;
+		switch(no_of_players){
+			case 2: no_of_rank1castles = 4;
+					break;
+			case 3: no_of_rank1castles = 3;
+					break;
+			case 4: no_of_rank1castles = 2;
+					break;
+			default:no_of_rank1castles = 2;
+					break;
+		}
+		
+		NO_OF_PLAYERS = no_of_players;
+		NO_OF_RANK1CASTLES_PER_PLAYER = no_of_rank1castles;
+	}
+	
+	public Config(){
+		NO_OF_PLAYERS = 4;
+		NO_OF_RANK1CASTLES_PER_PLAYER = 2;
+	}
 }

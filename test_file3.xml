@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<gameInstance currentPlayerIndex="2">
+<gameInstance currentPlayerIndex="1">
     <gameConfig>
         <NO_OF_PLAYERS>4</NO_OF_PLAYERS>
-        <NO_OF_RANK1CASTLES_PER_PLAYER>4</NO_OF_RANK1CASTLES_PER_PLAYER>
+        <NO_OF_RANK1CASTLES_PER_PLAYER>2</NO_OF_RANK1CASTLES_PER_PLAYER>
         <NO_OF_RANK2CASTLES_PER_PLAYER>3</NO_OF_RANK2CASTLES_PER_PLAYER>
         <NO_OF_RANK3CASTLES_PER_PLAYER>2</NO_OF_RANK3CASTLES_PER_PLAYER>
         <NO_OF_RANK4CASTLES_PER_PLAYER>1</NO_OF_RANK4CASTLES_PER_PLAYER>
@@ -31,10 +31,8 @@
         <NO_OF_WIZARD_TILES>1</NO_OF_WIZARD_TILES>
     </gameConfig>
     <players>
-        <player name="Player1" score="0">
+        <player name="Player1">
             <rank1Castles>
-                <castle color="RED" rank="ONE"/>
-                <castle color="RED" rank="ONE"/>
                 <castle color="RED" rank="ONE"/>
                 <castle color="RED" rank="ONE"/>
             </rank1Castles>
@@ -53,14 +51,11 @@
             <playerCoins>
                 <coin material="GOLD" value="50"/>
             </playerCoins>
-            <playerTiles>
-                <tile type="RESOURCES"/>
-            </playerTiles>
+            <playerTiles/>
+            <playerColor>RED</playerColor>
         </player>
-        <player name="Player2" score="0">
+        <player name="Player2">
             <rank1Castles>
-                <castle color="YELLOW" rank="ONE"/>
-                <castle color="YELLOW" rank="ONE"/>
                 <castle color="YELLOW" rank="ONE"/>
                 <castle color="YELLOW" rank="ONE"/>
             </rank1Castles>
@@ -79,14 +74,11 @@
             <playerCoins>
                 <coin material="GOLD" value="50"/>
             </playerCoins>
-            <playerTiles>
-                <tile type="MOUNTAIN"/>
-            </playerTiles>
+            <playerTiles/>
+            <playerColor>YELLOW</playerColor>
         </player>
-        <player name="Player3" score="0">
+        <player name="Player3">
             <rank1Castles>
-                <castle color="BLUE" rank="ONE"/>
-                <castle color="BLUE" rank="ONE"/>
                 <castle color="BLUE" rank="ONE"/>
                 <castle color="BLUE" rank="ONE"/>
             </rank1Castles>
@@ -105,14 +97,11 @@
             <playerCoins>
                 <coin material="GOLD" value="50"/>
             </playerCoins>
-            <playerTiles>
-                <tile type="WIZARD"/>
-            </playerTiles>
+            <playerTiles/>
+            <playerColor>BLUE</playerColor>
         </player>
-        <player name="Player4222" score="0">
+        <player name="Player4">
             <rank1Castles>
-                <castle color="GREEN" rank="ONE"/>
-                <castle color="GREEN" rank="ONE"/>
                 <castle color="GREEN" rank="ONE"/>
                 <castle color="GREEN" rank="ONE"/>
             </rank1Castles>
@@ -131,21 +120,12 @@
             <playerCoins>
                 <coin material="GOLD" value="50"/>
             </playerCoins>
-            <playerTiles>
-                <tile type="RESOURCES"/>
-            </playerTiles>
+            <playerTiles/>
+            <playerColor>GREEN</playerColor>
         </player>
     </players>
     <gameBoard>
         <placeOnBoard>
-            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="RED" rank="ONE"/>
-            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="RED" rank="ONE"/>
-            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="RED" rank="ONE"/>
-            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="BLUE" rank="TWO"/>
-            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
-            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
-        </placeOnBoard>
-        <placeOnBoard>
             <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
             <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
             <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
@@ -164,9 +144,17 @@
         <placeOnBoard>
             <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
             <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
-            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="BLUE" rank="TWO"/>
-            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="HAZARD"/>
-            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="GREEN" rank="TWO"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+        </placeOnBoard>
+        <placeOnBoard>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
             <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
         </placeOnBoard>
         <placeOnBoard>
@@ -181,12 +169,7 @@
     <tilebank>
         <tile type="RESOURCES"/>
         <tile type="RESOURCES"/>
-        <tile type="RESOURCES"/>
-        <tile type="MOUNTAIN"/>
-        <tile type="DRAGON"/>
-        <tile type="HAZARD"/>
-        <tile type="HAZARD"/>
-        <tile type="RESOURCES"/>
+        <tile type="WIZARD"/>
         <tile type="RESOURCES"/>
         <tile type="RESOURCES"/>
         <tile type="RESOURCES"/>
@@ -194,10 +177,19 @@
         <tile type="HAZARD"/>
         <tile type="RESOURCES"/>
         <tile type="HAZARD"/>
-        <tile type="HAZARD"/>
+        <tile type="RESOURCES"/>
+        <tile type="MOUNTAIN"/>
         <tile type="RESOURCES"/>
         <tile type="RESOURCES"/>
         <tile type="HAZARD"/>
+        <tile type="RESOURCES"/>
+        <tile type="HAZARD"/>
+        <tile type="HAZARD"/>
+        <tile type="HAZARD"/>
+        <tile type="DRAGON"/>
+        <tile type="MOUNTAIN"/>
+        <tile type="RESOURCES"/>
+        <tile type="RESOURCES"/>
     </tilebank>
     <coinBank>
         <coin material="COPPER" value="1"/>

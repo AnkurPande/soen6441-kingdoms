@@ -11,7 +11,6 @@ import components.Castle.CastleRank;
 import components.Coin;
 import components.Tile;
 import components.Coin.Material;
-import controller.Config;
 
 
 public class Player{
@@ -44,7 +43,7 @@ public class Player{
 	
 	public PlayerColor playerColor;
 	
-	private Config gameConfig = new Config();
+	private Config gameConfig = new Config(4);
 	
 	public Player(){
 		
