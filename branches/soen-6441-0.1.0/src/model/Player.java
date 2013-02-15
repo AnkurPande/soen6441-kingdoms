@@ -1,22 +1,22 @@
-package controller;
+package model;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+
+import model.GameInstance.PlayerColor;
 
 import components.Castle;
 import components.Castle.CastleRank;
 import components.Coin;
 import components.Tile;
 import components.Coin.Material;
-import controller.GameInstance.PlayerColor;
+import controller.Config;
 
 
 public class Player{
 	
 	private String name;
-	
-	private int score;
 	
 	@XmlElementWrapper(name="rank1Castles")
 	@XmlElement(name="castle") 
@@ -40,11 +40,9 @@ public class Player{
 	
 	@XmlElementWrapper(name="playerTiles")
 	@XmlElement(name="tile")
-	protected Tile[] playerTiles;
+	public Tile[] playerTiles;
 	
 	public PlayerColor playerColor;
-	
-	
 	
 	private Config gameConfig = new Config();
 	
@@ -57,9 +55,6 @@ public class Player{
 		//Set the player color & name
 		this.playerColor = color;			
 		this.setName(name);
-		
-		//Initialize score to zero - at start each players has zero score
-		this.setScore(0);
 	
 		//Initialize the castle objects owned by the players
 		initCastles();
@@ -123,25 +118,4 @@ public class Player{
 		this.name = name;
 	}
 	
-	@XmlAttribute
-	public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
-	}
-	//calculate total score as per game continues
-	public int  total_score()
-	{
-		int totalrow=0;
-		int totalcolumn=0;
-		for(int row=0; row<6;row++ ){
-			for(int column=0;column<5;column++){
-				totalcolumn+=totalcolumn;
-			}
-			totalrow+= totalrow;
-		}
-		return totalrow+totalcolumn;
-	}
 }
