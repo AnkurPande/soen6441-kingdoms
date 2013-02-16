@@ -1,6 +1,8 @@
 package model;
 
+import java.util.Collections;
 import java.util.Random;
+import java.util.Vector;
 
 import components.*;
 import components.Coin.Material;
@@ -37,26 +39,33 @@ public class GameInstance {
 	
 	@XmlElementWrapper(name="tilebank")
 	@XmlElement(name="tile")
-	public Tile[] tileBank;
+	public Vector<Tile> tileBank;
 	
 	@XmlElementWrapper(name="coinBank")
 	@XmlElement(name="coin")
-	protected Coin[] coinBank;
+	protected Vector<Coin> coinBank;
 	
 	/**
 	 * Default constructor. Creates a new game by default.
 	 */
 	public GameInstance(){
-		
 		//Create a configuration object for the game
 		this.gameConfig = new Config();
-		
+		createNewGame();
+	}
+	
+	public GameInstance(Config config){
+		this.gameConfig = config;
+		createNewGame();		
+	}
+	
+	private void createNewGame(){
 		//Initialize the epoch counter
 		setCurrentEpoch(new EpochCounter());
 		
 		//Initialize and shuffle the tiles
 		initTileBank();
-		shuffleTiles(tileBank);
+		shuffleTileBank(tileBank);
 		
 		//Initialize the coin bank (holds the coins owned by the game - not individual players)
 		initCoinBank();
@@ -67,12 +76,14 @@ public class GameInstance {
 		//Randomly select a current player
 		this.currentPlayerIndex = new Random().nextInt(gameConfig.NO_OF_PLAYERS);
 		
+		//Give 50 Gold to each player.
+		giveFirstSetOfCoinsToPlayers();
+		
 		//Give each player a random first tile
 		assignFirstSetOfTilesToPlayers();
 		
 		//Initialize the game board
 		initGameBoard();
-		
 	}
 	
 	/**
@@ -92,33 +103,31 @@ public class GameInstance {
 	 */
 	private void initTileBank(){
 		
-		tileBank = new Tile[countNoOfTiles()];
+		tileBank  = new Vector<Tile>();
 		
 		//TODO refactor
-		int j = -1;
 		for(int i = 0; i < gameConfig.NO_OF_RESOURCE_TILES; i++){
-			tileBank[++j] = new Tile(TileType.RESOURCES);
-			
+			tileBank.add(new Tile(TileType.RESOURCES));
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_HAZARD_TILES; i++){
-			tileBank[++j] = new Tile(TileType.HAZARD);
+			tileBank.add(new Tile(TileType.HAZARD));
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_MOUNTAIN_TILES; i++){
-			tileBank[++j] = new Tile(TileType.MOUNTAIN);
+			tileBank.add(new Tile(TileType.MOUNTAIN));
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_DRAGON_TILES; i++){
-			tileBank[++j] = new Tile(TileType.DRAGON);
+			tileBank.add( new Tile(TileType.DRAGON));
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_GOLDMINE_TILES; i++){
-			tileBank[++j] = new Tile(TileType.GOLDMINE);
+			tileBank.add(new Tile(TileType.GOLDMINE));
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_WIZARD_TILES; i++){
-			tileBank[++j] = new Tile(TileType.WIZARD);
+			tileBank.add(new Tile(TileType.WIZARD));
 		}
 	}
 	
@@ -127,57 +136,28 @@ public class GameInstance {
 	 */
 	private void initCoinBank(){
 		
-		coinBank = new Coin[countNoOfCoins()];
+		coinBank = new Vector<Coin>();
 		
 		//TODO refactor
-		int j = -1;
 		for(int i = 0; i < gameConfig.NO_OF_COPPER_COINS_VAL1; i++){
-			coinBank[++j] = new Coin(Material.COPPER, gameConfig.COPPER_COINS_VAL1_VAL);
+			coinBank.add(new Coin(Material.COPPER, gameConfig.COPPER_COINS_VAL1_VAL));
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_COPPER_COINS_VAL5; i++){
-			coinBank[++j] = new Coin(Material.COPPER, gameConfig.COPPER_COINS_VAL5_VAL);
+			coinBank.add(new Coin(Material.COPPER, gameConfig.COPPER_COINS_VAL5_VAL));
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_SILVER_COINS; i++){
-			coinBank[++j] = new Coin(Material.SILVER, gameConfig.SILVER_COINS_VAL);
+			coinBank.add( new Coin(Material.SILVER, gameConfig.SILVER_COINS_VAL));
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_GOLD_COINS_VAL50; i++){
-			coinBank[++j] = new Coin(Material.GOLD, gameConfig.GOLD_COINS_VAL50_VAL);
+			coinBank.add( new Coin(Material.GOLD, gameConfig.GOLD_COINS_VAL50_VAL));
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_GOLD_COINS_VAL100; i++){
-			coinBank[++j] = new Coin(Material.GOLD, gameConfig.GOLD_COINS_VAL100_VAL);
+			coinBank.add(new Coin(Material.GOLD, gameConfig.GOLD_COINS_VAL100_VAL));
 		}
-	}
-	
-	/**
-	 * Method to count the no of tiles in the game.
-	 * 
-	 * @return Returns the on of tiles in the game.
-	 */
-	private int countNoOfTiles(){
-		
-		return 	gameConfig.NO_OF_RESOURCE_TILES 
-					+ gameConfig.NO_OF_HAZARD_TILES
-					+ gameConfig.NO_OF_MOUNTAIN_TILES 
-					+ gameConfig.NO_OF_DRAGON_TILES
-					+ gameConfig.NO_OF_GOLDMINE_TILES
-					+ gameConfig.NO_OF_WIZARD_TILES;
-	}
-	
-	/**
-	 * Method to count the no of coins in the game.
-	 * 
-	 * @return Returns the no of coins in the game.
-	 */
-	private int countNoOfCoins(){
-		return gameConfig.NO_OF_COPPER_COINS_VAL1 
-				+ gameConfig.NO_OF_COPPER_COINS_VAL5 
-				+ gameConfig.NO_OF_SILVER_COINS 
-				+ gameConfig.NO_OF_GOLD_COINS_VAL50 
-				+ gameConfig.NO_OF_GOLD_COINS_VAL100;
 	}
 	
 	/**
@@ -199,36 +179,31 @@ public class GameInstance {
 	 * 
 	 * @param tiles An array of tiles (the tile bank).
 	 */
-	public static void shuffleTiles(Tile[] tiles) {
-		int n = tiles.length;
-		Random random = new Random();
-		random.nextInt();
-		for (int i = 0; i < n; i++) {
-			int change = i + random.nextInt(n - i);
-			swap(tiles, i, change);
-		}
+	public static void shuffleTileBank(Vector<Tile> tiles) {
+		Collections.shuffle(tiles);
 	}
 
-	/**
-	 * Method of swapping two tile objects in a tile array.
-	 * 
-	 * @param a The tile array whose components are to be swapped.
-	 * @param i The index of the tile object to swap to.
-	 * @param change The index of the tile object to swap from.
-	 */
-	private static void swap(Tile[] a, int i, int change) {
-		Tile helper = a[i];
-		a[i] = a[change];
-		a[change] = helper;
-	}
-	
 	/**
 	 * Method to assign a new random tile to a player. 
 	 * This is done on the beginning of a new game.
 	 */
 	private void assignFirstSetOfTilesToPlayers(){
-		for(int i = 0; i < gameConfig.NO_OF_PLAYERS; i++){
-			//controller.assignTileToPlayer(i, i);
+		for(int i = 0; i < players.length; i++){
+			Tile temp = tileBank.remove(0);
+			players[i].playerTiles.add(temp);
+		}
+	}
+	
+	private void giveFirstSetOfCoinsToPlayers(){
+		for(int i = 0; i < players.length; i++){
+			Coin tempGoldCoin = null;
+			for(int j = 0; j < coinBank.size(); j++){
+				tempGoldCoin = coinBank.elementAt(j);
+				if( (tempGoldCoin.getMaterial() == Coin.Material.GOLD) && (tempGoldCoin.getValue() == 50) ){
+					break;
+				}
+			}
+			players[i].playerCoins.add(tempGoldCoin);
 		}
 	}
 

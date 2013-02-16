@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Vector;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -39,11 +41,11 @@ public class Player{
 	
 	@XmlElementWrapper(name="playerCoins")
 	@XmlElement(name="coin")
-	public Coin[] playerCoins;
+	public Vector<Coin> playerCoins;
 	
 	@XmlElementWrapper(name="playerTiles")
 	@XmlElement(name="tile")
-	public Tile[] playerTiles;
+	public Vector<Tile> playerTiles;
 	
 	private PlayerColor playerColor;
 	
@@ -88,6 +90,7 @@ public class Player{
 	 * Initialize the castle objects of this player.
 	 */
 	private void initCastles(){
+		//TODO refactor
 		
 		//Initialize the castles
 		rank1Castles = new Castle[gameConfig.NO_OF_RANK1CASTLES_PER_PLAYER];
@@ -98,25 +101,29 @@ public class Player{
 		//Create the Rank 1 castles
 		for(int i=0;i<gameConfig.NO_OF_RANK1CASTLES_PER_PLAYER;i++){
 			rank1Castles[i] = new Castle(this.playerColor, CastleRank.ONE);
-			rank1Castles[i].setIconFileName("images/castle_yellow_rank1.jpg");
+			String iconFile = "images/castle_" + this.playerColor + "_rank1.png";
+			rank1Castles[i].setIconFileName(iconFile);
 		}
 	
 		//Create the Rank 2 castles
 		for(int i=0;i<gameConfig.NO_OF_RANK2CASTLES_PER_PLAYER;i++){
 			rank2Castles[i] = new Castle(this.playerColor, Castle.CastleRank.TWO);
-			rank2Castles[i].setIconFileName("images/castle_green_rank1.jpg");
+			String iconFile = "images/castle_" + this.playerColor + "_rank2.png";
+			rank2Castles[i].setIconFileName(iconFile);
 		}
 		
 		//Create the Rank 3 castles
 		for(int i=0;i<gameConfig.NO_OF_RANK3CASTLES_PER_PLAYER;i++){
 			rank3Castles[i] = new Castle(this.playerColor, Castle.CastleRank.THREE);
-			rank3Castles[i].setIconFileName("images/castle_red_rank1.jpg");
+			String iconFile = "images/castle_" + this.playerColor + "_rank3.png";
+			rank3Castles[i].setIconFileName(iconFile);
 		}
 		
 		//Create the Rank 4 castles
 		for(int i=0;i<gameConfig.NO_OF_RANK4CASTLES_PER_PLAYER;i++){
 			rank4Castles[i] = new Castle(this.playerColor, Castle.CastleRank.FOUR);
-			rank4Castles[i].setIconFileName("images/castle_blue_rank1.jpg");
+			String iconFile = "images/castle_" + this.playerColor + "_rank4.png";
+			rank4Castles[i].setIconFileName(iconFile);
 		}
 		
 	}
@@ -125,12 +132,11 @@ public class Player{
 	 * Initialize the coin object for this player.
 	 */
 	private void initPlayerCoins(){
-		playerCoins = new Coin[1000];
-		playerCoins[0] = new Coin(Material.GOLD, 50);
+		playerCoins = new Vector<Coin>();
 	}
 	
 	private void initPlayerTiles(){
-		playerTiles = new Tile[1000];
+		playerTiles = new Vector<Tile>();
 	}
 	
 	@XmlAttribute
