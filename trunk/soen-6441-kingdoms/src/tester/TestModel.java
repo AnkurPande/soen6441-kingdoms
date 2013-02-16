@@ -34,6 +34,9 @@ public class TestModel {
 	}
 
 	@Test
+	/**
+	 * Tests the game config object when created with params.
+	 */
 	public void testConfigWithParam() {
 		Config c1 = new Config(20);
 		Config c2 = new Config(2);
@@ -52,6 +55,9 @@ public class TestModel {
 	}
 
 	@Test
+	/**
+	 * Tests the game config when created without params
+	 */
 	public void testConfigWithoutParam() {
 		Config c = new Config();
 		
@@ -60,6 +66,9 @@ public class TestModel {
 	}
 	
 	@Test
+	/**
+	 * Tests the game instance object.
+	 */
 	public void testGameInstance(){
 		GameInstance gi1 = new GameInstance(new Config());
 		GameInstance gi2 = new GameInstance(new Config(2));
@@ -74,12 +83,18 @@ public class TestModel {
 	}
 	
 	@Test
+	/**
+	 * Tests the current player index of the game instance.
+	 */
 	public void testGameInstanceCurrentPlayerIndex(){
 		int currentPlayerIndex = gi.getCurrentPlayerIndex();
 		assertTrue(currentPlayerIndex <= gi.players.length);
 	}
 	
 	@Test
+	/**
+	 * Tests the epoch counter of the game instance.
+	 */
 	public void testGameInstanceEpochCounter(){
 		
 		int currentEpoch = gi.getCurrentEpoch().getCurrentEpochNo();
@@ -87,6 +102,9 @@ public class TestModel {
 	}
 	
 	@Test
+	/**
+	 * Tests the game board of the game instance.
+	 */
 	public void testGameInstanceGameBoard(){
 		int rows = gi.gameBoard[0].length;
 		int columns = gi.gameBoard.length;
@@ -95,6 +113,9 @@ public class TestModel {
 	}
 		
 	@Test
+	/**
+	 * Tests the castles of the player
+	 */
 	public void testPlayerCastles(){
 		
 		Player p = new Player(PlayerColor.GREEN, "Test", conf);
@@ -108,6 +129,9 @@ public class TestModel {
 	}
 	
 	@Test
+	/**
+	 * Tests the coins of the player
+	 */
 	public void testPlayerCoins(){
 		
 		Player p = new Player(PlayerColor.GREEN, "Test", conf);

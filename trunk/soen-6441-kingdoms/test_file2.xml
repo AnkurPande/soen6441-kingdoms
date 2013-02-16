@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<gameInstance currentPlayerIndex="3">
+<gameInstance currentPlayerIndex="2">
     <gameConfig>
         <NO_OF_PLAYERS>4</NO_OF_PLAYERS>
         <NO_OF_RANK1CASTLES_PER_PLAYER>2</NO_OF_RANK1CASTLES_PER_PLAYER>
@@ -56,7 +56,7 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile type="HAZARD"/>
+                <tile type="RESOURCES"/>
             </playerTiles>
         </player>
         <player name="Player2">
@@ -80,7 +80,7 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile type="HAZARD"/>
+                <tile type="RESOURCES"/>
             </playerTiles>
         </player>
         <player name="Player3">
@@ -104,7 +104,7 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile type="DRAGON"/>
+                <tile type="RESOURCES"/>
             </playerTiles>
         </player>
         <player name="Player4">
@@ -128,7 +128,7 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile type="RESOURCES"/>
+                <tile type="WIZARD"/>
             </playerTiles>
         </player>
     </players>
@@ -178,22 +178,22 @@
         <tile type="RESOURCES"/>
         <tile type="HAZARD"/>
         <tile type="HAZARD"/>
-        <tile type="RESOURCES"/>
-        <tile type="HAZARD"/>
-        <tile type="RESOURCES"/>
-        <tile type="RESOURCES"/>
-        <tile type="MOUNTAIN"/>
-        <tile type="WIZARD"/>
-        <tile type="RESOURCES"/>
-        <tile type="MOUNTAIN"/>
-        <tile type="RESOURCES"/>
-        <tile type="RESOURCES"/>
-        <tile type="RESOURCES"/>
-        <tile type="RESOURCES"/>
         <tile type="GOLDMINE"/>
         <tile type="RESOURCES"/>
+        <tile type="MOUNTAIN"/>
+        <tile type="RESOURCES"/>
+        <tile type="MOUNTAIN"/>
+        <tile type="HAZARD"/>
+        <tile type="HAZARD"/>
+        <tile type="RESOURCES"/>
         <tile type="RESOURCES"/>
         <tile type="HAZARD"/>
+        <tile type="RESOURCES"/>
+        <tile type="RESOURCES"/>
+        <tile type="RESOURCES"/>
+        <tile type="RESOURCES"/>
+        <tile type="HAZARD"/>
+        <tile type="DRAGON"/>
     </tilebank>
     <coinBank>
         <coin material="COPPER" value="1"/>
