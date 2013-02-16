@@ -16,12 +16,16 @@ public class Config{
 	public final int NO_OF_ROWS = 6;
 	public final int NO_OF_COLS = 5;
 	
+	//----------------------------------------------------------------------------
 	public final String BOARD_AREA_COLOR = "#000000";
 	public final String BOARD_AREA_FIELD_COLOR1 = "#E0E0E0";
 	public final String BOARD_AREA_FIELD_COLOR2 = "#CCCCFF";
 	public final String SCORING_AREA_COLOR = "#C0C0C0"; 
 	public final String PLAYER_INFO_AREA_COLOR = "#808080"; 
+	public final String GAME_INFO_AREA_COLOR = "#808080"; 
+	//----------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------
 	public final int NO_OF_COPPER_COINS_VAL1 = 19;
 	public final int COPPER_COINS_VAL1_VAL = 1;
 	
@@ -37,6 +41,15 @@ public class Config{
 	public final int NO_OF_GOLD_COINS_VAL100 = 4;
 	public final int GOLD_COINS_VAL100_VAL = 4;
 	
+	public final int TOTAL_NO_OF_COINS = NO_OF_COPPER_COINS_VAL1 
+										+ NO_OF_COPPER_COINS_VAL5 
+										+ NO_OF_SILVER_COINS 
+										+ NO_OF_GOLD_COINS_VAL50 
+										+ NO_OF_GOLD_COINS_VAL100;
+	
+	//----------------------------------------------------------------------------
+	
+	//----------------------------------------------------------------------------
 	public final int NO_OF_RESOURCE_TILES = 12;
 	public final int NO_OF_HAZARD_TILES = 6;
 	public final int NO_OF_MOUNTAIN_TILES = 2;
@@ -44,6 +57,16 @@ public class Config{
 	public final int NO_OF_GOLDMINE_TILES = 1;
 	public final int NO_OF_WIZARD_TILES = 1;
 	
+	public final int TOTAL_NO_OF_TILES = NO_OF_RESOURCE_TILES 
+										+ NO_OF_HAZARD_TILES
+										+ NO_OF_MOUNTAIN_TILES 
+										+ NO_OF_DRAGON_TILES
+										+ NO_OF_GOLDMINE_TILES
+										+ NO_OF_WIZARD_TILES;
+	
+	public final int NO_OF_TILES_PER_PLAYER = 1;
+	//----------------------------------------------------------------------------
+			
 	/**
 	 * Constructor specifying the number of players. The no of players determines the no of rank 1 castles in the game.
 	 * @param noOfPlayers The no of players in the game. 
