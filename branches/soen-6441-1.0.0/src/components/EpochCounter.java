@@ -47,11 +47,11 @@ public class EpochCounter extends GameComponents {
 		else{
 			System.out.println("Invalid Epoch No.");
 			if(this.currentEpochNo > 0){
-				System.out.println("Keeping previous no:"+this.currentEpochNo);
+				System.out.println("Keeping previous epoch no:" + this.currentEpochNo);
 			}
 			else{
-				this.currentEpochNo = 1;
-				System.out.println("Setting the current epoch no to default value:"+this.currentEpochNo);
+				this.currentEpochNo = 1;	//default value of epoch is 1
+				System.out.println("Setting the current epoch no to default value:" + this.currentEpochNo);
 			}
 		}
 	}

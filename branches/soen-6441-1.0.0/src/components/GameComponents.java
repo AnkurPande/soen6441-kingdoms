@@ -21,11 +21,12 @@ public abstract class GameComponents {
 	 * @return Returns the path of the icon file name. If the file name is not defined(blank) then the class name is returned.
 	 */
 	public String displayIcon(){
-		if(this.iconFileName != "")
+		if(this.iconFileName != ""){
 			return this.iconFileName;
-		else
+		}
+		else{
 			return this.getClass().getName();
-			
+		}			
 	}
 	
 	/**

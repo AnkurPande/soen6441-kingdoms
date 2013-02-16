@@ -12,7 +12,7 @@ public class Tile extends GameComponents {
 	private TileType type;
 	
 	/**
-	 * Default constructor. Creates a blank tile.
+	 * Default constructor.
 	 */
 	public Tile(){
 		

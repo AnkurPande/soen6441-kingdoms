@@ -90,6 +90,7 @@ public class GameView extends JFrame {
     
     /**
      * This class defines the board area of the game.
+     * This is the 5 by 6 playing area of the game window.
      *
      */
     private class BoardArea extends JPanel {
@@ -205,6 +206,9 @@ public class GameView extends JFrame {
 		}
 
 		@Override
+		/**
+		 * Method to handle drag and drop events.
+		 */
 		public void mouseReleased(MouseEvent evt) {
 			// TODO Auto-generated method stub
 			JComponent comp = (JComponent) evt.getSource();
