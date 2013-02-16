@@ -7,6 +7,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import model.Config;
 import model.GameInstance;
 
 /**
@@ -17,6 +18,7 @@ import model.GameInstance;
 public class GameController {
 	
 	private GameInstance game;
+	private Config gameConfig;
 	
 	/**
 	 * Constructor with specifying a GameInstance. Creates a new GameController with a specified GameInstace.
@@ -28,10 +30,20 @@ public class GameController {
 	}
 	
 	/**
+	 * Constructor with specifying a configuration. A new game instance will be created with this configuration.
+	 * @param gameConfig The game configuration to use to create the GameInstance.
+	 */
+	public GameController(Config gameConfig){
+		this.gameConfig = gameConfig;
+		this.setGame(new GameInstance(this.gameConfig));
+	}
+	
+	/**
 	 * Constructor without specifying a GameInstance. Will create a new GameInstance.
 	 */
 	public GameController(){
-		this.game = new GameInstance();
+		this.gameConfig = new Config();
+		this.setGame(new GameInstance(this.gameConfig));
 	}
 	
 	/**
@@ -50,23 +62,7 @@ public class GameController {
 	public void setGame(GameInstance game) {
 		this.game = game;
 	}
-	
-	void assignTileToPlayer(GameInstance gi, int playerIndex, int tileIndex){
-		int i = 0;
-		for(i = 0; i < gi.players[playerIndex].playerTiles.length; i++)	{
-			if(gi.players[playerIndex].playerTiles[i] == null){
-				break;
-			}
-		}
 		
-		gi.players[playerIndex].playerTiles[i] = gi.tileBank[tileIndex];
-		gi.tileBank[tileIndex] = null;
-	}
-	
-	void assignTileToPlayer(int playerIndex, int tileIndex){
-		assignTileToPlayer(this.game, playerIndex, tileIndex);
-	}
-	
 	/**
 	 * Wrapper method to load a game state (GameInstance) from disc. This method validates the parameters and calls the method loadGameState for the actual load.
 	 * 

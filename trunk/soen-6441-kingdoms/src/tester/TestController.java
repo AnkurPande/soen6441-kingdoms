@@ -3,11 +3,11 @@ package tester;
 import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import model.Config;
 import model.GameInstance;
 
 import org.junit.After;
@@ -47,11 +47,11 @@ public class TestController {
 		String file2 = "test_file2.xml";
 		String file3 = "test_file3.xml";
 		
-		gi = new GameInstance();
+		gi = new GameInstance(new Config());
 		gc.setGame(gi);
 		gc.saveGame(file1);
 		
-		gi = new GameInstance();
+		gi = new GameInstance(new Config());
 		gc.setGame(gi);
 		gc.saveGame(file2);
 		

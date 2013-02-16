@@ -36,6 +36,7 @@ public class GameView extends JFrame {
 	private BoardArea board;
     private ScoringArea scoringArea;
     private PlayerInfoArea playerInfoArea;
+    private GameInfoArea gameInfoArea;
     
     private final int NO_OF_COLS, NO_OF_ROWS;
     
@@ -56,12 +57,14 @@ public class GameView extends JFrame {
         board = new BoardArea();
         scoringArea = new ScoringArea();
         playerInfoArea = new PlayerInfoArea();
+        gameInfoArea = new GameInfoArea();
         
         //Set the layout
         setLayout(new BorderLayout());
-        add(scoringArea, BorderLayout.WEST);
+        add(scoringArea, BorderLayout.EAST);
         add(board, BorderLayout.CENTER);
         add(playerInfoArea, BorderLayout.SOUTH);
+        add(gameInfoArea, BorderLayout.WEST);
         
         setTitle("Kingdoms");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -84,20 +87,6 @@ public class GameView extends JFrame {
 	public void setGame(GameInstance game) {
 		this.game = game;
 	}
-	
-    /**
-     * This is main function.
-     * It returns arguments.
-     * @param args
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                //new GameView();
-       }
-        });
-    }
     
     /**
      * This class defines the board area of the game.
@@ -238,8 +227,8 @@ public class GameView extends JFrame {
 		 */
         public ScoringArea() {
             setLayout(new GridLayout(NO_OF_COLS, NO_OF_ROWS));
-            setMinimumSize(new Dimension(300, 600));
-            setPreferredSize(new Dimension(300, 600));
+            setMinimumSize(new Dimension(0, 600));
+            setPreferredSize(new Dimension(0, 600));
             setBackground(Color.decode(game.gameConfig.SCORING_AREA_COLOR));
         }
     }
@@ -259,6 +248,7 @@ public class GameView extends JFrame {
 			
 			MyListener listener = new MyListener();
 			final int NO_OF_PLAYER = game.players.length;
+			
 			setLayout(new GridLayout(0,(NO_OF_PLAYER +1)));
 			setMinimumSize(new Dimension(900, 200));
 			setOpaque(true);
@@ -320,12 +310,12 @@ public class GameView extends JFrame {
 			JLabel[] rank4Label = new JLabel[NO_OF_PLAYER];
 			JLabel[] coinsLabel = new JLabel[NO_OF_PLAYER];
 			
-			JLabel[] No_Of_rank1_Castle = new JLabel[NO_OF_PLAYER];
-			JLabel[] No_Of_rank2_Castle = new JLabel[NO_OF_PLAYER];
-			JLabel[] No_Of_rank3_Castle = new JLabel[NO_OF_PLAYER];
-			JLabel[] No_Of_rank4_Castle = new JLabel[NO_OF_PLAYER];
+			JLabel[] noOfRank1Castles = new JLabel[NO_OF_PLAYER];
+			JLabel[] noOfRank2Castles = new JLabel[NO_OF_PLAYER];
+			JLabel[] noOfRank3Castles = new JLabel[NO_OF_PLAYER];
+			JLabel[] noOfRank4Castles = new JLabel[NO_OF_PLAYER];
 			
-			JLabel[] No_Of_Coins = new JLabel[NO_OF_PLAYER];
+			JLabel[] noOfCoins = new JLabel[NO_OF_PLAYER];
 			JLabel[] rank1Icon = new JLabel[NO_OF_PLAYER];
 			JLabel[] rank2Icon = new JLabel[NO_OF_PLAYER];
 			JLabel[] rank3Icon = new JLabel[NO_OF_PLAYER];
@@ -358,34 +348,34 @@ public class GameView extends JFrame {
 				coinsLabel[i] = new JLabel("Value of Coins:", JLabel.CENTER);
 				coinsLabel[i].setBounds(15, 150, 140, 20);
 
-				No_Of_rank1_Castle[i] = new JLabel(Integer.toString(game.players[i].rank1Castles.length));
-				No_Of_rank1_Castle[i].setBounds(160, 50, 20, 20);
-				No_Of_rank2_Castle[i] = new JLabel(Integer.toString(game.players[i].rank2Castles.length));
-				No_Of_rank2_Castle[i].setBounds(160, 75, 20, 20);
-				No_Of_rank3_Castle[i] = new JLabel(Integer.toString(game.players[i].rank3Castles.length));
-				No_Of_rank3_Castle[i].setBounds(160, 100, 20, 20);
-				No_Of_rank4_Castle[i] = new JLabel(Integer.toString(game.players[i].rank4Castles.length));
-				No_Of_rank4_Castle[i].setBounds(160, 125, 20, 20);
-				No_Of_Coins[i] = new JLabel(Integer.toString(game.players[i].playerCoins[0].getValue()));
-				No_Of_Coins[i].setBounds(160, 150, 20, 20);
+				noOfRank1Castles[i] = new JLabel(Integer.toString(game.players[i].rank1Castles.length));
+				noOfRank1Castles[i].setBounds(160, 50, 20, 20);
+				noOfRank2Castles[i] = new JLabel(Integer.toString(game.players[i].rank2Castles.length));
+				noOfRank2Castles[i].setBounds(160, 75, 20, 20);
+				noOfRank3Castles[i] = new JLabel(Integer.toString(game.players[i].rank3Castles.length));
+				noOfRank3Castles[i].setBounds(160, 100, 20, 20);
+				noOfRank4Castles[i] = new JLabel(Integer.toString(game.players[i].rank4Castles.length));
+				noOfRank4Castles[i].setBounds(160, 125, 20, 20);
+				noOfCoins[i] = new JLabel(Integer.toString(game.players[i].playerCoins.firstElement().getValue()));
+				noOfCoins[i].setBounds(160, 150, 20, 20);
 
-				path = game.players[0].rank1Castles[0].displayIcon();
+				path = game.players[i].rank1Castles[0].displayIcon();
 				icon = new ImageIcon(path);
 				rank1Icon[i] = new JLabel(icon);
 				rank1Icon[i].setBounds(185, 50, 30, 20);
 
-				path = game.players[0].rank2Castles[0].displayIcon();
+				path = game.players[i].rank2Castles[0].displayIcon();
 				icon = new ImageIcon(path);
 				rank2Icon[i] = new JLabel(icon);
 				rank2Icon[i].setBounds(185, 75, 30, 20);
 
-				path = game.players[0].rank3Castles[0].displayIcon();
+				path = game.players[i].rank3Castles[0].displayIcon();
 				icon = new ImageIcon(path);
 				rank3Icon[i] = new JLabel(icon);
 				rank3Icon[i].setBounds(185, 100, 30, 20);
 
 
-				path = game.players[0].rank4Castles[0].displayIcon();
+				path = game.players[i].rank4Castles[0].displayIcon();
 				icon = new ImageIcon(path);
 				rank4Icon[i] = new JLabel(icon);
 				rank4Icon[i].setBounds(185, 125, 30, 20);
@@ -409,12 +399,13 @@ public class GameView extends JFrame {
 				player[i].add(rank3Label[i]);
 				player[i].add(rank4Label[i]);
 				player[i].add(coinsLabel[i]);
-				player[i].add(No_Of_rank1_Castle[i]);
-				player[i].add(No_Of_rank2_Castle[i]);
-				player[i].add(No_Of_rank3_Castle[i]);
-
-				player[i].add(No_Of_rank4_Castle[i]);
-				player[i].add(No_Of_Coins[i]);
+				
+				player[i].add(noOfRank1Castles[i]);
+				player[i].add(noOfRank2Castles[i]);
+				player[i].add(noOfRank3Castles[i]);
+				player[i].add(noOfRank4Castles[i]);
+				
+				player[i].add(noOfCoins[i]);
 				player[i].add(rank1Icon[i]);
 				player[i].add(rank2Icon[i]);
 				player[i].add(rank3Icon[i]);
@@ -430,6 +421,36 @@ public class GameView extends JFrame {
 			
 		}
     }
+    
+    /**
+     * This class holds the game information panel - i.e. the current epoch no, whose turn it is, etc.
+     *
+     */
+    class GameInfoArea extends JPanel {
+		
+		private static final long serialVersionUID = 1L;
+
+		/**
+		 * Constructor.		   
+		 */
+		public GameInfoArea(){
+			setLayout(new GridLayout(0,1));
+			setMinimumSize(new Dimension(300, 600));
+			setOpaque(true);
+			setPreferredSize(new Dimension(300, 600));
+			setBackground(Color.decode(game.gameConfig.GAME_INFO_AREA_COLOR));
+			
+			JLabel currentEpoch = new JLabel("Current Epoch:" + game.getCurrentEpoch().getCurrentEpochNo());
+			
+			int currentPlayerIndex = game.getCurrentPlayerIndex();
+			String currentPlayerName = game.players[currentPlayerIndex].getName();
+			JLabel currentPlayer = new JLabel("Current turn is for :" + currentPlayerName);
+			
+			add(currentEpoch);
+			add(currentPlayer);
+		} 
+		 	   
+	}
 } 
 
 /**
