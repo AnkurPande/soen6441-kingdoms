@@ -12,7 +12,7 @@ public class Placeholder extends GameComponents {
 	 * Default constructor. Creates a PlaceHolder object without any members.
 	 */
 	public Placeholder(){
-		
+		this.setIconFileName("images/placeholder.png");
 	}
 
 }

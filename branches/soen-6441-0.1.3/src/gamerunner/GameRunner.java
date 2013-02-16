@@ -1,5 +1,6 @@
 package gamerunner;
 
+import model.Config;
 import view.GameView;
 import controller.GameController;
 
@@ -14,7 +15,10 @@ public class GameRunner {
 	 */
 	public static void main(String[] args) {
 		
-		GameController gameController = new GameController();
+		Config conf = new Config(4);
+		
+		GameController gameController = new GameController(conf);
+	
 		gameController.saveGame("test_file1.xml");
 		
 		gameController.loadGame("test_file3.xml");
