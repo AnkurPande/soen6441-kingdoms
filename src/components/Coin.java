@@ -3,8 +3,8 @@ package components;
 import javax.xml.bind.annotation.XmlAttribute;
 
 /**
- * The coin class creates coins for the players during gameplay.
- * They are used to keep track of the players score.
+ * The coin class creates coins for the players during game play.
+ * Coins are used to keep track of the players score.
  * @author Team B
  */
 public class Coin extends GameComponents {

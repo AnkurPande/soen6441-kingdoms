@@ -12,7 +12,7 @@ import model.GameInstance;
 
 /**
  * The GameController class is for containing the game play logic and performing actions on the game state (GameInstance).
- * This class also has methods to load and save game states - in xml format onto disc.
+ * This class also has methods to load and save game states - in xml format from/to disc.
  * @author Team B
  */
 public class GameController {
@@ -88,13 +88,14 @@ public class GameController {
 	 * @return The loaded XML file converted to a GameInstance object.
 	 */
 	private GameInstance loadGameState(File file){
+		
 		GameInstance gi = null;
+		
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(GameInstance.class);
 
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			gi = (GameInstance) jaxbUnmarshaller.unmarshal(file);
-			//System.out.println(gi);
 
 		} catch (JAXBException e) {
 			e.printStackTrace();
@@ -110,6 +111,7 @@ public class GameController {
 	public void saveGame(String fileName){
 		
 		File file;
+		
 		if(fileName == null || fileName == ""){
 			file = new File("default_game_save.xml");
 		}
@@ -127,16 +129,15 @@ public class GameController {
 	 * @param file The name of the file to save the game state as.
 	 */
 	private void saveGameState(File file){
+		
 		try {
 
 			JAXBContext jaxbContext = JAXBContext.newInstance(GameInstance.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
-			// output pretty printed
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 			jaxbMarshaller.marshal(this.game, file);
-			//jaxbMarshaller.marshal(this, System.out);
+			
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}

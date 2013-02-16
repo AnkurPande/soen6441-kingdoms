@@ -23,7 +23,6 @@ import controller.GameController;
  */
 public class GameInstance {
 	
-	public GameController controller;
 	public final Config gameConfig;
 	
 	@XmlElementWrapper(name="players")
@@ -54,11 +53,19 @@ public class GameInstance {
 		createNewGame();
 	}
 	
+	/**
+	 * Constructor with specifying a Config. This will create a new game as per the configuration of the specified Config object.
+	 * 
+	 * @param config The configuration to use to create the new game.
+	 */
 	public GameInstance(Config config){
 		this.gameConfig = config;
 		createNewGame();		
 	}
 	
+	/**
+	 * Method to create a new game. This method initializes all the necessary game items and components. 
+	 */
 	private void createNewGame(){
 		//Initialize the epoch counter
 		setCurrentEpoch(new EpochCounter());
@@ -194,6 +201,10 @@ public class GameInstance {
 		}
 	}
 	
+	/**
+	 * Method to give a set of coins to players at the beginning of the game. As of build 1 - initially every player
+	 * is given a gold coin of 50 points.
+	 */
 	private void giveFirstSetOfCoinsToPlayers(){
 		for(int i = 0; i < players.length; i++){
 			Coin tempGoldCoin = null;
@@ -229,6 +240,7 @@ public class GameInstance {
 	@XmlAttribute
 	/**
 	 * Gets the current players index - i.e. whose turn it is.
+	 * 
 	 * @return The index of the current player - the player whose turn it is now.
 	 */
 	public int getCurrentPlayerIndex() {
