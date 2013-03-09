@@ -21,7 +21,7 @@ public class GameRunner {
 	
 		gameController.saveGame("test_file1.xml");
 		
-		gameController.loadGame("test_file3.xml");
+		//gameController.loadAndSetGame("test_file10.xml");
 		
 		GameView gv = new GameView(gameController.getGame());
 

@@ -17,9 +17,9 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 
+import model.Config;
 import model.GameInstance;
 
 import components.GameComponents;
@@ -41,6 +41,7 @@ public class GameView extends JFrame {
     private final int NO_OF_COLS, NO_OF_ROWS;
     
     private GameInstance game;
+    private Config gameConfig;
 	
     /**
      * Constructor. Takes a GameInstance as a parameter and renders the game according to the this GameInsance.
@@ -86,6 +87,7 @@ public class GameView extends JFrame {
 	 */
 	public void setGame(GameInstance game) {
 		this.game = game;
+		this.gameConfig= game.getGameConfig();
 	}
     
     /**
@@ -106,7 +108,7 @@ public class GameView extends JFrame {
             setLayout(new GridLayout(NO_OF_COLS, NO_OF_ROWS));
             setMinimumSize(new Dimension(600, 600));
             setPreferredSize(new Dimension(600, 600));
-            setBackground(Color.decode(game.gameConfig.BOARD_AREA_COLOR));
+            setBackground(Color.decode(gameConfig.BOARD_AREA_COLOR));
             fillBoard();
             fillBoardWithGameState();
         }
@@ -157,9 +159,9 @@ public class GameView extends JFrame {
             setPreferredSize(new Dimension(75, 75));
             
             if ((x + y) % 2 == 0) {
-                setBackground(Color.decode(game.gameConfig.BOARD_AREA_FIELD_COLOR1));
+                setBackground(Color.decode(gameConfig.BOARD_AREA_FIELD_COLOR1));
             } else {
-                setBackground(Color.decode(game.gameConfig.BOARD_AREA_FIELD_COLOR2));
+                setBackground(Color.decode(gameConfig.BOARD_AREA_FIELD_COLOR2));
             }
         }
         
@@ -233,7 +235,7 @@ public class GameView extends JFrame {
             setLayout(new GridLayout(NO_OF_COLS, NO_OF_ROWS));
             setMinimumSize(new Dimension(0, 600));
             setPreferredSize(new Dimension(0, 600));
-            setBackground(Color.decode(game.gameConfig.SCORING_AREA_COLOR));
+            setBackground(Color.decode(gameConfig.SCORING_AREA_COLOR));
         }
     }
     
@@ -257,7 +259,7 @@ public class GameView extends JFrame {
 			setMinimumSize(new Dimension(900, 200));
 			setOpaque(true);
 			setPreferredSize(new Dimension(900, 198));
-			setBackground(Color.decode(game.gameConfig.PLAYER_INFO_AREA_COLOR));
+			setBackground(Color.decode(gameConfig.PLAYER_INFO_AREA_COLOR));
 
 			JPanel settingsPanel = new JPanel();
 			settingsPanel.setMinimumSize(new Dimension(180, 200));
@@ -442,7 +444,7 @@ public class GameView extends JFrame {
 			setMinimumSize(new Dimension(300, 600));
 			setOpaque(true);
 			setPreferredSize(new Dimension(300, 600));
-			setBackground(Color.decode(game.gameConfig.GAME_INFO_AREA_COLOR));
+			setBackground(Color.decode(gameConfig.GAME_INFO_AREA_COLOR));
 			
 			JLabel currentEpoch = new JLabel("Current Epoch:" + game.getCurrentEpoch().getCurrentEpochNo());
 			

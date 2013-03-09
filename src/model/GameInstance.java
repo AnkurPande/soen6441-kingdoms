@@ -13,8 +13,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import controller.GameController;
-
 @XmlRootElement
 /**
  * This class represents the instance or model of a game.
@@ -23,7 +21,7 @@ import controller.GameController;
  */
 public class GameInstance {
 	
-	public final Config gameConfig;
+	private Config gameConfig;
 	
 	@XmlElementWrapper(name="players")
 	@XmlElement(name="player")
@@ -45,12 +43,10 @@ public class GameInstance {
 	protected Vector<Coin> coinBank;
 	
 	/**
-	 * Default constructor. Creates a new game by default.
+	 * Default constructor. Creates a blank by default.
 	 */
 	public GameInstance(){
-		//Create a configuration object for the game
-		this.gameConfig = new Config();
-		createNewGame();
+	
 	}
 	
 	/**
@@ -114,27 +110,29 @@ public class GameInstance {
 		
 		//TODO refactor
 		for(int i = 0; i < gameConfig.NO_OF_RESOURCE_TILES; i++){
-			tileBank.add(new Tile(TileType.RESOURCES));
+			int tileValue = (i%gameConfig.MAX_VALUE_OF_RESOURCE_TILES) + 1;	//Modulus is used to ensure the value of tile is something between min value (1) and max value (6) for resource tiles
+			tileBank.add(new Tile(TileType.RESOURCES, tileValue));
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_HAZARD_TILES; i++){
-			tileBank.add(new Tile(TileType.HAZARD));
+			int tileValue = (-(i%(-gameConfig.MIN_VALUE_OF_HAZARD_TILES))) - 1; //Modulus is used to ensure the value of tile is something between min value(-6) and max value (-1) for this hazard tiles
+			tileBank.add(new Tile(TileType.HAZARD, tileValue));
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_MOUNTAIN_TILES; i++){
-			tileBank.add(new Tile(TileType.MOUNTAIN));
+			tileBank.add(new Tile(TileType.MOUNTAIN, gameConfig.VALUE_OF_MOUNTAIN_TILES));
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_DRAGON_TILES; i++){
-			tileBank.add( new Tile(TileType.DRAGON));
+			tileBank.add( new Tile(TileType.DRAGON, gameConfig.VALUE_OF_DRAGON_TILES));
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_GOLDMINE_TILES; i++){
-			tileBank.add(new Tile(TileType.GOLDMINE));
+			tileBank.add(new Tile(TileType.GOLDMINE, gameConfig.VALUE_OF_GOLDMINE_TILES));
 		}
 		
 		for(int i = 0; i < gameConfig.NO_OF_WIZARD_TILES; i++){
-			tileBank.add(new Tile(TileType.WIZARD));
+			tileBank.add(new Tile(TileType.WIZARD, gameConfig.VALUE_OF_WIZARD_TILES));
 		}
 	}
 	
@@ -254,6 +252,22 @@ public class GameInstance {
 	 */
 	public void setCurrentPlayerIndex(int newPlayerIndex) {
 		this.currentPlayerIndex = newPlayerIndex;
+	}
+	
+	/**
+	 * Getter method for the GameConfig object (which contains the game configuration data)
+	 * @return The game's game configuration object is returned.
+	 */
+	public Config getGameConfig() {
+		return gameConfig;
+	}
+	
+	/**
+	 * Setter method for the GameConfig object of the game.
+	 * @param gameConfig The new GameConfig object that is to be set to the current game.
+	 */
+	public void setGameConfig(Config gameConfig) {
+		this.gameConfig = gameConfig;
 	}
 	
 	/**
