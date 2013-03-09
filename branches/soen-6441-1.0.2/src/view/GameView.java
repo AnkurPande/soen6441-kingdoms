@@ -354,34 +354,34 @@ public class GameView extends JFrame {
 				coinsLabel[i] = new JLabel("Value of Coins:", JLabel.CENTER);
 				coinsLabel[i].setBounds(15, 150, 140, 20);
 
-				noOfRank1Castles[i] = new JLabel(Integer.toString(game.players[i].rank1Castles.length));
+				noOfRank1Castles[i] = new JLabel(Integer.toString(game.players[i].rank1Castles.size()));
 				noOfRank1Castles[i].setBounds(160, 50, 20, 20);
-				noOfRank2Castles[i] = new JLabel(Integer.toString(game.players[i].rank2Castles.length));
+				noOfRank2Castles[i] = new JLabel(Integer.toString(game.players[i].rank2Castles.size()));
 				noOfRank2Castles[i].setBounds(160, 75, 20, 20);
-				noOfRank3Castles[i] = new JLabel(Integer.toString(game.players[i].rank3Castles.length));
+				noOfRank3Castles[i] = new JLabel(Integer.toString(game.players[i].rank3Castles.size()));
 				noOfRank3Castles[i].setBounds(160, 100, 20, 20);
-				noOfRank4Castles[i] = new JLabel(Integer.toString(game.players[i].rank4Castles.length));
+				noOfRank4Castles[i] = new JLabel(Integer.toString(game.players[i].rank4Castles.size()));
 				noOfRank4Castles[i].setBounds(160, 125, 20, 20);
 				noOfCoins[i] = new JLabel(Integer.toString(game.players[i].playerCoins.firstElement().getValue()));
 				noOfCoins[i].setBounds(160, 150, 20, 20);
 
-				path = game.players[i].rank1Castles[0].displayIcon();
+				path = game.players[i].rank1Castles.firstElement().displayIcon();
 				icon = new ImageIcon(path);
 				rank1Icon[i] = new JLabel(icon);
 				rank1Icon[i].setBounds(185, 50, 30, 20);
 
-				path = game.players[i].rank2Castles[0].displayIcon();
+				path = game.players[i].rank2Castles.firstElement().displayIcon();
 				icon = new ImageIcon(path);
 				rank2Icon[i] = new JLabel(icon);
 				rank2Icon[i].setBounds(185, 75, 30, 20);
 
-				path = game.players[i].rank3Castles[0].displayIcon();
+				path = game.players[i].rank3Castles.firstElement().displayIcon();
 				icon = new ImageIcon(path);
 				rank3Icon[i] = new JLabel(icon);
 				rank3Icon[i].setBounds(185, 100, 30, 20);
 
 
-				path = game.players[i].rank4Castles[0].displayIcon();
+				path = game.players[i].rank4Castles.firstElement().displayIcon();
 				icon = new ImageIcon(path);
 				rank4Icon[i] = new JLabel(icon);
 				rank4Icon[i].setBounds(185, 125, 30, 20);

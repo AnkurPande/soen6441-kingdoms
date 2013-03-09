@@ -120,10 +120,10 @@ public class TestModel {
 		
 		Player p = new Player(PlayerColor.GREEN, "Test", conf);
 		
-		assertEquals(p.rank1Castles.length, conf.NO_OF_RANK1CASTLES_PER_PLAYER);
-		assertEquals(p.rank2Castles.length, conf.NO_OF_RANK2CASTLES_PER_PLAYER);
-		assertEquals(p.rank3Castles.length, conf.NO_OF_RANK3CASTLES_PER_PLAYER);
-		assertEquals(p.rank4Castles.length, conf.NO_OF_RANK4CASTLES_PER_PLAYER);
+		assertEquals(p.rank1Castles.size(), conf.NO_OF_RANK1CASTLES_PER_PLAYER);
+		assertEquals(p.rank2Castles.size(), conf.NO_OF_RANK2CASTLES_PER_PLAYER);
+		assertEquals(p.rank3Castles.size(), conf.NO_OF_RANK3CASTLES_PER_PLAYER);
+		assertEquals(p.rank4Castles.size(), conf.NO_OF_RANK4CASTLES_PER_PLAYER);
 		
 		assertEquals(p.playerTiles.size(), 0);
 	}
