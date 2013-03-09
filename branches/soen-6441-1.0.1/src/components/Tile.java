@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 public class Tile extends GameComponents {
 	
 	private TileType type;
+	private int value;
 	
 	/**
 	 * Default constructor.
@@ -23,8 +24,9 @@ public class Tile extends GameComponents {
 	 * 
 	 * @param t An enum type of type 'TileType'. It can have the values RESOURCES, HAZARD, etc as per the definition of the enum TileType.
 	 */
-	public Tile(TileType t){
+	public Tile(TileType t, int val){
 		this.type = t;
+		this.value = val;
 	}
 	
 	@XmlAttribute
@@ -34,33 +36,16 @@ public class Tile extends GameComponents {
 	 * @return The type of the tile (as a enum 'TileType' object).
 	 */
 	public TileType getType() {
-		return type;
+		return this.type;
 	}
-
+	
+	@XmlAttribute
 	/**
 	 * Gets the value of the tile for score computation purposes.
 	 * @return Returns the numeric value of the tile to be considered in score computation.
 	 */
 	public int getValue(){
-		
-		switch(this.type)
-		{
-			case RESOURCES:
-				return 1;
-			case HAZARD:
-				return -1;
-			case MOUNTAIN:
-				return 0;
-			case DRAGON:
-				return -6;
-			case GOLDMINE:
-				return 0;
-			case WIZARD:
-				return 0;
-			default:
-				return 0;
-		}
-		
+		return this.value;		
 	}
 	
 	/**

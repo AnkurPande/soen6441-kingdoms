@@ -80,6 +80,10 @@ public class GameController {
 		
 		return loadGameState(file);
 	}
+	
+	public void loadAndSetGame(String fileName){
+		this.game = loadGame(fileName);
+	}
 
 	/**
 	 * Method to load a game state (GameInstance) from disc. Load a valid XML file from disc and converts to a GameInstance object.
