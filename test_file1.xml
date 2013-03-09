@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<gameInstance currentPlayerIndex="3">
+<gameInstance currentPlayerIndex="2">
+    <gameActionLog>Action Place Castle failed due to specified location on game board isn't valid or isn't vacant.</gameActionLog>
     <players>
         <player name="Player1">
             <rank1Castles>
-                <castle color="RED" rank="ONE"/>
                 <castle color="RED" rank="ONE"/>
             </rank1Castles>
             <rank2Castles>
@@ -22,7 +22,7 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile type="HAZARD" value="-4"/>
+                <tile type="DRAGON" value="-6"/>
             </playerTiles>
         </player>
         <player name="Player2">
@@ -46,7 +46,7 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile type="GOLDMINE" value="0"/>
+                <tile type="RESOURCES" value="1"/>
             </playerTiles>
         </player>
         <player name="Player3">
@@ -61,7 +61,6 @@
             </rank2Castles>
             <rank3Castles>
                 <castle color="BLUE" rank="THREE"/>
-                <castle color="BLUE" rank="THREE"/>
             </rank3Castles>
             <rank4Castles>
                 <castle color="BLUE" rank="FOUR"/>
@@ -70,7 +69,7 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile type="MOUNTAIN" value="0"/>
+                <tile type="RESOURCES" value="6"/>
             </playerTiles>
         </player>
         <player name="Player4">
@@ -94,7 +93,7 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile type="RESOURCES" value="3"/>
+                <tile type="HAZARD" value="-4"/>
             </playerTiles>
         </player>
     </players>
@@ -105,7 +104,7 @@
             <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
             <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
             <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
-            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="RED" rank="ONE"/>
         </placeOnBoard>
         <placeOnBoard>
             <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
@@ -117,8 +116,8 @@
         </placeOnBoard>
         <placeOnBoard>
             <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
-            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
-            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="RESOURCES" value="4"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="BLUE" rank="THREE"/>
             <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
             <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
             <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
@@ -141,25 +140,24 @@
         </placeOnBoard>
     </gameBoard>
     <tilebank>
-        <tile type="RESOURCES" value="2"/>
+        <tile type="GOLDMINE" value="0"/>
         <tile type="RESOURCES" value="6"/>
-        <tile type="RESOURCES" value="1"/>
+        <tile type="WIZARD" value="0"/>
         <tile type="MOUNTAIN" value="0"/>
-        <tile type="RESOURCES" value="2"/>
-        <tile type="HAZARD" value="-3"/>
         <tile type="HAZARD" value="-5"/>
-        <tile type="RESOURCES" value="4"/>
-        <tile type="RESOURCES" value="5"/>
         <tile type="HAZARD" value="-1"/>
-        <tile type="RESOURCES" value="6"/>
-        <tile type="DRAGON" value="-6"/>
+        <tile type="RESOURCES" value="5"/>
+        <tile type="HAZARD" value="-6"/>
+        <tile type="HAZARD" value="-2"/>
+        <tile type="RESOURCES" value="1"/>
+        <tile type="RESOURCES" value="2"/>
+        <tile type="MOUNTAIN" value="0"/>
+        <tile type="HAZARD" value="-3"/>
+        <tile type="RESOURCES" value="3"/>
+        <tile type="RESOURCES" value="4"/>
+        <tile type="RESOURCES" value="2"/>
         <tile type="RESOURCES" value="3"/>
         <tile type="RESOURCES" value="5"/>
-        <tile type="WIZARD" value="0"/>
-        <tile type="RESOURCES" value="1"/>
-        <tile type="HAZARD" value="-2"/>
-        <tile type="HAZARD" value="-6"/>
-        <tile type="RESOURCES" value="4"/>
     </tilebank>
     <coinBank>
         <coin material="COPPER" value="1"/>
@@ -213,10 +211,6 @@
         <coin material="SILVER" value="10"/>
         <coin material="SILVER" value="10"/>
         <coin material="SILVER" value="10"/>
-        <coin material="GOLD" value="50"/>
-        <coin material="GOLD" value="50"/>
-        <coin material="GOLD" value="50"/>
-        <coin material="GOLD" value="50"/>
         <coin material="GOLD" value="50"/>
         <coin material="GOLD" value="50"/>
         <coin material="GOLD" value="50"/>

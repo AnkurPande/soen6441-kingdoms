@@ -25,19 +25,19 @@ public class Player{
 	
 	@XmlElementWrapper(name="rank1Castles")
 	@XmlElement(name="castle") 
-	public Castle[] rank1Castles;
+	public Vector<Castle> rank1Castles;
 	
 	@XmlElementWrapper(name="rank2Castles")
 	@XmlElement(name="castle") 
-	public Castle[] rank2Castles;
+	public Vector<Castle> rank2Castles;
 	
 	@XmlElementWrapper(name="rank3Castles")
 	@XmlElement(name="castle")
-	public Castle[] rank3Castles;
+	public Vector<Castle> rank3Castles;
 	
 	@XmlElementWrapper(name="rank4Castles")
 	@XmlElement(name="castle")
-	public Castle[] rank4Castles;
+	public Vector<Castle> rank4Castles;
 	
 	@XmlElementWrapper(name="playerCoins")
 	@XmlElement(name="coin")
@@ -93,37 +93,41 @@ public class Player{
 		//TODO refactor
 		
 		//Initialize the castles
-		rank1Castles = new Castle[gameConfig.NO_OF_RANK1CASTLES_PER_PLAYER];
-		rank2Castles = new Castle[gameConfig.NO_OF_RANK2CASTLES_PER_PLAYER];
-		rank3Castles = new Castle[gameConfig.NO_OF_RANK3CASTLES_PER_PLAYER];
-		rank4Castles = new Castle[gameConfig.NO_OF_RANK4CASTLES_PER_PLAYER];
+		rank1Castles = new Vector<Castle>();
+		rank2Castles = new Vector<Castle>();
+		rank3Castles = new Vector<Castle>();
+		rank4Castles = new Vector<Castle>();
 		
 		//Create the Rank 1 castles
 		for(int i=0;i<gameConfig.NO_OF_RANK1CASTLES_PER_PLAYER;i++){
-			rank1Castles[i] = new Castle(this.playerColor, CastleRank.ONE);
+			Castle temp = new Castle(this.playerColor, CastleRank.ONE);
 			String iconFile = "images/castle_" + this.playerColor + "_rank1.png";
-			rank1Castles[i].setIconFileName(iconFile);
+			temp.setIconFileName(iconFile);
+			rank1Castles.add(temp);
 		}
 	
 		//Create the Rank 2 castles
 		for(int i=0;i<gameConfig.NO_OF_RANK2CASTLES_PER_PLAYER;i++){
-			rank2Castles[i] = new Castle(this.playerColor, Castle.CastleRank.TWO);
+			Castle temp = new Castle(this.playerColor, CastleRank.TWO);
 			String iconFile = "images/castle_" + this.playerColor + "_rank2.png";
-			rank2Castles[i].setIconFileName(iconFile);
+			temp.setIconFileName(iconFile);
+			rank2Castles.add(temp);
 		}
 		
 		//Create the Rank 3 castles
 		for(int i=0;i<gameConfig.NO_OF_RANK3CASTLES_PER_PLAYER;i++){
-			rank3Castles[i] = new Castle(this.playerColor, Castle.CastleRank.THREE);
+			Castle temp = new Castle(this.playerColor, CastleRank.THREE);
 			String iconFile = "images/castle_" + this.playerColor + "_rank3.png";
-			rank3Castles[i].setIconFileName(iconFile);
+			temp.setIconFileName(iconFile);
+			rank3Castles.add(temp);
 		}
 		
 		//Create the Rank 4 castles
 		for(int i=0;i<gameConfig.NO_OF_RANK4CASTLES_PER_PLAYER;i++){
-			rank4Castles[i] = new Castle(this.playerColor, Castle.CastleRank.FOUR);
+			Castle temp = new Castle(this.playerColor, CastleRank.FOUR);
 			String iconFile = "images/castle_" + this.playerColor + "_rank4.png";
-			rank4Castles[i].setIconFileName(iconFile);
+			temp.setIconFileName(iconFile);
+			rank4Castles.add(temp);
 		}
 		
 	}

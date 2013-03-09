@@ -1,39 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<gameInstance currentPlayerIndex="3">
-    <gameConfig>
-        <NO_OF_PLAYERS>4</NO_OF_PLAYERS>
-        <NO_OF_RANK1CASTLES_PER_PLAYER>2</NO_OF_RANK1CASTLES_PER_PLAYER>
-        <NO_OF_RANK2CASTLES_PER_PLAYER>3</NO_OF_RANK2CASTLES_PER_PLAYER>
-        <NO_OF_RANK3CASTLES_PER_PLAYER>2</NO_OF_RANK3CASTLES_PER_PLAYER>
-        <NO_OF_RANK4CASTLES_PER_PLAYER>1</NO_OF_RANK4CASTLES_PER_PLAYER>
-        <NO_OF_ROWS>6</NO_OF_ROWS>
-        <NO_OF_COLS>5</NO_OF_COLS>
-        <BOARD_AREA_COLOR>#000000</BOARD_AREA_COLOR>
-        <BOARD_AREA_FIELD_COLOR1>#E0E0E0</BOARD_AREA_FIELD_COLOR1>
-        <BOARD_AREA_FIELD_COLOR2>#CCCCFF</BOARD_AREA_FIELD_COLOR2>
-        <SCORING_AREA_COLOR>#C0C0C0</SCORING_AREA_COLOR>
-        <PLAYER_INFO_AREA_COLOR>#808080</PLAYER_INFO_AREA_COLOR>
-        <GAME_INFO_AREA_COLOR>#808080</GAME_INFO_AREA_COLOR>
-        <NO_OF_COPPER_COINS_VAL1>19</NO_OF_COPPER_COINS_VAL1>
-        <COPPER_COINS_VAL1_VAL>1</COPPER_COINS_VAL1_VAL>
-        <NO_OF_COPPER_COINS_VAL5>12</NO_OF_COPPER_COINS_VAL5>
-        <COPPER_COINS_VAL5_VAL>5</COPPER_COINS_VAL5_VAL>
-        <NO_OF_SILVER_COINS>20</NO_OF_SILVER_COINS>
-        <SILVER_COINS_VAL>10</SILVER_COINS_VAL>
-        <NO_OF_GOLD_COINS_VAL50>8</NO_OF_GOLD_COINS_VAL50>
-        <GOLD_COINS_VAL50_VAL>50</GOLD_COINS_VAL50_VAL>
-        <NO_OF_GOLD_COINS_VAL100>4</NO_OF_GOLD_COINS_VAL100>
-        <GOLD_COINS_VAL100_VAL>4</GOLD_COINS_VAL100_VAL>
-        <TOTAL_NO_OF_COINS>63</TOTAL_NO_OF_COINS>
-        <NO_OF_RESOURCE_TILES>12</NO_OF_RESOURCE_TILES>
-        <NO_OF_HAZARD_TILES>6</NO_OF_HAZARD_TILES>
-        <NO_OF_MOUNTAIN_TILES>2</NO_OF_MOUNTAIN_TILES>
-        <NO_OF_DRAGON_TILES>1</NO_OF_DRAGON_TILES>
-        <NO_OF_GOLDMINE_TILES>1</NO_OF_GOLDMINE_TILES>
-        <NO_OF_WIZARD_TILES>1</NO_OF_WIZARD_TILES>
-        <TOTAL_NO_OF_TILES>23</TOTAL_NO_OF_TILES>
-        <NO_OF_TILES_PER_PLAYER>1</NO_OF_TILES_PER_PLAYER>
-    </gameConfig>
+<gameInstance currentPlayerIndex="0">
     <players>
         <player name="Player1">
             <rank1Castles>
@@ -56,7 +22,7 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile/>
+                <tile value="0"/>
             </playerTiles>
         </player>
         <player name="Player2">
@@ -80,7 +46,7 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile/>
+                <tile value="0"/>
             </playerTiles>
         </player>
         <player name="Player3">
@@ -104,7 +70,7 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile/>
+                <tile value="0"/>
             </playerTiles>
         </player>
         <player name="Player4">
@@ -128,7 +94,7 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile/>
+                <tile value="0"/>
             </playerTiles>
         </player>
     </players>
@@ -175,25 +141,25 @@
         </placeOnBoard>
     </gameBoard>
     <tilebank>
-        <tile/>
-        <tile/>
-        <tile/>
-        <tile/>
-        <tile/>
-        <tile/>
-        <tile/>
-        <tile/>
-        <tile/>
-        <tile/>
-        <tile/>
-        <tile/>
-        <tile/>
-        <tile/>
-        <tile/>
-        <tile/>
-        <tile/>
-        <tile/>
-        <tile/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
     </tilebank>
     <coinBank>
         <coin material="COPPER" value="1"/>
@@ -261,4 +227,44 @@
         <coin material="GOLD" value="4"/>
     </coinBank>
     <currentEpoch currentEpochNo="1"/>
+    <gameConfig>
+        <NO_OF_PLAYERS>4</NO_OF_PLAYERS>
+        <NO_OF_RANK1CASTLES_PER_PLAYER>2</NO_OF_RANK1CASTLES_PER_PLAYER>
+        <NO_OF_RANK2CASTLES_PER_PLAYER>3</NO_OF_RANK2CASTLES_PER_PLAYER>
+        <NO_OF_RANK3CASTLES_PER_PLAYER>2</NO_OF_RANK3CASTLES_PER_PLAYER>
+        <NO_OF_RANK4CASTLES_PER_PLAYER>1</NO_OF_RANK4CASTLES_PER_PLAYER>
+        <NO_OF_ROWS>6</NO_OF_ROWS>
+        <NO_OF_COLS>5</NO_OF_COLS>
+        <BOARD_AREA_COLOR>#000000</BOARD_AREA_COLOR>
+        <BOARD_AREA_FIELD_COLOR1>#E0E0E0</BOARD_AREA_FIELD_COLOR1>
+        <BOARD_AREA_FIELD_COLOR2>#CCCCFF</BOARD_AREA_FIELD_COLOR2>
+        <SCORING_AREA_COLOR>#C0C0C0</SCORING_AREA_COLOR>
+        <PLAYER_INFO_AREA_COLOR>#808080</PLAYER_INFO_AREA_COLOR>
+        <GAME_INFO_AREA_COLOR>#808080</GAME_INFO_AREA_COLOR>
+        <NO_OF_COPPER_COINS_VAL1>19</NO_OF_COPPER_COINS_VAL1>
+        <COPPER_COINS_VAL1_VAL>1</COPPER_COINS_VAL1_VAL>
+        <NO_OF_COPPER_COINS_VAL5>12</NO_OF_COPPER_COINS_VAL5>
+        <COPPER_COINS_VAL5_VAL>5</COPPER_COINS_VAL5_VAL>
+        <NO_OF_SILVER_COINS>20</NO_OF_SILVER_COINS>
+        <SILVER_COINS_VAL>10</SILVER_COINS_VAL>
+        <NO_OF_GOLD_COINS_VAL50>8</NO_OF_GOLD_COINS_VAL50>
+        <GOLD_COINS_VAL50_VAL>50</GOLD_COINS_VAL50_VAL>
+        <NO_OF_GOLD_COINS_VAL100>4</NO_OF_GOLD_COINS_VAL100>
+        <GOLD_COINS_VAL100_VAL>4</GOLD_COINS_VAL100_VAL>
+        <TOTAL_NO_OF_COINS>63</TOTAL_NO_OF_COINS>
+        <NO_OF_RESOURCE_TILES>12</NO_OF_RESOURCE_TILES>
+        <NO_OF_HAZARD_TILES>6</NO_OF_HAZARD_TILES>
+        <NO_OF_MOUNTAIN_TILES>2</NO_OF_MOUNTAIN_TILES>
+        <NO_OF_DRAGON_TILES>1</NO_OF_DRAGON_TILES>
+        <NO_OF_GOLDMINE_TILES>1</NO_OF_GOLDMINE_TILES>
+        <NO_OF_WIZARD_TILES>1</NO_OF_WIZARD_TILES>
+        <TOTAL_NO_OF_TILES>23</TOTAL_NO_OF_TILES>
+        <NO_OF_TILES_PER_PLAYER>1</NO_OF_TILES_PER_PLAYER>
+        <MAX_VALUE_OF_RESOURCE_TILES>6</MAX_VALUE_OF_RESOURCE_TILES>
+        <MIN_VALUE_OF_HAZARD_TILES>-6</MIN_VALUE_OF_HAZARD_TILES>
+        <VALUE_OF_MOUNTAIN_TILES>0</VALUE_OF_MOUNTAIN_TILES>
+        <VALUE_OF_DRAGON_TILES>-6</VALUE_OF_DRAGON_TILES>
+        <VALUE_OF_GOLDMINE_TILES>0</VALUE_OF_GOLDMINE_TILES>
+        <VALUE_OF_WIZARD_TILES>0</VALUE_OF_WIZARD_TILES>
+    </gameConfig>
 </gameInstance>

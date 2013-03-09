@@ -7,8 +7,13 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import components.Castle;
+import components.Placeholder;
+import components.Tile;
+
 import model.Config;
 import model.GameInstance;
+import model.Player;
 
 /**
  * The GameController class is for containing the game play logic and performing actions on the game state (GameInstance).
@@ -145,5 +150,140 @@ public class GameController {
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean drawAndPlaceTile(int rowOfGameBoard, int colOfGameBoard){
+		
+		if(!isGameBoardPlaceValidAndVacant(rowOfGameBoard, colOfGameBoard)){
+			game.gameActionLog += "Action Draw and Place Tile failed due to specified location on game board isn't valid or isn't vacant.";
+			return false;
+		}
+		
+		Tile tileToPlace = null;
+		try {
+			tileToPlace = drawTile();
+		} catch (Exception e) {
+			game.gameActionLog += "Action Draw and Place Tile failed - tile bank has no more tiles.";
+			return false;
+		}
+		
+		game.gameBoard[colOfGameBoard][rowOfGameBoard] = tileToPlace;
+		return true;
+	}
+	
+	private Tile drawTile() throws Exception{
+		if(game.tileBank.size() > 0 ){
+			return game.tileBank.remove(0);
+		}
+		else{
+			throw new Exception("Tile Bank empty!");
+		}
+	}
+	
+	public boolean placeFirstTile(int playerIndex, int rowOfGameBoard, int colOfGameBoard ){
+		if(!isValidPlayerIndex(playerIndex)){
+			game.gameActionLog += "Action Place First Tile failed due to invalid player index.";
+			return false;
+		}
+		
+		Tile playersFirstTile = null;
+		if(!hasPlayerFirstTile(playerIndex)){
+			game.gameActionLog += "Action Place First Tile failed as player's first tile is already placed.";			
+			return false;
+		}
+		
+		playersFirstTile = game.players[playerIndex].playerTiles.remove(0);
+		game.gameBoard[colOfGameBoard][rowOfGameBoard] = playersFirstTile;
+		return true;
+	}
+	
+	private boolean hasPlayerFirstTile(int playerIndex){
+		if(!isValidPlayerIndex(playerIndex)){
+			game.gameActionLog += "Action Has Player First Tile failed due to invalid player index.";
+			return false;
+		}
+		
+		if(game.players[playerIndex].playerTiles.size() > 0){
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean placeCastle(int playerIndex, Castle.CastleRank rankOfCastle, int rowOfGameBoard, int colOfGameBoard){
+		if(!isValidPlayerIndex(playerIndex)){
+			game.gameActionLog += "Action Place Castle failed due to invalid player.";
+			return false;
+		}
+		
+		if(!hasPlayerCastlesInHand(playerIndex, rankOfCastle)){
+			game.gameActionLog += "Action Place Castle failed due to invalid castle rank or player has no more of castles of specified rank.";
+			return false;
+		}
+		
+		if(!isGameBoardPlaceValidAndVacant(rowOfGameBoard, colOfGameBoard)){
+			game.gameActionLog += "Action Place Castle failed due to specified location on game board isn't valid or isn't vacant.";
+			return false;
+		}
+		
+		Castle castleToPlace = null;
+		if( rankOfCastle == Castle.CastleRank.ONE ){
+			castleToPlace = game.players[playerIndex].rank1Castles.remove(0);
+		}
+		else if( rankOfCastle == Castle.CastleRank.TWO ){
+			castleToPlace = game.players[playerIndex].rank2Castles.remove(0);
+		}
+		else if( rankOfCastle == Castle.CastleRank.THREE ){
+			castleToPlace = game.players[playerIndex].rank3Castles.remove(0);
+		}
+		else if( rankOfCastle == Castle.CastleRank.FOUR ){
+			castleToPlace = game.players[playerIndex].rank4Castles.remove(0);
+		}
+		
+		game.gameBoard[colOfGameBoard][rowOfGameBoard] = castleToPlace;
+		
+		return true;
+	}
+	
+	private boolean isValidPlayerIndex(int playerIndex){
+		if(playerIndex < 0 || playerIndex > game.players.length){
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private boolean hasPlayerCastlesInHand(int playerIndex, Castle.CastleRank rankOfCastle){
+		if( (rankOfCastle == Castle.CastleRank.ONE) && (game.players[playerIndex].rank1Castles.size() > 0) ){
+			return true;
+		}
+		else if( (rankOfCastle == Castle.CastleRank.TWO) && (game.players[playerIndex].rank2Castles.size() > 0)){
+			return true;
+		}
+		else if( (rankOfCastle == Castle.CastleRank.THREE) && (game.players[playerIndex].rank3Castles.size() > 0)){
+			return true;
+		}
+		else if( (rankOfCastle == Castle.CastleRank.FOUR) && (game.players[playerIndex].rank4Castles.size() > 0)){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	private boolean isGameBoardPlaceValidAndVacant(int row, int col){
+		if(col < 0 || col >= game.gameBoard.length){
+			return false;
+		}
+		
+		if(row < 0 || row >= game.gameBoard[0].length){
+			return false;
+		}
+		
+		if( !(game.gameBoard[col][row] instanceof Placeholder)){
+			return false;
+		}
+		
+		return true;
 	}
 }

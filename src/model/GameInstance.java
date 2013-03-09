@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class GameInstance {
 	
 	private Config gameConfig;
+	public String gameActionLog = "";
 	
 	@XmlElementWrapper(name="players")
 	@XmlElement(name="player")
@@ -209,6 +210,7 @@ public class GameInstance {
 			for(int j = 0; j < coinBank.size(); j++){
 				tempGoldCoin = coinBank.elementAt(j);
 				if( (tempGoldCoin.getMaterial() == Coin.Material.GOLD) && (tempGoldCoin.getValue() == 50) ){
+					tempGoldCoin = coinBank.remove(j);
 					break;
 				}
 			}
