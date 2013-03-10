@@ -5,14 +5,12 @@ import java.util.Vector;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
-
 import model.GameInstance.PlayerColor;
 
 import components.Castle;
 import components.Castle.CastleRank;
 import components.Coin;
 import components.Tile;
-import components.Coin.Material;
 
 /**
  * This class creates the player object.
@@ -23,6 +21,8 @@ public class Player{
 	
 	private String name;
 	
+	//private PlayingStrategy strategy;
+
 	@XmlElementWrapper(name="rank1Castles")
 	@XmlElement(name="castle") 
 	public Vector<Castle> rank1Castles;
@@ -177,5 +177,23 @@ public class Player{
 	private void setPlayerColor(PlayerColor playerColor) {
 		this.playerColor = playerColor;
 	}
+	
+	public boolean hasFirstTile(){
+		if(playerTiles.size() > 0){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+//	 @XmlAttribute
+//	public PlayingStrategy getStrategy() {
+//		//return this.strategy;
+//	}
+//
+//	public void setStrategy(PlayingStrategy newStrategy) {
+//		//this.strategy = newStrategy;
+//	}
 	
 }
