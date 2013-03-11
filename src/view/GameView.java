@@ -365,23 +365,23 @@ public class GameView extends JFrame {
 				noOfCoins[i] = new JLabel(Integer.toString(game.players[i].playerCoins.firstElement().getValue()));
 				noOfCoins[i].setBounds(160, 150, 20, 20);
 
-//				path = game.players[i].rank1Castles.firstElement().displayIcon();
+				path = game.players[i].rank1Castles.firstElement().displayIcon();
 				icon = new ImageIcon(path);
 				rank1Icon[i] = new JLabel(icon);
 				rank1Icon[i].setBounds(185, 50, 30, 20);
 
-//				path = game.players[i].rank2Castles.firstElement().displayIcon();
+				path = game.players[i].rank2Castles.firstElement().displayIcon();
 				icon = new ImageIcon(path);
 				rank2Icon[i] = new JLabel(icon);
 				rank2Icon[i].setBounds(185, 75, 30, 20);
 
-//				path = game.players[i].rank3Castles.firstElement().displayIcon();
+				path = game.players[i].rank3Castles.firstElement().displayIcon();
 				icon = new ImageIcon(path);
 				rank3Icon[i] = new JLabel(icon);
 				rank3Icon[i].setBounds(185, 100, 30, 20);
 
 
-//				path = game.players[i].rank4Castles.firstElement().displayIcon();
+				path = game.players[i].rank4Castles.firstElement().displayIcon();
 				icon = new ImageIcon(path);
 				rank4Icon[i] = new JLabel(icon);
 				rank4Icon[i].setBounds(185, 125, 30, 20);
@@ -467,9 +467,9 @@ public class GameView extends JFrame {
 class MyListener extends MouseAdapter{
 
 	public void mousePressed(MouseEvent evt) {
-//		JComponent comp = (JComponent) evt.getSource();
-//		TransferHandler th = comp.getTransferHandler();
-//		th.exportAsDrag(comp, evt, TransferHandler.COPY);
+		JComponent comp = (JComponent) evt.getSource();
+		TransferHandler th = comp.getTransferHandler();
+		th.exportAsDrag(comp, evt, TransferHandler.COPY);
 
 	}
 
