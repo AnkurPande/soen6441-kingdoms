@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.File;
+import java.util.LinkedList;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -13,6 +14,7 @@ import components.Tile;
 
 import model.Config;
 import model.GameInstance;
+import model.GameInstance.PlayerColor;
 import model.Player;
 
 /**
@@ -285,5 +287,141 @@ public class GameController {
 		}
 		
 		return true;
+	}
+	
+	
+	public void createList(){
+		LinkedList list = new LinkedList();
+		LinkedList sublist1 = new LinkedList();
+		LinkedList sublist2 = new LinkedList();
+		int index =0 ;	
+		
+		for(int i = 0; i<=game.gameBoard[0].length; i++){
+			
+				if(game.gameBoard[0][i] instanceof Tile){
+					Tile tile = (Tile) game.gameBoard[0][i];
+						if (tile.getType() == Tile.TileType.MOUNTAIN){
+						index = i; 
+						}
+						break;
+				}
+		}		
+				
+		if(!(index == 0)){
+			for(int j=0; j<index; j++){
+				sublist1.add(list.remove(j)); 
+			}
+			for(int j=index; j<=game.gameBoard[0].length; j++ ){
+				sublist2.add(list.remove(j+1));
+			}
+		}
+		else {
+			for(int j = 0; j<=game.gameBoard[0].length; j++){
+			list.add(j, game.gameBoard[0][j] );
+			}
+		}	
+		
+	}		
+			
+		
+	
+	public int calculateScore(LinkedList list){
+		
+		int RedPlayerCastleValue = 0;
+		int YellowPlayerCastleValue = 0;
+		int BluePlayerCastleValue = 0;
+		int GreenPlayerCastleValue = 0;
+		int score = 0;
+
+		for(int i = 0; i<=list.size();i++){
+						
+			if(list.get(i) instanceof Castle){
+				Castle castle = (Castle)list.get(i);
+				
+				if(castle.getColor() == GameInstance.PlayerColor.RED){
+					Castle.CastleRank rank = castle.getRank();
+					RedPlayerCastleValue = RedPlayerCastleValue + getRankOfCastle(rank);
+				}
+				else if(castle.getColor() == GameInstance.PlayerColor.YELLOW){
+					Castle.CastleRank rank = castle.getRank();
+					YellowPlayerCastleValue = YellowPlayerCastleValue + getRankOfCastle(rank);
+				}
+				else if(castle.getColor() == GameInstance.PlayerColor.BLUE){
+					Castle.CastleRank rank = castle.getRank();
+					BluePlayerCastleValue = BluePlayerCastleValue + getRankOfCastle(rank);
+				}
+				else if(castle.getColor() == GameInstance.PlayerColor.GREEN){
+					Castle.CastleRank rank = castle.getRank();
+					YellowPlayerCastleValue = YellowPlayerCastleValue + getRankOfCastle(rank);
+				}
+			}
+			
+		}
+		return score;
+	}
+	
+	private int getRankOfCastle(Castle.CastleRank r){
+		Castle.CastleRank rank = r;
+		int rankValue = 0;
+		switch(rank){
+		case ONE: rankValue = 1;
+			break;
+		case TWO: rankValue = 2;
+			break;
+		case THREE: rankValue = 3;
+			break;
+		case FOUR: rankValue = 4;
+			break;
+		}
+		
+		return rankValue;	
+	}
+	
+	public int calculateResources(LinkedList list){
+		int resourceTotal = 0;
+		for(int i=0; i<=list.size(); i++)
+		{
+			if(list.get(i) == Tile.TileType.DRAGON)
+			{
+				break;
+			}
+			else if(list.get(i) == Tile.TileType.RESOURCES)
+			{
+				Tile tile = (Tile) list.get(i);
+				resourceTotal = resourceTotal + tile.getValue();
+			}	
+			
+		}
+		return resourceTotal;
+	}
+	
+	public int calculateHazards(LinkedList list){
+		int hazardTotal = 0;
+		for(int i=0; i<=list.size(); i++)
+		{
+			 if(list.get(i) == Tile.TileType.HAZARD)
+			 {
+				Tile tile = (Tile) list.get(i);
+				hazardTotal = hazardTotal + tile.getValue();
+			 }	
+			
+		}
+		return hazardTotal;
+	}
+	
+	public int calculateBaseValue(int resourceTotal, int hazardTotal, LinkedList list){
+		int resource = resourceTotal;
+		int hazard = hazardTotal;
+		int baseValue = 0;
+		for(int i=0; i<= list.size(); i++){
+			if(list.get(i) == Tile.TileType.GOLDMINE)
+			{
+				resource = 2*resource;
+				hazard = 2*hazard;
+				baseValue = resource + hazard;
+				break;
+			}
+		}
+		return baseValue;
 	}
 }
