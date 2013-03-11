@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -9,6 +11,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import components.Castle;
+import components.GameComponents;
 import components.Placeholder;
 import components.Tile;
 
@@ -26,6 +29,12 @@ public class GameController {
 	
 	private GameInstance game;
 	private Config gameConfig;
+	private LinkedList list = new LinkedList();
+	private LinkedList sublist1 = new LinkedList();
+	private LinkedList sublist2 = new LinkedList();
+	private List<GameComponents> listcol = new ArrayList<GameComponents>();
+
+	
 	
 	/**
 	 * Constructor with specifying a GameInstance. Creates a new GameController with a specified GameInstace.
@@ -289,11 +298,12 @@ public class GameController {
 		return true;
 	}
 	
+	//
 	
+	
+	//
 	public void createList(){
-		LinkedList list = new LinkedList();
-		LinkedList sublist1 = new LinkedList();
-		LinkedList sublist2 = new LinkedList();
+		
 		int index =0 ;	
 		
 		for(int i = 0; i<=game.gameBoard[0].length; i++){
@@ -332,15 +342,21 @@ public class GameController {
 		int BluePlayerCastleValue = 0;
 		int GreenPlayerCastleValue = 0;
 		int score = 0;
-
+		int rankupdate =0;
 		for(int i = 0; i<=list.size();i++){
 						
 			if(list.get(i) instanceof Castle){
 				Castle castle = (Castle)list.get(i);
-				
-				if(castle.getColor() == GameInstance.PlayerColor.RED){
+				if(i>0){
+				if(list.get(i+1) instanceof Tile || list.get(i-1) instanceof Tile){
+					Tile tilenext = (Tile)list.get(i+1);
+					Tile tilepre = (Tile)list.get(i-1);
+				   if(tilenext.getType()== Tile.TileType.WIZARD){
+					  	   
+				  	if(castle.getColor() == GameInstance.PlayerColor.RED){
 					Castle.CastleRank rank = castle.getRank();
 					RedPlayerCastleValue = RedPlayerCastleValue + getRankOfCastle(rank);
+        
 				}
 				else if(castle.getColor() == GameInstance.PlayerColor.YELLOW){
 					Castle.CastleRank rank = castle.getRank();
@@ -354,8 +370,11 @@ public class GameController {
 					Castle.CastleRank rank = castle.getRank();
 					YellowPlayerCastleValue = YellowPlayerCastleValue + getRankOfCastle(rank);
 				}
+				   }
+				}
 			}
 			
+		}
 		}
 		return score;
 	}
