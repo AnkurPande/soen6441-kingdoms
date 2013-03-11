@@ -309,10 +309,10 @@ public class GameController {
 				
 		if(!(index == 0)){
 			for(int j=0; j<index; j++){
-				sublist1.add(list.remove(j)); 
+				sublist1.add(game.gameBoard[0][j]); 
 			}
 			for(int j=index; j<=game.gameBoard[0].length; j++ ){
-				sublist2.add(list.remove(j+1));
+				sublist2.add(game.gameBoard[0][j]);
 			}
 		}
 		else {
@@ -332,27 +332,58 @@ public class GameController {
 		int BluePlayerCastleValue = 0;
 		int GreenPlayerCastleValue = 0;
 		int score = 0;
-
+		int rankValue = 0;
+		
 		for(int i = 0; i<=list.size();i++){
 						
 			if(list.get(i) instanceof Castle){
 				Castle castle = (Castle)list.get(i);
+				Castle.CastleRank rank = castle.getRank();
+				
+				if(!(i == 0 || i == list.size() )){
+					if(list.get(i-1) == Tile.TileType.WIZARD || list.get(i+1) == Tile.TileType.WIZARD)
+					{
+						rankValue = getRankOfCastle(rank) + 1;
+					}
+					else
+					{
+						rankValue = getRankOfCastle(rank);
+					}
+				}
+				else if(i == 0) 
+				{
+					if(list.get(i+1) == Tile.TileType.WIZARD)
+					{
+						rankValue = getRankOfCastle(rank) + 1;
+					}
+					else
+					{
+						rankValue = getRankOfCastle(rank);
+					}
+				}
+				else if(i == list.size())
+				{
+					if(list.get(i-1) == Tile.TileType.WIZARD)
+					{
+						rankValue = getRankOfCastle(rank) + 1;
+					}
+					else
+					{
+						rankValue = getRankOfCastle(rank);
+					}
+				}
 				
 				if(castle.getColor() == GameInstance.PlayerColor.RED){
-					Castle.CastleRank rank = castle.getRank();
-					RedPlayerCastleValue = RedPlayerCastleValue + getRankOfCastle(rank);
+					RedPlayerCastleValue = RedPlayerCastleValue + rankValue;
 				}
 				else if(castle.getColor() == GameInstance.PlayerColor.YELLOW){
-					Castle.CastleRank rank = castle.getRank();
-					YellowPlayerCastleValue = YellowPlayerCastleValue + getRankOfCastle(rank);
+					YellowPlayerCastleValue = YellowPlayerCastleValue + rankValue;
 				}
 				else if(castle.getColor() == GameInstance.PlayerColor.BLUE){
-					Castle.CastleRank rank = castle.getRank();
-					BluePlayerCastleValue = BluePlayerCastleValue + getRankOfCastle(rank);
+					BluePlayerCastleValue = BluePlayerCastleValue + rankValue;
 				}
 				else if(castle.getColor() == GameInstance.PlayerColor.GREEN){
-					Castle.CastleRank rank = castle.getRank();
-					YellowPlayerCastleValue = YellowPlayerCastleValue + getRankOfCastle(rank);
+					GreenPlayerCastleValue = GreenPlayerCastleValue + rankValue;
 				}
 			}
 			
@@ -421,7 +452,12 @@ public class GameController {
 				baseValue = resource + hazard;
 				break;
 			}
+			else 
+			{
+				baseValue = resource + hazard;
+			}
 		}
+		
 		return baseValue;
 	}
 }
