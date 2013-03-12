@@ -2,26 +2,33 @@ package model;
 
 import java.util.Vector;
 
+import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import model.GameInstance.PlayerColor;
 
 import components.Castle;
 import components.Castle.CastleRank;
 import components.Coin;
 import components.Tile;
+import controller.PlayingStrategy;
 
 /**
  * This class creates the player object.
  * The parameters of a player such as color, name, etc. is managed by this class.
  * @author Team B
  */
+@XmlRootElement
 public class Player{
 	
 	private String name;
 	
-	//private PlayingStrategy strategy;
+	@XmlTransient
+	private PlayingStrategy strategy;
 
 	@XmlElementWrapper(name="rank1Castles")
 	@XmlElement(name="castle") 
@@ -187,13 +194,13 @@ public class Player{
 		}
 	}
 	
-//	 @XmlAttribute
-//	public PlayingStrategy getStrategy() {
-//		//return this.strategy;
-//	}
-//
-//	public void setStrategy(PlayingStrategy newStrategy) {
-//		//this.strategy = newStrategy;
-//	}
+	@XmlTransient
+	public PlayingStrategy getStrategy() {
+		return strategy;
+	}
+
+	public void setStrategy(PlayingStrategy strategy) {
+		this.strategy = strategy;
+	}
 	
 }
