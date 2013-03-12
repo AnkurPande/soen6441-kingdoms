@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<gameInstance currentPlayerIndex="2">
-    <gameActionLog></gameActionLog>
+<gameInstance currentPlayerIndex="0">
     <players>
         <player name="Player1">
             <rank1Castles>
@@ -23,7 +22,7 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile type="RESOURCES" value="2"/>
+                <tile value="0"/>
             </playerTiles>
         </player>
         <player name="Player2">
@@ -47,7 +46,7 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile type="RESOURCES" value="6"/>
+                <tile value="0"/>
             </playerTiles>
         </player>
         <player name="Player3">
@@ -71,7 +70,7 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile type="RESOURCES" value="2"/>
+                <tile value="0"/>
             </playerTiles>
         </player>
         <player name="Player4">
@@ -95,7 +94,7 @@
                 <coin material="GOLD" value="50"/>
             </playerCoins>
             <playerTiles>
-                <tile type="GOLDMINE" value="0"/>
+                <tile value="0"/>
             </playerTiles>
         </player>
     </players>
@@ -142,25 +141,25 @@
         </placeOnBoard>
     </gameBoard>
     <tilebank>
-        <tile type="WIZARD" value="0"/>
-        <tile type="RESOURCES" value="3"/>
-        <tile type="HAZARD" value="-4"/>
-        <tile type="HAZARD" value="-1"/>
-        <tile type="RESOURCES" value="1"/>
-        <tile type="RESOURCES" value="6"/>
-        <tile type="HAZARD" value="-6"/>
-        <tile type="HAZARD" value="-2"/>
-        <tile type="MOUNTAIN" value="0"/>
-        <tile type="RESOURCES" value="3"/>
-        <tile type="RESOURCES" value="4"/>
-        <tile type="RESOURCES" value="5"/>
-        <tile type="RESOURCES" value="1"/>
-        <tile type="DRAGON" value="-6"/>
-        <tile type="RESOURCES" value="4"/>
-        <tile type="HAZARD" value="-3"/>
-        <tile type="HAZARD" value="-5"/>
-        <tile type="RESOURCES" value="5"/>
-        <tile type="MOUNTAIN" value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
+        <tile value="0"/>
     </tilebank>
     <coinBank>
         <coin material="COPPER" value="1"/>
@@ -218,13 +217,16 @@
         <coin material="GOLD" value="50"/>
         <coin material="GOLD" value="50"/>
         <coin material="GOLD" value="50"/>
+        <coin material="GOLD" value="50"/>
+        <coin material="GOLD" value="50"/>
+        <coin material="GOLD" value="50"/>
+        <coin material="GOLD" value="50"/>
         <coin material="GOLD" value="4"/>
         <coin material="GOLD" value="4"/>
         <coin material="GOLD" value="4"/>
         <coin material="GOLD" value="4"/>
     </coinBank>
     <currentEpoch currentEpochNo="1"/>
-    <emptyPlacesOnBoard>30</emptyPlacesOnBoard>
     <gameConfig>
         <NO_OF_PLAYERS>4</NO_OF_PLAYERS>
         <NO_OF_RANK1CASTLES_PER_PLAYER>2</NO_OF_RANK1CASTLES_PER_PLAYER>
@@ -264,6 +266,5 @@
         <VALUE_OF_DRAGON_TILES>-6</VALUE_OF_DRAGON_TILES>
         <VALUE_OF_GOLDMINE_TILES>0</VALUE_OF_GOLDMINE_TILES>
         <VALUE_OF_WIZARD_TILES>0</VALUE_OF_WIZARD_TILES>
-        <MAX_ITERATIONS_PER_EPOCH>1000</MAX_ITERATIONS_PER_EPOCH>
     </gameConfig>
 </gameInstance>

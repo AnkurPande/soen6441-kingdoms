@@ -34,7 +34,6 @@ public class GameInstance {
 	@XmlElementWrapper(name="gameBoard")
 	@XmlElement(name="placeOnBoard", nillable=true,defaultValue="")
 	public GameComponents[][] gameBoard;
-	private int emptyPlacesOnBoard;
 	
 	@XmlElementWrapper(name="tilebank")
 	@XmlElement(name="tile")
@@ -85,7 +84,7 @@ public class GameInstance {
 		giveFirstSetOfCoinsToPlayers();
 		
 		//Give each player a random first tile
-		assignOneSetOfTilesToPlayers();
+		assignFirstSetOfTilesToPlayers();
 		
 		//Initialize the game board
 		initGameBoard();
@@ -170,14 +169,13 @@ public class GameInstance {
 	/**
 	 * Method to initialize the the game board.
 	 */
-	public void initGameBoard(){
+	private void initGameBoard(){
 		//Initialize the game board to hold the game components
 		gameBoard = new GameComponents[gameConfig.NO_OF_COLS][gameConfig.NO_OF_ROWS];
 		
 		for(int i = 0; i < gameBoard.length; i++){
 			for(int j = 0; j < gameBoard[0].length; j++){
 				gameBoard[i][j] = new Placeholder();
-				emptyPlacesOnBoard++;
 			}
 		}
 	}
@@ -195,7 +193,7 @@ public class GameInstance {
 	 * Method to assign a new random tile to a player. 
 	 * This is done on the beginning of a new game.
 	 */
-	public void assignOneSetOfTilesToPlayers(){
+	private void assignFirstSetOfTilesToPlayers(){
 		for(int i = 0; i < players.length; i++){
 			Tile temp = tileBank.remove(0);
 			players[i].playerTiles.add(temp);
@@ -272,23 +270,6 @@ public class GameInstance {
 	 */
 	public void setGameConfig(Config gameConfig) {
 		this.gameConfig = gameConfig;
-	}
-	
-	public int getEmptyPlacesOnBoard() {
-		return emptyPlacesOnBoard;
-	}
-
-	public void setEmptyPlacesOnBoard(int emptyPlacesOnBoard) {
-		this.emptyPlacesOnBoard = emptyPlacesOnBoard;
-	}
-	
-	public int getPlayerIndexByColor(PlayerColor color){
-		for(int i = 0; i < players.length ; i++){
-			if(players[i].getPlayerColor() == color){
-				return i;
-			}
-		}
-		return -1;
 	}
 	
 	/**

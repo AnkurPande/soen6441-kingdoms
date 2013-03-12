@@ -72,10 +72,7 @@ public class Config{
 	public final int VALUE_OF_GOLDMINE_TILES = 0;
 	public final int VALUE_OF_WIZARD_TILES = 0;
 	//----------------------------------------------------------------------------
-	
-	public final int MAX_ITERATIONS_PER_EPOCH = 1000;
-	//----------------------------------------------------------------------------
-	
+			
 	/**
 	 * Constructor specifying the number of players. The no of players determines the no of rank 1 castles in the game.
 	 * @param noOfPlayers The no of players in the game. 

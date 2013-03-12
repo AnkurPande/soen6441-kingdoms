@@ -1,18 +1,21 @@
 package controller;
 
 import java.io.File;
+import java.util.LinkedList;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import components.Castle;
-import components.GameComponents;
 import components.Placeholder;
 import components.Tile;
 
 import model.Config;
 import model.GameInstance;
+import model.GameInstance.PlayerColor;
+import model.Player;
 
 /**
  * The GameController class is for containing the game play logic and performing actions on the game state (GameInstance).
@@ -153,10 +156,8 @@ public class GameController {
 	
 	public boolean drawAndPlaceTile(int rowOfGameBoard, int colOfGameBoard){
 		
-		game.gameActionLog += "Player" + game.getCurrentPlayerIndex() + " requested to perform action 'draw and place tile' at row: " + rowOfGameBoard + ", col: " + colOfGameBoard + ".";
-		
 		if(!isGameBoardPlaceValidAndVacant(rowOfGameBoard, colOfGameBoard)){
-			game.gameActionLog += "Action 'draw and place tile' failed due to specified location on game board isn't valid or isn't vacant.";
+			game.gameActionLog += "Action Draw and Place Tile failed due to specified location on game board isn't valid or isn't vacant.";
 			return false;
 		}
 		
@@ -164,12 +165,11 @@ public class GameController {
 		try {
 			tileToPlace = drawTile();
 		} catch (Exception e) {
-			game.gameActionLog += "Action 'draw and place tile' failed - tile bank has no more tiles.";
+			game.gameActionLog += "Action Draw and Place Tile failed - tile bank has no more tiles.";
 			return false;
 		}
 		
-		placeComponentOnGameBoard(tileToPlace,rowOfGameBoard,colOfGameBoard);
-		game.gameActionLog += "Player" + game.getCurrentPlayerIndex() + " request to perform action 'draw and place tile' succeeded.";
+		game.gameBoard[colOfGameBoard][rowOfGameBoard] = tileToPlace;
 		return true;
 	}
 	
@@ -183,29 +183,25 @@ public class GameController {
 	}
 	
 	public boolean placeFirstTile(int playerIndex, int rowOfGameBoard, int colOfGameBoard ){
-		
-		game.gameActionLog += "Player" + game.getCurrentPlayerIndex() + " requested to perform action 'place first tile' at row: " + rowOfGameBoard + ", col: " + colOfGameBoard + ".";
-		
 		if(!isValidPlayerIndex(playerIndex)){
-			game.gameActionLog += "Action 'place first tile' failed due to invalid player index.";
+			game.gameActionLog += "Action Place First Tile failed due to invalid player index.";
 			return false;
 		}
 		
 		Tile playersFirstTile = null;
 		if(!hasPlayerFirstTile(playerIndex)){
-			game.gameActionLog += "Action 'place first tile' failed as player's first tile is already placed.";			
+			game.gameActionLog += "Action Place First Tile failed as player's first tile is already placed.";			
 			return false;
 		}
 		
 		playersFirstTile = game.players[playerIndex].playerTiles.remove(0);
-		placeComponentOnGameBoard(playersFirstTile,rowOfGameBoard,colOfGameBoard);
-		game.gameActionLog += "Player" + game.getCurrentPlayerIndex() + " request to perform action 'place first tile' succeeded.";
+		game.gameBoard[colOfGameBoard][rowOfGameBoard] = playersFirstTile;
 		return true;
 	}
 	
 	private boolean hasPlayerFirstTile(int playerIndex){
 		if(!isValidPlayerIndex(playerIndex)){
-			game.gameActionLog += "Action 'check if player has first tile' failed due to invalid player index.";
+			game.gameActionLog += "Action Has Player First Tile failed due to invalid player index.";
 			return false;
 		}
 		
@@ -217,21 +213,18 @@ public class GameController {
 	}
 	
 	public boolean placeCastle(int playerIndex, Castle.CastleRank rankOfCastle, int rowOfGameBoard, int colOfGameBoard){
-		
-		game.gameActionLog += "Player" + game.getCurrentPlayerIndex() + " requested to perform action 'place castle' at row: " + rowOfGameBoard + ", col: " + colOfGameBoard + ".";
-		
 		if(!isValidPlayerIndex(playerIndex)){
-			game.gameActionLog += "Action 'place castle' failed due to invalid player.";
+			game.gameActionLog += "Action Place Castle failed due to invalid player.";
 			return false;
 		}
 		
 		if(!hasPlayerCastlesInHand(playerIndex, rankOfCastle)){
-			game.gameActionLog += "Action 'place castle' failed due to invalid castle rank or player has no more of castles of specified rank.";
+			game.gameActionLog += "Action Place Castle failed due to invalid castle rank or player has no more of castles of specified rank.";
 			return false;
 		}
 		
 		if(!isGameBoardPlaceValidAndVacant(rowOfGameBoard, colOfGameBoard)){
-			game.gameActionLog += "Action 'place castle' failed due to specified location on game board isn't valid or isn't vacant.";
+			game.gameActionLog += "Action Place Castle failed due to specified location on game board isn't valid or isn't vacant.";
 			return false;
 		}
 		
@@ -249,8 +242,7 @@ public class GameController {
 			castleToPlace = game.players[playerIndex].rank4Castles.remove(0);
 		}
 		
-		placeComponentOnGameBoard(castleToPlace,rowOfGameBoard,colOfGameBoard);
-		game.gameActionLog += "Player" + game.getCurrentPlayerIndex() + " request to perform action 'place castle' succeeded.";
+		game.gameBoard[colOfGameBoard][rowOfGameBoard] = castleToPlace;
 		
 		return true;
 	}
@@ -297,150 +289,175 @@ public class GameController {
 		return true;
 	}
 	
-	private void placeComponentOnGameBoard(GameComponents gc, int row, int col){
-		game.gameBoard[col][row] = gc;
-		game.setEmptyPlacesOnBoard(game.getEmptyPlacesOnBoard()-1);
-	}
 	
-	public void playOneEpoch(){
-
-		int currentPlayerIndex = game.getCurrentPlayerIndex();
-		int noOfPlayers = game.players.length;
+	public void createList(){
+		LinkedList list = new LinkedList();
+		LinkedList sublist1 = new LinkedList();
+		LinkedList sublist2 = new LinkedList();
+		int index =0 ;	
 		
-		boolean loopCondition = true;
-		int iteration = 0;
-		
-		int currentEpochNo = game.getCurrentEpoch().getCurrentEpochNo();
-		
-		game.gameActionLog += "Starting Epoch No:" + currentEpochNo + ".";
-		
-		while(loopCondition){
-			PlayingStrategy strategy = getPlayerStrategy(currentPlayerIndex);
-			strategy.selectAndMakeMove(this);
+		for(int i = 0; i<=game.gameBoard[0].length; i++){
 			
-			currentPlayerIndex = (++currentPlayerIndex)%noOfPlayers;
-			game.setCurrentPlayerIndex(currentPlayerIndex);
-			
-			game.gameActionLog += "Empty spaces on board:" + game.getEmptyPlacesOnBoard() + ".";
-			iteration++;
-			if(game.getEmptyPlacesOnBoard() <= 0 || iteration > game.getGameConfig().MAX_ITERATIONS_PER_EPOCH){
-				loopCondition = false;
-			}
-		}
-		
-		game.getCurrentEpoch().setCurrentEpochNo(++currentEpochNo);
-	}
-		
-	public void playEpoch(int epochNoToPlay){
-		int currentEpochNo = game.getCurrentEpoch().getCurrentEpochNo();
-		
-		if(currentEpochNo == epochNoToPlay){
-			playOneEpoch();
-		}
-		else
-		{
-			game.gameActionLog += "Can't start epoch no " + epochNoToPlay +" as games current epoch is not the same as requested epoch to play - current epoch no is:" + currentEpochNo + ".";
-		}
-	}
-	
-	public void playAllEpochs(){
-		playEpoch(1);
-		resetGameAtEpochEnd();
-		playEpoch(2);
-		resetGameAtEpochEnd();
-		playEpoch(3);
-		
-	}
-	
-	public void resetGameAtEpochEnd() {
-		resetCastles();
-		resetTiles();
-		game.initGameBoard();
-	}	
-
-	private void resetCastles() {
-		
-		for(int i = 0; i < game.gameBoard.length; i++){
-			for(int j = 0; j < game.gameBoard[0].length; j++){
-				if(game.gameBoard[i][j] instanceof Castle){
-					
-					Castle tempCastle = (Castle) game.gameBoard[i][j];
-					if(tempCastle.getRank() == Castle.CastleRank.ONE){
-						int index = game.getPlayerIndexByColor(tempCastle.getColor());
-						game.players[index].rank1Castles.add(tempCastle);
-					}
-					
-					game.gameBoard[i][j] = new Placeholder();
+				if(game.gameBoard[0][i] instanceof Tile){
+					Tile tile = (Tile) game.gameBoard[0][i];
+						if (tile.getType() == Tile.TileType.MOUNTAIN){
+						index = i; 
+						}
+						break;
 				}
-			}
-		}
-	}
-	
-	private void resetTiles() {
-		for(int i = 0; i < game.gameBoard.length; i++){
-			for(int j = 0; j < game.gameBoard[0].length; j++){
-				if(game.gameBoard[i][j] instanceof Tile){
-					Tile tempTile = (Tile) game.gameBoard[i][j];
-					game.tileBank.add(tempTile);
-					
-					game.gameBoard[i][j] = new Placeholder();
-				}
-			}
-		}
-		
-		GameInstance.shuffleTileBank(game.tileBank);
-		game.assignOneSetOfTilesToPlayers();
-	}
-
-	private PlayingStrategy getPlayerStrategy(int playerIndex){
-		switch(playerIndex){
-			case 0:	return new PlayingStrategyRandom();
-			case 1: return new PlayingStrategyMin();
-			case 2: return new PlayingStrategyMax();
-			case 3: return new PlayingStrategyTryOneByOne();
-			default: return null;
 		}		
+				
+		if(!(index == 0)){
+			for(int j=0; j<index; j++){
+				sublist1.add(game.gameBoard[0][j]); 
+			}
+			for(int j=index; j<=game.gameBoard[0].length; j++ ){
+				sublist2.add(game.gameBoard[0][j]);
+			}
+		}
+		else {
+			for(int j = 0; j<=game.gameBoard[0].length; j++){
+			list.add(j, game.gameBoard[0][j] );
+			}
+		}	
+		
+	}		
+			
+		
+	
+	public int calculateScore(LinkedList list){
+		
+		int RedPlayerCastleValue = 0;
+		int YellowPlayerCastleValue = 0;
+		int BluePlayerCastleValue = 0;
+		int GreenPlayerCastleValue = 0;
+		int score = 0;
+		int rankValue = 0;
+		
+		for(int i = 0; i<=list.size();i++){
+						
+			if(list.get(i) instanceof Castle){
+				Castle castle = (Castle)list.get(i);
+				Castle.CastleRank rank = castle.getRank();
+				
+				if(!(i == 0 || i == list.size() )){
+					if(list.get(i-1) == Tile.TileType.WIZARD || list.get(i+1) == Tile.TileType.WIZARD)
+					{
+						rankValue = getRankOfCastle(rank) + 1;
+					}
+					else
+					{
+						rankValue = getRankOfCastle(rank);
+					}
+				}
+				else if(i == 0) 
+				{
+					if(list.get(i+1) == Tile.TileType.WIZARD)
+					{
+						rankValue = getRankOfCastle(rank) + 1;
+					}
+					else
+					{
+						rankValue = getRankOfCastle(rank);
+					}
+				}
+				else if(i == list.size())
+				{
+					if(list.get(i-1) == Tile.TileType.WIZARD)
+					{
+						rankValue = getRankOfCastle(rank) + 1;
+					}
+					else
+					{
+						rankValue = getRankOfCastle(rank);
+					}
+				}
+				
+				if(castle.getColor() == GameInstance.PlayerColor.RED){
+					RedPlayerCastleValue = RedPlayerCastleValue + rankValue;
+				}
+				else if(castle.getColor() == GameInstance.PlayerColor.YELLOW){
+					YellowPlayerCastleValue = YellowPlayerCastleValue + rankValue;
+				}
+				else if(castle.getColor() == GameInstance.PlayerColor.BLUE){
+					BluePlayerCastleValue = BluePlayerCastleValue + rankValue;
+				}
+				else if(castle.getColor() == GameInstance.PlayerColor.GREEN){
+					GreenPlayerCastleValue = GreenPlayerCastleValue + rankValue;
+				}
+			}
+			
+		}
+		return score;
 	}
 	
-	protected int[] nextVacantSpaceOnBoard(){
-		int col = -1, row = -1;
+	private int getRankOfCastle(Castle.CastleRank r){
+		Castle.CastleRank rank = r;
+		int rankValue = 0;
+		switch(rank){
+		case ONE: rankValue = 1;
+			break;
+		case TWO: rankValue = 2;
+			break;
+		case THREE: rankValue = 3;
+			break;
+		case FOUR: rankValue = 4;
+			break;
+		}
 		
-		outerloop:
-		for(int i = 0; i < game.gameBoard.length; i++){
-			for(int j = 0; j < game.gameBoard[0].length; j++){
-				if(game.gameBoard[i][j] instanceof Placeholder){
-					col = i;
-					row = j;
-					break outerloop;
-				}
+		return rankValue;	
+	}
+	
+	public int calculateResources(LinkedList list){
+		int resourceTotal = 0;
+		for(int i=0; i<=list.size(); i++)
+		{
+			if(list.get(i) == Tile.TileType.DRAGON)
+			{
+				break;
+			}
+			else if(list.get(i) == Tile.TileType.RESOURCES)
+			{
+				Tile tile = (Tile) list.get(i);
+				resourceTotal = resourceTotal + tile.getValue();
+			}	
+			
+		}
+		return resourceTotal;
+	}
+	
+	public int calculateHazards(LinkedList list){
+		int hazardTotal = 0;
+		for(int i=0; i<=list.size(); i++)
+		{
+			 if(list.get(i) == Tile.TileType.HAZARD)
+			 {
+				Tile tile = (Tile) list.get(i);
+				hazardTotal = hazardTotal + tile.getValue();
+			 }	
+			
+		}
+		return hazardTotal;
+	}
+	
+	public int calculateBaseValue(int resourceTotal, int hazardTotal, LinkedList list){
+		int resource = resourceTotal;
+		int hazard = hazardTotal;
+		int baseValue = 0;
+		for(int i=0; i<= list.size(); i++){
+			if(list.get(i) == Tile.TileType.GOLDMINE)
+			{
+				resource = 2*resource;
+				hazard = 2*hazard;
+				baseValue = resource + hazard;
+				break;
+			}
+			else 
+			{
+				baseValue = resource + hazard;
 			}
 		}
 		
-		return new int[]{row,col};
-	}
-	
-	protected Castle.CastleRank nextAvailableCastleRank(int playerIndex){
-		if(!isValidPlayerIndex(playerIndex)){
-			game.gameActionLog += "Action 'getNextAvailableCastleRank' failed due to invalid player.";
-			return null;
-		}
-		
-		if(game.players[playerIndex].rank1Castles.size() > 0){
-			return Castle.CastleRank.ONE;
-		}
-		
-		if(game.players[playerIndex].rank2Castles.size() > 0){
-			return Castle.CastleRank.TWO;
-		}
-		
-		if(game.players[playerIndex].rank3Castles.size() > 0){
-			return Castle.CastleRank.THREE;
-		}
-		
-		if(game.players[playerIndex].rank4Castles.size() > 0){
-			return Castle.CastleRank.FOUR;
-		}
-		
-		return null;
+		return baseValue;
 	}
 }
