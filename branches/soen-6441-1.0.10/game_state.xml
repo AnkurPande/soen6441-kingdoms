@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gameInstance currentPlayerIndex="0">
+    <gameConfig>
+        <NO_OF_PLAYERS>4</NO_OF_PLAYERS>
+        <NO_OF_RANK1CASTLES_PER_PLAYER>4</NO_OF_RANK1CASTLES_PER_PLAYER>
+        <NO_OF_RANK2CASTLES_PER_PLAYER>3</NO_OF_RANK2CASTLES_PER_PLAYER>
+        <NO_OF_RANK3CASTLES_PER_PLAYER>2</NO_OF_RANK3CASTLES_PER_PLAYER>
+        <NO_OF_RANK4CASTLES_PER_PLAYER>1</NO_OF_RANK4CASTLES_PER_PLAYER>
+        <NO_OF_ROWS>6</NO_OF_ROWS>
+        <NO_OF_COLS>5</NO_OF_COLS>
+        <BOARD_AREA_COLOR>#000000</BOARD_AREA_COLOR>
+        <BOARD_AREA_FIELD_COLOR1>#E0E0E0</BOARD_AREA_FIELD_COLOR1>
+        <BOARD_AREA_FIELD_COLOR2>#CCCCFF</BOARD_AREA_FIELD_COLOR2>
+        <SCORING_AREA_COLOR>#C0C0C0</SCORING_AREA_COLOR>
+        <PLAYER_INFO_AREA_COLOR>#808080</PLAYER_INFO_AREA_COLOR>
+        <NO_OF_COPPER_COINS_VAL1>19</NO_OF_COPPER_COINS_VAL1>
+        <COPPER_COINS_VAL1_VAL>1</COPPER_COINS_VAL1_VAL>
+        <NO_OF_COPPER_COINS_VAL5>12</NO_OF_COPPER_COINS_VAL5>
+        <COPPER_COINS_VAL5_VAL>5</COPPER_COINS_VAL5_VAL>
+        <NO_OF_SILVER_COINS>20</NO_OF_SILVER_COINS>
+        <SILVER_COINS_VAL>10</SILVER_COINS_VAL>
+        <NO_OF_GOLD_COINS_VAL50>8</NO_OF_GOLD_COINS_VAL50>
+        <GOLD_COINS_VAL50_VAL>50</GOLD_COINS_VAL50_VAL>
+        <NO_OF_GOLD_COINS_VAL100>4</NO_OF_GOLD_COINS_VAL100>
+        <GOLD_COINS_VAL100_VAL>4</GOLD_COINS_VAL100_VAL>
+        <NO_OF_RESOURCE_TILES>12</NO_OF_RESOURCE_TILES>
+        <NO_OF_HAZARD_TILES>6</NO_OF_HAZARD_TILES>
+        <NO_OF_MOUNTAIN_TILES>2</NO_OF_MOUNTAIN_TILES>
+        <NO_OF_DRAGON_TILES>1</NO_OF_DRAGON_TILES>
+        <NO_OF_GOLDMINE_TILES>1</NO_OF_GOLDMINE_TILES>
+        <NO_OF_WIZARD_TILES>1</NO_OF_WIZARD_TILES>
+    </gameConfig>
+    <players>
+        <player name="Player1" score="0">
+            <rank1Castles>
+                <castle color="RED" rank="ONE"/>
+                <castle color="RED" rank="ONE"/>
+                <castle color="RED" rank="ONE"/>
+                <castle color="RED" rank="ONE"/>
+            </rank1Castles>
+            <rank2Castles>
+                <castle color="RED" rank="TWO"/>
+                <castle color="RED" rank="TWO"/>
+                <castle color="RED" rank="TWO"/>
+            </rank2Castles>
+            <rank3Castles>
+                <castle color="RED" rank="THREE"/>
+                <castle color="RED" rank="THREE"/>
+            </rank3Castles>
+            <rank4Castles>
+                <castle color="RED" rank="FOUR"/>
+            </rank4Castles>
+            <playerCoins>
+                <coin material="GOLD" value="50"/>
+            </playerCoins>
+            <playerTiles>
+                <tile type="RESOURCES"/>
+            </playerTiles>
+        </player>
+        <player name="Player2" score="0">
+            <rank1Castles>
+                <castle color="YELLOW" rank="ONE"/>
+                <castle color="YELLOW" rank="ONE"/>
+                <castle color="YELLOW" rank="ONE"/>
+                <castle color="YELLOW" rank="ONE"/>
+            </rank1Castles>
+            <rank2Castles>
+                <castle color="YELLOW" rank="TWO"/>
+                <castle color="YELLOW" rank="TWO"/>
+                <castle color="YELLOW" rank="TWO"/>
+            </rank2Castles>
+            <rank3Castles>
+                <castle color="YELLOW" rank="THREE"/>
+                <castle color="YELLOW" rank="THREE"/>
+            </rank3Castles>
+            <rank4Castles>
+                <castle color="YELLOW" rank="FOUR"/>
+            </rank4Castles>
+            <playerCoins>
+                <coin material="GOLD" value="50"/>
+            </playerCoins>
+            <playerTiles>
+                <tile type="WIZARD"/>
+            </playerTiles>
+        </player>
+        <player name="Player3" score="0">
+            <rank1Castles>
+                <castle color="BLUE" rank="ONE"/>
+                <castle color="BLUE" rank="ONE"/>
+                <castle color="BLUE" rank="ONE"/>
+                <castle color="BLUE" rank="ONE"/>
+            </rank1Castles>
+            <rank2Castles>
+                <castle color="BLUE" rank="TWO"/>
+                <castle color="BLUE" rank="TWO"/>
+                <castle color="BLUE" rank="TWO"/>
+            </rank2Castles>
+            <rank3Castles>
+                <castle color="BLUE" rank="THREE"/>
+                <castle color="BLUE" rank="THREE"/>
+            </rank3Castles>
+            <rank4Castles>
+                <castle color="BLUE" rank="FOUR"/>
+            </rank4Castles>
+            <playerCoins>
+                <coin material="GOLD" value="50"/>
+            </playerCoins>
+            <playerTiles>
+                <tile type="RESOURCES"/>
+            </playerTiles>
+        </player>
+        <player name="Player4" score="0">
+            <rank1Castles>
+                <castle color="GREEN" rank="ONE"/>
+                <castle color="GREEN" rank="ONE"/>
+                <castle color="GREEN" rank="ONE"/>
+                <castle color="GREEN" rank="ONE"/>
+            </rank1Castles>
+            <rank2Castles>
+                <castle color="GREEN" rank="TWO"/>
+                <castle color="GREEN" rank="TWO"/>
+                <castle color="GREEN" rank="TWO"/>
+            </rank2Castles>
+            <rank3Castles>
+                <castle color="GREEN" rank="THREE"/>
+                <castle color="GREEN" rank="THREE"/>
+            </rank3Castles>
+            <rank4Castles>
+                <castle color="GREEN" rank="FOUR"/>
+            </rank4Castles>
+            <playerCoins>
+                <coin material="GOLD" value="50"/>
+            </playerCoins>
+            <playerTiles>
+                <tile type="HAZARD"/>
+            </playerTiles>
+        </player>
+    </players>
+    <gameBoard>
+        <placeOnBoard>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="RED" rank="ONE"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+        </placeOnBoard>
+        <placeOnBoard>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+        </placeOnBoard>
+        <placeOnBoard>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+        </placeOnBoard>
+        <placeOnBoard>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="BLUE" rank="TWO"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="HAZARD"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="GREEN" rank="TWO"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+        </placeOnBoard>
+        <placeOnBoard>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="placeholder"/>
+        </placeOnBoard>
+    </gameBoard>
+    <tilebank>
+        <tile type="RESOURCES"/>
+        <tile type="RESOURCES"/>
+        <tile type="RESOURCES"/>
+        <tile type="RESOURCES"/>
+        <tile type="MOUNTAIN"/>
+        <tile type="RESOURCES"/>
+        <tile type="RESOURCES"/>
+        <tile type="HAZARD"/>
+        <tile type="RESOURCES"/>
+        <tile type="RESOURCES"/>
+        <tile type="RESOURCES"/>
+        <tile type="GOLDMINE"/>
+        <tile type="DRAGON"/>
+        <tile type="MOUNTAIN"/>
+        <tile type="HAZARD"/>
+        <tile type="HAZARD"/>
+        <tile type="RESOURCES"/>
+        <tile type="HAZARD"/>
+        <tile type="HAZARD"/>
+    </tilebank>
+    <coinBank>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="GOLD" value="50"/>
+        <coin material="GOLD" value="50"/>
+        <coin material="GOLD" value="50"/>
+        <coin material="GOLD" value="50"/>
+        <coin material="GOLD" value="50"/>
+        <coin material="GOLD" value="50"/>
+        <coin material="GOLD" value="50"/>
+        <coin material="GOLD" value="50"/>
+        <coin material="GOLD" value="4"/>
+        <coin material="GOLD" value="4"/>
+        <coin material="GOLD" value="4"/>
+        <coin material="GOLD" value="4"/>
+    </coinBank>
+    <currentEpoch currentEpochNo="1"/>
+</gameInstance>
