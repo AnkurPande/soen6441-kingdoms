@@ -39,7 +39,7 @@ public class PlayingStrategyRandom implements PlayingStrategy {
 		}
 		
 		if(!moveAttempt){
-			gc.getGame().gameActionLog += "Player" + gc.getGame().getCurrentPlayerIndex() + "could not make any moves. Passing on to the next player.";
+			gc.getGame().gameActionLog += "Player " + gc.getGame().getCurrentPlayerIndex() + " could not make any moves - passing on to the next player.";
 		}
 
 	}

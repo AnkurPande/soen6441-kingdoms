@@ -314,9 +314,10 @@ public class GameController {
 		
 		game.gameActionLog += "Starting Epoch No:" + currentEpochNo + ".";
 		
+		setPlayerStrategies();
+		
 		while(loopCondition){
-			PlayingStrategy strategy = getPlayerStrategy(currentPlayerIndex);
-			strategy.selectAndMakeMove(this);
+			game.players[currentPlayerIndex].getStrategy().selectAndMakeMove(this);
 			
 			currentPlayerIndex = (++currentPlayerIndex)%noOfPlayers;
 			game.setCurrentPlayerIndex(currentPlayerIndex);
@@ -327,8 +328,6 @@ public class GameController {
 				loopCondition = false;
 			}
 		}
-		
-		game.getCurrentEpoch().setCurrentEpochNo(++currentEpochNo);
 	}
 		
 	public void playEpoch(int epochNoToPlay){
@@ -353,10 +352,16 @@ public class GameController {
 	}
 	
 	public void resetGameAtEpochEnd() {
+		incrementEpoch();
 		resetCastles();
 		resetTiles();
 		game.initGameBoard();
 	}	
+
+	private void incrementEpoch() {
+		int currentEpochNo = game.getCurrentEpoch().getCurrentEpochNo();
+		game.getCurrentEpoch().setCurrentEpochNo(++currentEpochNo);		
+	}
 
 	private void resetCastles() {
 		
@@ -398,8 +403,14 @@ public class GameController {
 			case 1: return new PlayingStrategyMin();
 			case 2: return new PlayingStrategyMax();
 			case 3: return new PlayingStrategyTryOneByOne();
-			default: return null;
+			default:return null;
 		}		
+	}
+	
+	private void setPlayerStrategies(){
+		for(int i=  0; i <game.players.length ; i++){
+			game.players[i].setStrategy(getPlayerStrategy(i));
+		}
 	}
 	
 	protected int[] nextVacantSpaceOnBoard(){

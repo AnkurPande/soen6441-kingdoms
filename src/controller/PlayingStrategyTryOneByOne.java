@@ -30,7 +30,7 @@ public class PlayingStrategyTryOneByOne implements PlayingStrategy {
 		}
 		
 		if(!placeFirstTileAttempt && !drawAndPlaceTileAttempt && !placeCastleAttempt){
-			gc.getGame().gameActionLog += "Player" + currentPlayerIndex + " could not make any moves. Passing on to the next player.";
+			gc.getGame().gameActionLog += "Player " + currentPlayerIndex + " could not make any moves - passing on to the next player.";
 		}
 
 	}
