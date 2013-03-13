@@ -19,7 +19,7 @@ public class GameRunner {
 		
 		GameController gameController = new GameController(conf);
 		
-		gameController.loadAndSetGame("test_file1.xml");
+//		gameController.loadAndSetGame("test_file1.xml");
 		
 		gameController.playEpoch(1);
 		GameView gv = new GameView(gameController.getGame());

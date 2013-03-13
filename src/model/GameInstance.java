@@ -1,5 +1,9 @@
 package model;
 
+import java.awt.List;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Vector;
@@ -43,6 +47,9 @@ public class GameInstance {
 	@XmlElementWrapper(name="coinBank")
 	@XmlElement(name="coin")
 	protected Vector<Coin> coinBank;
+	
+	private ArrayList<PropertyChangeListener> listeners = new ArrayList<PropertyChangeListener>();
+
 	
 	/**
 	 * Default constructor. Creates a blank by default.
@@ -255,6 +262,7 @@ public class GameInstance {
 	 * @param newPlayerIndex The new player index - change turn to this player.
 	 */
 	public void setCurrentPlayerIndex(int newPlayerIndex) {
+		notifyListeners(this, "currentPlayerIndex", this.currentPlayerIndex, newPlayerIndex);
 		this.currentPlayerIndex = newPlayerIndex;
 	}
 	
@@ -290,6 +298,16 @@ public class GameInstance {
 		}
 		return -1;
 	}
+	
+	private void notifyListeners(Object object, String property, int oldPlayerIndex, int newPlayerIndex) {
+	    for (PropertyChangeListener name : listeners) {
+	      name.propertyChange(new PropertyChangeEvent(this, property, oldPlayerIndex, newPlayerIndex));
+	    }
+	  }
+
+	  public void addChangeListener(PropertyChangeListener newListener) {
+	    listeners.add(newListener);
+	  }
 	
 	/**
 	 * An enum to restrict the player colors.

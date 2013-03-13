@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -30,7 +32,7 @@ import components.GameComponents;
  * @author Team B
  *
  */
-public class GameView extends JFrame {
+public class GameView extends JFrame implements PropertyChangeListener {
 
 	private static final long serialVersionUID = 1L;
 	private BoardArea board;
@@ -71,6 +73,8 @@ public class GameView extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
         pack();
+        
+        gi.addChangeListener(this);
     }
 	
 	/**
@@ -90,6 +94,13 @@ public class GameView extends JFrame {
 		this.gameConfig= game.getGameConfig();
 	}
     
+
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		System.out.println("Changed property: " + event.getPropertyName() + " old:"
+				+ event.getOldValue() + " new: " + event.getNewValue());
+	}
+	  
     /**
      * This class defines the board area of the game.
      * This is the 5 by 6 playing area of the game window.
