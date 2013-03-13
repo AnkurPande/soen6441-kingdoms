@@ -21,8 +21,13 @@ import javax.swing.TransferHandler;
 
 import model.Config;
 import model.GameInstance;
+import model.GameInstance.PlayerColor;
 
+import components.Castle;
+import components.Castle.CastleRank;
 import components.GameComponents;
+import components.Tile;
+import components.Tile.TileType;
 
 /**
  * The GameView class displays the game on the screen in graphical format.
@@ -174,13 +179,44 @@ public class GameView extends JFrame {
         	
         	String iconFile = gc.displayIcon();
         	if(iconFile == gc.getClass().getName()){
-        		this.setText(iconFile);
-        	}
-        	else{
-        		ImageIcon icon = new ImageIcon(iconFile); 
-        		this.setIcon(icon);
+        		if(gc instanceof components.Castle){
+        			iconFile = calculateCastleIconFileName(gc);
+        		}
+        		
+        		if(gc instanceof components.Tile){
+        			iconFile = calculateTileIconFileName(gc);
+        			System.out.println(iconFile);
+        		}
         	}
         	
+        	ImageIcon icon = new ImageIcon(iconFile); 
+    		this.setIcon(icon);
+        	
+        }
+        
+        private String calculateCastleIconFileName(GameComponents gc){
+        	Castle castle = (Castle)gc;
+			PlayerColor color = castle.getColor();
+			CastleRank rank = castle.getRank();
+			
+			String iconFileName = "images/castle_" + color + "_rank_" + rank + ".png";
+			return iconFileName.toLowerCase();
+        }
+        
+        private String calculateTileIconFileName(GameComponents gc){
+        	Tile tile = (Tile)gc;
+			TileType type = tile.getType();
+			int value = Math.abs(tile.getValue());
+			
+			String iconFileName = "";
+			if(type == TileType.RESOURCES || type == TileType.HAZARD){
+				iconFileName = "images/" + type + "_" + value + ".png";
+			}
+			else{
+				iconFileName = "images/" + type + ".png";
+			}
+			
+			return iconFileName.toLowerCase();
         }
 
 		@Override
@@ -315,6 +351,7 @@ public class GameView extends JFrame {
 			JLabel[] rank3Label = new JLabel[NO_OF_PLAYER];
 			JLabel[] rank4Label = new JLabel[NO_OF_PLAYER];
 			JLabel[] coinsLabel = new JLabel[NO_OF_PLAYER];
+			JLabel[] tileLabel = new JLabel[NO_OF_PLAYER];
 			
 			JLabel[] noOfRank1Castles = new JLabel[NO_OF_PLAYER];
 			JLabel[] noOfRank2Castles = new JLabel[NO_OF_PLAYER];
@@ -327,7 +364,7 @@ public class GameView extends JFrame {
 			JLabel[] rank3Icon = new JLabel[NO_OF_PLAYER];
 			JLabel[] rank4Icon = new JLabel[NO_OF_PLAYER];
 			JLabel[] coinsIcon = new JLabel[NO_OF_PLAYER];
-			JLabel[] playerColor = new JLabel[NO_OF_PLAYER];
+			JLabel[] playerTiles = new JLabel[NO_OF_PLAYER];
 			
 			for (int i=0; i < NO_OF_PLAYER; i++){
 
@@ -337,11 +374,9 @@ public class GameView extends JFrame {
 				player[i].setBorder(BorderFactory.createLineBorder(Color.black));
 				player[i].setLayout(null);	
 
-				String playerNames = game.players[i].getName();
+				String playerNames = game.players[i].getName() + " :" + game.players[i].getPlayerColor();
 				playerName[i] = new JLabel(playerNames,JLabel.CENTER);
-				playerName[i].setBounds(10, 5, 60, 20);
-				playerColor[i] = new JLabel("game.players[i].playerColor");
-				playerColor[i].setBounds(70, 5, 60, 20);
+				playerName[i].setBounds(10, 5, 120, 20);
 
 				rank1Label[i] = new JLabel("Rank 1 Castles:", JLabel.CENTER);
 				rank1Label[i].setBounds(10, 50, 140, 20);
@@ -353,17 +388,38 @@ public class GameView extends JFrame {
 				rank4Label[i].setBounds(10, 125, 140, 20);
 				coinsLabel[i] = new JLabel("Value of Coins:", JLabel.CENTER);
 				coinsLabel[i].setBounds(15, 150, 140, 20);
+				tileLabel[i] = new JLabel("Player Tiles:", JLabel.CENTER);
+				tileLabel[i].setBounds(15, 175, 140, 20);
 
 				noOfRank1Castles[i] = new JLabel(Integer.toString(game.players[i].rank1Castles.size()));
 				noOfRank1Castles[i].setBounds(160, 50, 20, 20);
+				
 				noOfRank2Castles[i] = new JLabel(Integer.toString(game.players[i].rank2Castles.size()));
 				noOfRank2Castles[i].setBounds(160, 75, 20, 20);
+				
 				noOfRank3Castles[i] = new JLabel(Integer.toString(game.players[i].rank3Castles.size()));
 				noOfRank3Castles[i].setBounds(160, 100, 20, 20);
+				
 				noOfRank4Castles[i] = new JLabel(Integer.toString(game.players[i].rank4Castles.size()));
 				noOfRank4Castles[i].setBounds(160, 125, 20, 20);
+				
 				noOfCoins[i] = new JLabel(Integer.toString(game.players[i].playerCoins.firstElement().getValue()));
 				noOfCoins[i].setBounds(160, 150, 20, 20);
+				
+				String playerTileString = "";
+				for(int j = 0 ; j < game.players[j].playerTiles.size() ; j++){
+					playerTileString += game.players[i].playerTiles.get(j).getType().toString();
+					if(j > 0){
+						playerTileString += ",";
+					}
+				}
+				
+				if(playerTileString == ""){
+					playerTileString = "None/On Board";
+				}
+				
+				playerTiles[i] = new JLabel(playerTileString);
+				playerTiles[i].setBounds(160, 175, 100, 20);
 
 //				path = game.players[i].rank1Castles.firstElement().displayIcon();
 				icon = new ImageIcon(path);
@@ -417,6 +473,8 @@ public class GameView extends JFrame {
 				player[i].add(rank3Icon[i]);
 				player[i].add(rank4Icon[i]);
 				player[i].add(coinsIcon[i]);
+				player[i].add(tileLabel[i]);
+				player[i].add(playerTiles[i]);
 				
 			} 
 		 	   
