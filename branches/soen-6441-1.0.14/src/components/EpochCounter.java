@@ -41,7 +41,8 @@ public class EpochCounter extends GameComponents {
 	 * @param newEpochNo The epoch number to set to.
 	 */
 	public void setCurrentEpochNo(int newEpochNo) {
-		if(newEpochNo > 0 && newEpochNo <=3){ 
+		if(newEpochNo > 0 && newEpochNo <=3)//game divided into 3 rounds known as epoch counter
+		{ 
 			this.currentEpochNo = newEpochNo;
 		}
 		else{
