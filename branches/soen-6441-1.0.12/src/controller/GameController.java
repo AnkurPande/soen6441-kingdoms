@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.File;
+import java.util.LinkedList;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -453,5 +455,193 @@ public class GameController {
 		}
 		
 		return null;
+
+	}
+	
+	public void createList(){
+		LinkedList list = new LinkedList();
+		LinkedList sublist1 = new LinkedList();
+		LinkedList sublist2 = new LinkedList();
+		int index =0 ;	
+		
+		for(int i = 0; i<=game.gameBoard[0].length; i++){
+			
+				if(game.gameBoard[0][i] instanceof Tile){
+					Tile tile = (Tile) game.gameBoard[0][i];
+						if (tile.getType() == Tile.TileType.MOUNTAIN){
+						index = i; 
+						}
+						break;
+				}
+		}		
+				
+		if(!(index == 0)){
+			for(int j=0; j<index; j++){
+				sublist1.add(game.gameBoard[0][j]); 
+			}
+			for(int j=index; j<=game.gameBoard[0].length; j++ ){
+				sublist2.add(game.gameBoard[0][j]);
+			}
+		}
+		else {
+			for(int j = 0; j<=game.gameBoard[0].length; j++){
+			list.add(j, game.gameBoard[0][j] );
+			}
+		}	
+		
+	}		
+			
+		
+	
+	public int calculateScore(LinkedList list){
+		
+		int RedPlayerCastleValue = 0;
+		int YellowPlayerCastleValue = 0;
+		int BluePlayerCastleValue = 0;
+		int GreenPlayerCastleValue = 0;
+		int score = 0;
+		int rankValue = 0;
+		
+		for(int i = 0; i<=list.size();i++){
+						
+			if(list.get(i) instanceof Castle){
+				Castle castle = (Castle)list.get(i);
+				Castle.CastleRank rank = castle.getRank();
+				
+				if(!(i == 0 || i == list.size() )){
+					if(list.get(i-1) == Tile.TileType.WIZARD || list.get(i+1) == Tile.TileType.WIZARD)
+					{
+						rankValue = getRankOfCastle(rank) + 1;
+					}
+					else
+					{
+						rankValue = getRankOfCastle(rank);
+					}
+				}
+				else if(i == 0) 
+				{
+					if(list.get(i+1) == Tile.TileType.WIZARD)
+					{
+						rankValue = getRankOfCastle(rank) + 1;
+					}
+					else
+					{
+						rankValue = getRankOfCastle(rank);
+					}
+				}
+				else if(i == list.size())
+				{
+					if(list.get(i-1) == Tile.TileType.WIZARD)
+					{
+						rankValue = getRankOfCastle(rank) + 1;
+					}
+					else
+					{
+						rankValue = getRankOfCastle(rank);
+					}
+				}
+				
+				if(castle.getColor() == GameInstance.PlayerColor.RED){
+					RedPlayerCastleValue = RedPlayerCastleValue + rankValue;
+				}
+				else if(castle.getColor() == GameInstance.PlayerColor.YELLOW){
+					YellowPlayerCastleValue = YellowPlayerCastleValue + rankValue;
+				}
+				else if(castle.getColor() == GameInstance.PlayerColor.BLUE){
+					BluePlayerCastleValue = BluePlayerCastleValue + rankValue;
+				}
+				else if(castle.getColor() == GameInstance.PlayerColor.GREEN){
+					GreenPlayerCastleValue = GreenPlayerCastleValue + rankValue;
+				}
+			}
+			
+		}
+		return score;
+	}
+	
+	private int getRankOfCastle(Castle.CastleRank r){
+		Castle.CastleRank rank = r;
+		int rankValue = 0;
+		switch(rank){
+		case ONE: rankValue = 1;
+			break;
+		case TWO: rankValue = 2;
+			break;
+		case THREE: rankValue = 3;
+			break;
+		case FOUR: rankValue = 4;
+			break;
+		}
+		
+		return rankValue;	
+	}
+	
+	public int calculateResources(int index1, int index2){
+		int resourceTotal = 0;
+		
+		
+		int i =index1;
+			for(int j=i; j<=index2; j++){
+				if(game.gameBoard[i][j] instanceof Tile)
+				{
+					Tile tile = (Tile) game.gameBoard[i][j];
+					
+					if(tile.getType() == Tile.TileType.DRAGON)
+					{
+						break;
+					}
+					else if(tile.getType() == Tile.TileType.RESOURCES)
+					{
+						
+						resourceTotal = resourceTotal + tile.getValue();
+					}	
+				}
+			}
+		return resourceTotal;
+	}
+	
+	public int calculateHazards(int index1, int index2){
+		int hazardTotal = 0;
+		int i = index1;
+		for(int j=i; i<=index2; j++)
+		{
+			if(game.gameBoard[i][j] instanceof Tile){
+				Tile tile = (Tile) game.gameBoard[i][j];
+			if(tile.getType() == Tile.TileType.HAZARD)
+			 {
+				
+				hazardTotal = hazardTotal + tile.getValue();
+			 }	
+			}
+		}
+		return hazardTotal;
+	}
+	
+	public int calculateBaseValue( int index1, int index2){
+		
+		
+		int resource = calculateResources(index1,index2);
+		int hazard = calculateHazards(index1,index2);
+		int baseValue = 0;
+		int i =index1;
+		for(int j=i; j<= index2; j++){
+			
+			if(game.gameBoard[i][j] instanceof Tile)
+			{ 
+				Tile tile = (Tile) game.gameBoard[i][j];
+				if(tile.getType() == Tile.TileType.GOLDMINE){
+					resource = 2*resource;
+					hazard = 2*hazard;
+					baseValue = resource + hazard;
+					break;
+				}
+			}
+			else 
+			{
+				baseValue = resource + hazard;
+			}
+		}
+		
+		return baseValue;
 	}
 }
