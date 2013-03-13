@@ -167,6 +167,7 @@ public class Player{
 		this.name = name;
 	}
 	
+	@XmlAttribute
 	/**
 	 * Gets the player color.
 	 * 

@@ -19,11 +19,18 @@ public class GameRunner {
 		
 		GameController gameController = new GameController(conf);
 		
-		gameController.loadAndSetGame("test_file1.xml");
+		gameController.saveGame("test_file1.xml");
+		
+		//gameController.loadAndSetGame("test_file1.xml");
 		
 		gameController.playEpoch(1);
+		
+		
+		//gameController.saveGame("test_file2.xml");
+		
+		//gameController.resetGameAtEpochEnd();
+		
 		GameView gv = new GameView(gameController.getGame());
-		gameController.resetGameAtEpochEnd();
 		
 //		gameController.saveGame("test_file2.xml");
 //		
