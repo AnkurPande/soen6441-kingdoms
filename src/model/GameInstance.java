@@ -300,14 +300,14 @@ public class GameInstance {
 	}
 	
 	private void notifyListeners(Object object, String property, int oldPlayerIndex, int newPlayerIndex) {
-	    for (PropertyChangeListener name : listeners) {
-	      name.propertyChange(new PropertyChangeEvent(this, property, oldPlayerIndex, newPlayerIndex));
-	    }
-	  }
+		for (PropertyChangeListener prop : listeners) {
+			prop.propertyChange(new PropertyChangeEvent(this, property, oldPlayerIndex, newPlayerIndex));
+		}
+	}
 
-	  public void addChangeListener(PropertyChangeListener newListener) {
-	    listeners.add(newListener);
-	  }
+	public void addChangeListener(PropertyChangeListener newListener) {
+		listeners.add(newListener);
+	}
 	
 	/**
 	 * An enum to restrict the player colors.

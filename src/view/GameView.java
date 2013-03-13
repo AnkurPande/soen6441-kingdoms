@@ -19,6 +19,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 
 import model.Config;
@@ -99,6 +100,17 @@ public class GameView extends JFrame implements PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent event) {
 		System.out.println("Changed property: " + event.getPropertyName() + " old:"
 				+ event.getOldValue() + " new: " + event.getNewValue());
+		
+		SwingUtilities.updateComponentTreeUI(this);
+		this.invalidate();
+		this.revalidate();
+		this.repaint();
+		
+		this.board.invalidate();
+		this.board.revalidate();
+		this.board.repaint();
+		
+		this.board = new BoardArea();
 	}
 	  
     /**
