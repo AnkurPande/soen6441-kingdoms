@@ -586,7 +586,130 @@ public class GameController {
 			gold = false;
 			mountain = false;
 		}
+		
+		// Assign column wise values to double array board1 and board2	
+		
+		board1 = new int[noOfRows][noOfCols];
+		board2 =  new int[noOfRows][noOfCols];
+		System.out.println(noOfRows);
+		System.out.println(noOfCols);
+		for(int i =0; i< noOfRows; i++ ){
+			for(int j = 0 ; j < noOfCols; j++){
+				
+				if(game.gameBoard[j][i] instanceof components.Tile){
+					Tile tempTile = (Tile)game.gameBoard[j][i];
+					if(tempTile.getType() == Tile.TileType.MOUNTAIN){
+						divideCol = true;
+					}
+					if(divideCol){
+						board2[i][j] += tempTile.getValue();
+					}
+					else{
+						board1[i][j] += tempTile.getValue();
+					}
+					
+				}
+				System.out.println("==============Column Values=========");
+				System.out.println("Val at board1   :"+"("+i+j+")  "+board1[i][j]);
+				System.out.println("Val at board2   :"+"("+i+j+")  "+board2[i][j]);
+			}
+			divideCol =false;
+		}	
+			
+			//Check the dragon going column wise and nullify the resources relative to the
+			//position of mountain
+			
+			mountainRowIndex = 0;
+			dragonRowIndex = 0;
+			dragon = false;
+			mountain = false;
+			for(int i =0; i< noOfRows; i++ ){
+				for(int j = 0 ; j < noOfCols; j++){
+					
+					if(game.gameBoard[j][i] instanceof components.Tile){
+						Tile tile = (Tile)game.gameBoard[j][i];
+							if(tile.getType() == Tile.TileType.MOUNTAIN){
+								mountainRowIndex = i; 
+								mountain = true;
+							}
+						
+							if(tile.getType() == Tile.TileType.DRAGON){
+								dragonRowIndex = i;
+								dragon = true;
+							}
+						 
+							if(dragon){
+								if(mountain){
+									if(mountainRowIndex < dragonRowIndex){
+										nullifyBoardResources(board2,i, j);
+									}
+									else if(mountainRowIndex < dragonRowIndex){
+										nullifyBoardResources(board1,i, j);
+									}
+								}
+								else{
+									nullifyBoardResources(board1, i ,j);
+								}
+							}
+					}
+					System.out.println(dragon);
+					System.out.println("value at board1 at : ("+i+j+")  "+board1[i][j]);
+					System.out.println("value at board2 at : ("+i+j+")  "+board2[i][j]);
+				}
+				dragon = false;
+				mountain = false;
+			}
+			
+			//Calculate base value going column wise and checking the presence of goldmine tile in columns and double the values of resources and hazards
+			// relative to the position of mountain in the columns
+			
+			goldRowIndex = 0;
+			gold = false;
+			mountainRowIndex = 0;
+			mountain = false;
+			for(int i =0; i< noOfRows; i++ ){
+				for(int j = 0 ; j < noOfCols; j++){
+					
+					if(game.gameBoard[j][i] instanceof components.Tile){
+						Tile tile = (Tile)game.gameBoard[j][i];
+							if(tile.getType() == Tile.TileType.MOUNTAIN){
+								mountainRowIndex = i; 
+								mountain = true;
+							}
+						
+							if(tile.getType() == Tile.TileType.GOLDMINE){
+								goldRowIndex = i;
+								gold = true;
+							}
+						 
+							if(gold){
+								if(mountain){
+									if(mountainRowIndex < goldRowIndex){
+										colScores2[i] = doubleBaseValue(i,noOfCols, board1[j]);							}
+									else if(mountainRowIndex > goldRowIndex){
+										colScores1[i] = doubleBaseValue(i,noOfCols, board1[j]);
+									}
+								}
+								else{
+									colScores1[i] = doubleBaseValue(i,noOfCols, board1[j]);
+								}
+							}
+							else{
+								colScores1[i] += board1[i][j];
+								colScores2[i] += board2[i][j];
+							}
+					}
+					System.out.println(gold);
+					System.out.println("value at board1 at : ("+i+j+")  "+colScores1[i]);
+					System.out.println("value at board2 at : ("+i+j+")  "+colScores2[i]);
+				}
+				gold = false;
+				mountain = false;
+			}
+		
+
 	}
+	
 	
 	//	Nullify the resource values of board array rows and columns in the presence of Dragon tile.
 	private void nullifyBoardResources(int board[][], int i, int j){
