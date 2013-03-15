@@ -335,6 +335,7 @@ public class GameController {
 		
 		if(currentEpochNo == epochNoToPlay){
 			playOneEpoch();
+			calculateScore();
 		}
 		else
 		{
@@ -344,6 +345,7 @@ public class GameController {
 	
 	public void playAllEpochs(){
 		playEpoch(1);
+		calculateScore();
 		resetGameAtEpochEnd();
 		playEpoch(2);
 		resetGameAtEpochEnd();
@@ -454,4 +456,160 @@ public class GameController {
 		
 		return null;
 	}
+	
+	public void calculateScore(){
+		int noOfCols = game.gameBoard.length;
+		int noOfRows = game.gameBoard[0].length;
+		
+		int[] colScores1 = new int[noOfRows];
+		int[] colScores2 = new int[noOfRows];
+		
+		int[] rowScores1 = new int[noOfCols];
+		int[] rowScores2 = new int[noOfCols];
+		
+		boolean divideRow = false;
+		boolean divideCol = false;
+		
+		
+		// Assign row wise values to double array board1 and board2	
+		
+		int[][] board1 = new int[noOfCols][noOfRows];
+		int [][] board2 = new int[noOfCols][noOfRows];
+		for(int i = 0; i <game.gameBoard.length; i++){
+			for(int j =0; j<game.gameBoard[0].length; j++){
+				if(game.gameBoard[i][j] instanceof Tile) {
+					Tile tile = (Tile) game.gameBoard[i][j];
+					 if(tile.getType() == Tile.TileType.MOUNTAIN){
+						 divideRow = true;
+					}
+				
+					if(divideRow){
+						board2[i][j] = tile.getValue();
+					}
+					else{
+						board1[i][j] = tile.getValue();
+					}
+				}
+				System.out.println("Val at board1   :"+"("+i+j+")  "+board1[i][j]);
+				System.out.println("Val at board2   :"+"("+i+j+")  "+board2[i][j]);
+			}
+			divideRow = false;
+		}
+	
+		//Check the dragon going row wise and nullify the resources relative to the
+		//position of mountain
+		
+		int mountainRowIndex = 0;
+		int dragonRowIndex = 0;
+		boolean dragon = false;
+		boolean mountain = false;
+		for(int i = 0; i <game.gameBoard.length; i++){
+			for(int j =0; j<game.gameBoard[0].length; j++){
+				if(game.gameBoard[i][j] instanceof Tile) {
+					Tile tile = (Tile) game.gameBoard[i][j];
+						if(tile.getType() == Tile.TileType.MOUNTAIN){
+							mountainRowIndex = j; 
+							mountain = true;
+						}
+					
+						if(tile.getType() == Tile.TileType.DRAGON){
+							dragonRowIndex = j;
+							dragon = true;
+						}
+					 
+						if(dragon){
+							if(mountain){
+								if(mountainRowIndex < dragonRowIndex){
+									nullifyBoardResources(board2,i, j);
+								}
+								else if(mountainRowIndex < dragonRowIndex){
+									nullifyBoardResources(board1,i, j);
+								}
+							}
+							else{
+								nullifyBoardResources(board1, i ,j);
+							}
+						}
+				}
+				System.out.println(dragon);
+				System.out.println("value at board1 at : ("+i+j+")  "+board1[i][j]);
+				System.out.println("value at board2 at : ("+i+j+")  "+board2[i][j]);
+			}
+			dragon = false;
+			mountain = false;
+		}
+		
+		//Calculate base value going row wise and checking the presence of goldmine in rows and double the values of resources and hazards
+		// relative to the position of mountain in the rows
+		
+		int goldRowIndex = 0;
+		boolean gold = false;
+		mountainRowIndex = 0;
+		mountain = false;
+		for(int i = 0; i <game.gameBoard.length; i++){
+			for(int j =0; j<game.gameBoard[0].length; j++){
+				if(game.gameBoard[i][j] instanceof Tile) {
+					Tile tile = (Tile) game.gameBoard[i][j];
+						if(tile.getType() == Tile.TileType.MOUNTAIN){
+							mountainRowIndex = j; 
+							mountain = true;
+						}
+					
+						if(tile.getType() == Tile.TileType.GOLDMINE){
+							goldRowIndex = j;
+							gold = true;
+						}
+					 
+						if(gold){
+							if(mountain){
+								if(mountainRowIndex < goldRowIndex){
+									rowScores2[i] = doubleBaseValue(i,noOfRows, board1[i]);							}
+								else if(mountainRowIndex > goldRowIndex){
+									rowScores1[i] = doubleBaseValue(i,noOfRows, board1[i]);
+								}
+							}
+							else{
+								rowScores1[i] = doubleBaseValue(i,noOfRows, board1[i]);
+							}
+						}
+						else{
+							rowScores1[i] += board1[i][j];
+							rowScores2[i] += board2[i][j];
+						}
+						board1[i][j] = 0;
+						board2[i][j] = 0;
+				}
+				System.out.println(gold);
+				System.out.println("value at board1 at : ("+i+j+")  "+rowScores1[i]);
+				System.out.println("value at board2 at : ("+i+j+")  "+rowScores2[i]);
+			}
+			gold = false;
+			mountain = false;
+		}
+	}
+	
+	//	Nullify the resource values of board array rows and columns in the presence of Dragon tile.
+	private void nullifyBoardResources(int board[][], int i, int j){
+		
+		for(j =0; j< board[0].length; j++){
+			if(board[i][j] > 0){
+				board[i][j] = 0;
+				System.out.println("Nullify Val at   :"+"("+i+j+")  "+board[i][j]);
+				System.out.println("==============");
+				
+			}
+		}
+	}
+	
+	// Double the base value of board rows and colmuns in the presence of goldmine tile. 
+	private int doubleBaseValue(int k, int length, int array[]){
+		int val = 0;
+		for(k=0; k < length; k++){
+			val += 2*array[k]; 
+			
+		}
+		return val;
+	}
 }
+
+	
