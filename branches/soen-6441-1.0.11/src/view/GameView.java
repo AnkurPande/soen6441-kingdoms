@@ -24,8 +24,13 @@ import javax.swing.TransferHandler;
 
 import model.Config;
 import model.GameInstance;
+import model.GameInstance.PlayerColor;
 
+import components.Castle;
+import components.Castle.CastleRank;
 import components.GameComponents;
+import components.Tile;
+import components.Tile.TileType;
 
 /**
  * The GameView class displays the game on the screen in graphical format.
@@ -45,6 +50,8 @@ public class GameView extends JFrame implements PropertyChangeListener {
     
     private GameInstance game;
     private Config gameConfig;
+    
+    public String statusDisplayFreq = "";
 	
     /**
      * Constructor. Takes a GameInstance as a parameter and renders the game according to the this GameInsance.
@@ -57,7 +64,45 @@ public class GameView extends JFrame implements PropertyChangeListener {
 		NO_OF_COLS = game.gameBoard.length;
 		NO_OF_ROWS = game.gameBoard[0].length;
 		
-    	//Initialize the three major areas of the game screen
+		initGameWindow();
+        
+        setTitle("Kingdoms");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
+        pack();
+        
+        gi.addChangeListener(this);
+    }
+	
+	/**
+	 * Constructor. Takes a GameInstance as a parameter and renders the game according to the this GameInsance.
+	 * @param gi The GameInstance to render.
+	 * @param statusDisplayFreq The frequency to display the game status.
+	 */
+	public GameView(GameInstance gi, String statusDisplayFreq){
+		
+		this.setGame(gi);
+		
+		NO_OF_COLS = game.gameBoard.length;
+		NO_OF_ROWS = game.gameBoard[0].length;
+		
+		initGameWindow();
+        
+        setTitle("Kingdoms");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
+        pack();
+        
+        gi.addChangeListener(this);
+        
+        this.statusDisplayFreq = statusDisplayFreq;
+	}
+	
+	/**
+	 * Initializes the game window (the javax.swing components)
+	 */
+	private void initGameWindow(){
+		//Initialize the three major areas of the game screen
         board = new BoardArea();
         scoringArea = new ScoringArea();
         playerInfoArea = new PlayerInfoArea();
@@ -69,14 +114,7 @@ public class GameView extends JFrame implements PropertyChangeListener {
         add(board, BorderLayout.CENTER);
         add(playerInfoArea, BorderLayout.SOUTH);
         add(gameInfoArea, BorderLayout.WEST);
-        
-        setTitle("Kingdoms");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setVisible(true);
-        pack();
-        
-        gi.addChangeListener(this);
-    }
+	}
 	
 	/**
 	 * Gets the current GameInstace of the view.
@@ -95,25 +133,97 @@ public class GameView extends JFrame implements PropertyChangeListener {
 		this.gameConfig= game.getGameConfig();
 	}
     
-
+	/**
+	 * The listener method for the observable property changes of the game instance. 
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		System.out.println("Changed property: " + event.getPropertyName() + " old:"
-				+ event.getOldValue() + " new: " + event.getNewValue());
 		
-		SwingUtilities.updateComponentTreeUI(this);
-		this.invalidate();
-		this.revalidate();
-		this.repaint();
+//		System.out.println("Changed property: " + event.getPropertyName() + " old:"
+//				+ event.getOldValue() + " new: " + event.getNewValue());
+//		
+		String changedPropertyName = event.getPropertyName();
 		
-		this.board.invalidate();
-		this.board.revalidate();
-		this.board.repaint();
+		if(this.statusDisplayFreq == "EveryTurn" && changedPropertyName == "turnCounter"){
+			displayGameStatus();
+		}
+		
+		if(this.statusDisplayFreq == "EveryRound" && changedPropertyName == "roundCounter"){
+			displayGameStatus();
+		}
+		
+		if(this.statusDisplayFreq == "EveryEpoch" && changedPropertyName == "epochCounter"){
+			displayGameStatus();
+		}
+		
+		if(this.statusDisplayFreq == "GameEnd" && changedPropertyName == "gameEndStatus"){
+			displayGameStatus();
+		}
+
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException ie) {
+			//Handle exception
+		}
 		
 		this.board = new BoardArea();
+		add(board, BorderLayout.CENTER);
+		
+		this.gameInfoArea = new GameInfoArea();
+		add(gameInfoArea, BorderLayout.WEST);
+		
+		this.pack();
 	}
-	  
+	
+	/**
+	 * Displays the status of the game.
+	 */
+    private void displayGameStatus() {
+    	System.out.println("-----------------------------------");
+    	System.out.println("Displaying Game Status.");
+    	System.out.println("-----------------------------------");
+    	
+    	displayGameBoardStatus();
+    	displayPlayerStatus();
+    	System.out.println("Turn:" + game.getTurnCounter() + " | Round :" + game.getRoundCounter());
+    	
+    	System.out.println("-----------------------------------");
+    	System.out.println("Finished Displaying Game Status.");
+    	System.out.println("-----------------------------------");
+	}
+    
     /**
+     * Displays the status of the players.
+     */
+    private void displayPlayerStatus() {
+    	System.out.println("-----------------------------------");
+    	System.out.println("Displaying Player Status.");
+    	System.out.println("-----------------------------------");
+    	
+		for(int i = 0; i < game.players.length ; i++){
+			System.out.println(game.players[i].getStatusDescription());
+		}
+	}
+    
+    /**
+     * Displays the status of the game board.
+     */
+	private void displayGameBoardStatus(){
+    	System.out.println("Displaying Board Status.");
+    	System.out.println("-----------------------------------");
+    	for (int i = 0; i < NO_OF_COLS; ++i) {
+            for (int j = 0; j < NO_OF_ROWS; ++j) {
+            	System.out.print("ROW-" + j + " COL-" + i + ":");           	
+            	System.out.print(game.gameBoard[i][j].description());
+            	System.out.print(" | ");
+            
+            }
+            
+            System.out.println();
+        }
+    }
+
+	/**
      * This class defines the board area of the game.
      * This is the 5 by 6 playing area of the game window.
      *
@@ -197,13 +307,53 @@ public class GameView extends JFrame implements PropertyChangeListener {
         	
         	String iconFile = gc.displayIcon();
         	if(iconFile == gc.getClass().getName()){
-        		this.setText(iconFile);
-        	}
-        	else{
-        		ImageIcon icon = new ImageIcon(iconFile); 
-        		this.setIcon(icon);
+        		if(gc instanceof components.Castle){
+        			iconFile = calculateCastleIconFileName(gc);
+        		}
+        		
+        		if(gc instanceof components.Tile){
+        			iconFile = calculateTileIconFileName(gc);
+        		}
         	}
         	
+        	ImageIcon icon = new ImageIcon(iconFile); 
+    		this.setIcon(icon);
+        	
+        }
+        
+        /**
+         * Calculates the icon file name for castles with specific naming conventions.
+         * @param gc The game component (castle) whose icon file is to be determined.
+         * @return Returns the icon file name for the castle.
+         */
+        private String calculateCastleIconFileName(GameComponents gc){
+        	Castle castle = (Castle)gc;
+			PlayerColor color = castle.getColor();
+			CastleRank rank = castle.getRank();
+			
+			String iconFileName = "images/castle_" + color + "_rank_" + rank + ".png";
+			return iconFileName.toLowerCase();
+        }
+        
+        /**
+         * Calculates the icon file name for tiles with specific naming conventions.
+         * @param gc The game component (tile) whose icon file is to be determined.
+         * @return Returns the icon file name for the tile.
+         */
+        private String calculateTileIconFileName(GameComponents gc){
+        	Tile tile = (Tile)gc;
+			TileType type = tile.getType();
+			int value = Math.abs(tile.getValue());
+			
+			String iconFileName = "";
+			if(type == TileType.RESOURCES || type == TileType.HAZARD){
+				iconFileName = "images/" + type + "_" + value + ".png";
+			}
+			else{
+				iconFileName = "images/" + type + ".png";
+			}
+			
+			return iconFileName.toLowerCase();
         }
 
 		@Override
@@ -338,6 +488,7 @@ public class GameView extends JFrame implements PropertyChangeListener {
 			JLabel[] rank3Label = new JLabel[NO_OF_PLAYER];
 			JLabel[] rank4Label = new JLabel[NO_OF_PLAYER];
 			JLabel[] coinsLabel = new JLabel[NO_OF_PLAYER];
+			JLabel[] tileLabel = new JLabel[NO_OF_PLAYER];
 			
 			JLabel[] noOfRank1Castles = new JLabel[NO_OF_PLAYER];
 			JLabel[] noOfRank2Castles = new JLabel[NO_OF_PLAYER];
@@ -350,9 +501,9 @@ public class GameView extends JFrame implements PropertyChangeListener {
 			JLabel[] rank3Icon = new JLabel[NO_OF_PLAYER];
 			JLabel[] rank4Icon = new JLabel[NO_OF_PLAYER];
 			JLabel[] coinsIcon = new JLabel[NO_OF_PLAYER];
-			JLabel[] playerColor = new JLabel[NO_OF_PLAYER];
+			JLabel[] playerTiles = new JLabel[NO_OF_PLAYER];
 			
-			for (int i=0; i < NO_OF_PLAYER; i++){
+			for (int i = 0; i < NO_OF_PLAYER; i++){
 
 				player[i] = new JPanel();
 				player[i].setMinimumSize(new Dimension(180, 190));
@@ -360,11 +511,9 @@ public class GameView extends JFrame implements PropertyChangeListener {
 				player[i].setBorder(BorderFactory.createLineBorder(Color.black));
 				player[i].setLayout(null);	
 
-				String playerNames = game.players[i].getName();
+				String playerNames = game.players[i].getName() + " :" + game.players[i].getPlayerColor();
 				playerName[i] = new JLabel(playerNames,JLabel.CENTER);
-				playerName[i].setBounds(10, 5, 60, 20);
-				playerColor[i] = new JLabel("game.players[i].playerColor");
-				playerColor[i].setBounds(70, 5, 60, 20);
+				playerName[i].setBounds(10, 5, 120, 20);
 
 				rank1Label[i] = new JLabel("Rank 1 Castles:", JLabel.CENTER);
 				rank1Label[i].setBounds(10, 50, 140, 20);
@@ -376,17 +525,38 @@ public class GameView extends JFrame implements PropertyChangeListener {
 				rank4Label[i].setBounds(10, 125, 140, 20);
 				coinsLabel[i] = new JLabel("Value of Coins:", JLabel.CENTER);
 				coinsLabel[i].setBounds(15, 150, 140, 20);
+				tileLabel[i] = new JLabel("Player Tiles:", JLabel.CENTER);
+				tileLabel[i].setBounds(15, 175, 140, 20);
 
 				noOfRank1Castles[i] = new JLabel(Integer.toString(game.players[i].rank1Castles.size()));
 				noOfRank1Castles[i].setBounds(160, 50, 20, 20);
+				
 				noOfRank2Castles[i] = new JLabel(Integer.toString(game.players[i].rank2Castles.size()));
 				noOfRank2Castles[i].setBounds(160, 75, 20, 20);
+				
 				noOfRank3Castles[i] = new JLabel(Integer.toString(game.players[i].rank3Castles.size()));
 				noOfRank3Castles[i].setBounds(160, 100, 20, 20);
+				
 				noOfRank4Castles[i] = new JLabel(Integer.toString(game.players[i].rank4Castles.size()));
 				noOfRank4Castles[i].setBounds(160, 125, 20, 20);
+				
 				noOfCoins[i] = new JLabel(Integer.toString(game.players[i].playerCoins.firstElement().getValue()));
 				noOfCoins[i].setBounds(160, 150, 20, 20);
+				
+				String playerTileString = "";
+				for(int j = 0 ; j < game.players[i].playerTiles.size() ; j++){
+					playerTileString += game.players[i].playerTiles.get(j).getType().toString();
+					if(j > 0){
+						playerTileString += ",";
+					}
+				}
+				
+				if(playerTileString == ""){
+					playerTileString = "None/On Board";
+				}
+				
+				playerTiles[i] = new JLabel(playerTileString);
+				playerTiles[i].setBounds(160, 175, 100, 20);
 
 //				path = game.players[i].rank1Castles.firstElement().displayIcon();
 				icon = new ImageIcon(path);
@@ -440,6 +610,8 @@ public class GameView extends JFrame implements PropertyChangeListener {
 				player[i].add(rank3Icon[i]);
 				player[i].add(rank4Icon[i]);
 				player[i].add(coinsIcon[i]);
+				player[i].add(tileLabel[i]);
+				player[i].add(playerTiles[i]);
 				
 			} 
 		 	   
@@ -469,7 +641,7 @@ public class GameView extends JFrame implements PropertyChangeListener {
 			setPreferredSize(new Dimension(300, 600));
 			setBackground(Color.decode(gameConfig.GAME_INFO_AREA_COLOR));
 			
-			JLabel currentEpoch = new JLabel("Current Epoch:" + game.getCurrentEpoch().getCurrentEpochNo());
+			JLabel currentEpoch = new JLabel("Current Epoch:" + game.getCurrentEpoch().getEpochNo());
 			
 			int currentPlayerIndex = game.getCurrentPlayerIndex();
 			String currentPlayerName = game.players[currentPlayerIndex].getName();
@@ -490,9 +662,7 @@ public class GameView extends JFrame implements PropertyChangeListener {
 class MyListener extends MouseAdapter{
 
 	public void mousePressed(MouseEvent evt) {
-//		JComponent comp = (JComponent) evt.getSource();
-//		TransferHandler th = comp.getTransferHandler();
-//		th.exportAsDrag(comp, evt, TransferHandler.COPY);
+
 
 	}
 

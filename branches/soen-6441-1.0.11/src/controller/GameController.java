@@ -7,9 +7,11 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import components.Castle;
+import components.EpochCounter;
 import components.GameComponents;
 import components.Placeholder;
 import components.Tile;
+import components.Tile.TileType;
 
 import model.Config;
 import model.GameInstance;
@@ -151,6 +153,13 @@ public class GameController {
 		}
 	}
 	
+	/**
+	 * This method draws a tile from the tile bank and places it on the specified row and coloumn of the game board.
+	 * 
+	 * @param rowOfGameBoard The row index of the game board to place the tile.
+	 * @param colOfGameBoard The column index of the game board to place the tile.
+	 * @return Returns true if draw and place was successful - otherwise returns false.
+	 */
 	public boolean drawAndPlaceTile(int rowOfGameBoard, int colOfGameBoard){
 		
 		game.gameActionLog += "Player" + game.getCurrentPlayerIndex() + " requested to perform action 'draw and place tile' at row: " + rowOfGameBoard + ", col: " + colOfGameBoard + ".";
@@ -173,6 +182,13 @@ public class GameController {
 		return true;
 	}
 	
+	/**
+	 * This method draws a tile from the top of the tile bank and returns that tile.
+	 * This takes care of reducing the no of tiles in the tile bank.
+	 * 
+	 * @return The tile that has been drawn from the top of the games tile bank.
+	 * @throws Exception
+	 */
 	private Tile drawTile() throws Exception{
 		if(game.tileBank.size() > 0 ){
 			return game.tileBank.remove(0);
@@ -182,6 +198,14 @@ public class GameController {
 		}
 	}
 	
+	/**
+	 * This method takes the player's tile (the first tile given to the player at the beginning of the game) and places it on the game board.
+	 * 
+	 * @param playerIndex The index of the player whose tile is to be taken.
+	 * @param rowOfGameBoard The row where the tile is to be placed.
+	 * @param colOfGameBoard The column where the tile is to be placed.
+	 * @return Returns true if placing the first tile was successful - otherwise returns false.
+	 */
 	public boolean placeFirstTile(int playerIndex, int rowOfGameBoard, int colOfGameBoard ){
 		
 		game.gameActionLog += "Player" + game.getCurrentPlayerIndex() + " requested to perform action 'place first tile' at row: " + rowOfGameBoard + ", col: " + colOfGameBoard + ".";
@@ -203,6 +227,12 @@ public class GameController {
 		return true;
 	}
 	
+	/**
+	 * This method checks if a particular player has the first tile in hand - or is it already placed on the game board.
+	 * 
+	 * @param playerIndex The index of the player whose tile is to be checked.
+	 * @return Returns true if the player has the first tile in hand - otherwise returns false.
+	 */
 	private boolean hasPlayerFirstTile(int playerIndex){
 		if(!isValidPlayerIndex(playerIndex)){
 			game.gameActionLog += "Action 'check if player has first tile' failed due to invalid player index.";
@@ -216,6 +246,15 @@ public class GameController {
 		return false;
 	}
 	
+	/**
+	 * This method places a castle on the game board at the specified location.
+	 * 
+	 * @param playerIndex The player whose castle is to be placed.
+	 * @param rankOfCastle The rank of the castle that is to be placed.
+	 * @param rowOfGameBoard The row index of the game board where the castle is to be placed. 
+	 * @param colOfGameBoard The column index of the game where the castle is to be placed.
+	 * @return Returns true if placing of the castle was successful - otherwise returns false.
+	 */
 	public boolean placeCastle(int playerIndex, Castle.CastleRank rankOfCastle, int rowOfGameBoard, int colOfGameBoard){
 		
 		game.gameActionLog += "Player" + game.getCurrentPlayerIndex() + " requested to perform action 'place castle' at row: " + rowOfGameBoard + ", col: " + colOfGameBoard + ".";
@@ -255,6 +294,11 @@ public class GameController {
 		return true;
 	}
 	
+	/**
+	 * Checks if the specified player index is valid for this game.
+	 * @param playerIndex The player index number that is to be validated.
+	 * @return Returns true if the player index is a valid player index for this game - otherwise returns false.
+	 */
 	private boolean isValidPlayerIndex(int playerIndex){
 		if(playerIndex < 0 || playerIndex > game.players.length){
 			return false;
@@ -263,6 +307,12 @@ public class GameController {
 		return true;
 	}
 	
+	/**
+	 * Checks if a player has a particular rank of castles in hand (not on the board).
+	 * @param playerIndex The player whose castle stock is to be checked.
+	 * @param rankOfCastle The rank of the castle that is to be checked.
+	 * @return Returns true if the player specified has the castles of specified rank in hand - otherwise returns false.
+	 */
 	private boolean hasPlayerCastlesInHand(int playerIndex, Castle.CastleRank rankOfCastle){
 		if( (rankOfCastle == Castle.CastleRank.ONE) && (game.players[playerIndex].rank1Castles.size() > 0) ){
 			return true;
@@ -281,6 +331,12 @@ public class GameController {
 		}
 	}
 	
+	/**
+	 * Checks if a the specified place on the game board is vacant (a game component such as castle/tile to be placed at that location).
+	 * @param row The row index of the game board to check.
+	 * @param col The column index of the game board to check.
+	 * @return Returns true if the specified location of the game board is vacant - otherwise returns false.
+	 */
 	private boolean isGameBoardPlaceValidAndVacant(int row, int col){
 		if(col < 0 || col >= game.gameBoard.length){
 			return false;
@@ -297,12 +353,27 @@ public class GameController {
 		return true;
 	}
 	
+	/**
+	 * Places any game component (tiles/castles, etc.) on the game board.
+	 * The objective of having this method is to abstract placing of any game component on the game board.
+	 * Note that this is private method and should not be accessed by outside classes.
+	 * This is for use of other methods within this class.
+	 * @param gc The game component to place.
+	 * @param row The row index where the game component is to be placed.
+	 * @param col The col index where the game component is to be placed.
+	 */
 	private void placeComponentOnGameBoard(GameComponents gc, int row, int col){
-		game.gameBoard[col][row] = gc;
-		game.setEmptyPlacesOnBoard(game.getEmptyPlacesOnBoard()-1);
+		
+		if(isGameBoardPlaceValidAndVacant(row, col)){
+			game.gameBoard[col][row] = gc;
+			game.setEmptyPlacesOnBoard(game.getEmptyPlacesOnBoard()-1);
+		}
 	}
 	
-	public void playOneEpoch(){
+	/**
+	 * Plays one epoch (executes all the player turns until the game board is used up).
+	 */
+	private void playOneEpoch(){
 
 		int currentPlayerIndex = game.getCurrentPlayerIndex();
 		int noOfPlayers = game.players.length;
@@ -310,7 +381,7 @@ public class GameController {
 		boolean loopCondition = true;
 		int iteration = 0;
 		
-		int currentEpochNo = game.getCurrentEpoch().getCurrentEpochNo();
+		int currentEpochNo = game.getCurrentEpoch().getEpochNo();
 		
 		game.gameActionLog += "Starting Epoch No:" + currentEpochNo + ".";
 		
@@ -329,9 +400,13 @@ public class GameController {
 			}
 		}
 	}
-		
+	
+	/**
+	 * Plays the epoch specified.
+	 * @param epochNoToPlay The epoch no to play.
+	 */
 	public void playEpoch(int epochNoToPlay){
-		int currentEpochNo = game.getCurrentEpoch().getCurrentEpochNo();
+		int currentEpochNo = game.getCurrentEpoch().getEpochNo();
 		
 		if(currentEpochNo == epochNoToPlay){
 			playOneEpoch();
@@ -342,6 +417,9 @@ public class GameController {
 		}
 	}
 	
+	/**
+	 * Plays all epochs sequentially and ends the game.
+	 */
 	public void playAllEpochs(){
 		playEpoch(1);
 		resetGameAtEpochEnd();
@@ -349,20 +427,34 @@ public class GameController {
 		resetGameAtEpochEnd();
 		playEpoch(3);
 		
+		game.setGameEnded(true);
+		
 	}
 	
+	/**
+	 * Resets the game state to the epoch beginning.
+	 */
 	public void resetGameAtEpochEnd() {
 		incrementEpoch();
 		resetCastles();
 		resetTiles();
 		game.initGameBoard();
 	}	
-
+	
+	/**
+	 * Increments the current epoch to the next one.
+	 */
 	private void incrementEpoch() {
-		int currentEpochNo = game.getCurrentEpoch().getCurrentEpochNo();
-		game.getCurrentEpoch().setCurrentEpochNo(++currentEpochNo);		
+		int currentEpochNo = game.getCurrentEpoch().getEpochNo();
+		if(++currentEpochNo <= 3){
+			game.setCurrentEpoch(new EpochCounter(currentEpochNo));		
+		}
 	}
-
+	
+	/**
+	 * Reset the castles on the game board.
+	 * Returns the rank 1 castles to the player - returns other castles to the game box.
+	 */
 	private void resetCastles() {
 		
 		for(int i = 0; i < game.gameBoard.length; i++){
@@ -381,6 +473,9 @@ public class GameController {
 		}
 	}
 	
+	/**
+	 * Reset the tiles on the game board.
+	 */
 	private void resetTiles() {
 		for(int i = 0; i < game.gameBoard.length; i++){
 			for(int j = 0; j < game.gameBoard[0].length; j++){
@@ -396,7 +491,13 @@ public class GameController {
 		GameInstance.shuffleTileBank(game.tileBank);
 		game.assignOneSetOfTilesToPlayers();
 	}
-
+	
+	/**
+	 * Gets the player strategy for the player specified.
+	 * 
+	 * @param playerIndex The player index whose strategy is to be fetched.
+	 * @return Returns the playing strategy of the player index specified.
+	 */
 	private PlayingStrategy getPlayerStrategy(int playerIndex){
 		switch(playerIndex){
 			case 0:	return new PlayingStrategyRandom();
@@ -407,12 +508,19 @@ public class GameController {
 		}		
 	}
 	
+	/**
+	 * Sets the playing strategies for all the players.
+	 */
 	private void setPlayerStrategies(){
 		for(int i=  0; i <game.players.length ; i++){
 			game.players[i].setStrategy(getPlayerStrategy(i));
 		}
 	}
 	
+	/**
+	 * Gets the next vacant space on board.
+	 * @return Returns the row and column index of the next vacant space on the game board as an int array. The first item of this int array is the row index of the vacant space, the second item is the column index. 
+	 */
 	protected int[] nextVacantSpaceOnBoard(){
 		int col = -1, row = -1;
 		
@@ -430,6 +538,12 @@ public class GameController {
 		return new int[]{row,col};
 	}
 	
+	/**
+	 * Returns the rank of next available castles that the player has in hand starting from rank one castles.
+	 * 
+	 * @param playerIndex The index of the player whose castle stock is to be looked at.
+	 * @return Returns the rank of the next available castle stock of the player.
+	 */
 	protected Castle.CastleRank nextAvailableCastleRank(int playerIndex){
 		if(!isValidPlayerIndex(playerIndex)){
 			game.gameActionLog += "Action 'getNextAvailableCastleRank' failed due to invalid player.";
@@ -453,5 +567,125 @@ public class GameController {
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * Calculates the score.
+	 */
+	public void calculateScore(){
+		int noOfCols = game.gameBoard.length;
+		int noOfRows = game.gameBoard[0].length;
+		
+		int[][] colScores1 = new int[noOfRows][1];
+		int[][] colScores2 = new int[noOfRows][1];
+		
+		int[][] rowScores1 = new int[noOfCols][1];
+		int[][] rowScores2 = new int[noOfCols][1];
+		
+		boolean divideRow = false;
+		boolean divideCol = false;
+		
+		for(int i = 0 ; i < noOfCols; i++){
+			for(int j = 0 ; j < noOfRows; j++){
+				if(game.gameBoard[i][j] instanceof components.Tile){
+					
+					Tile tempTile = (Tile)game.gameBoard[i][j];
+					
+					if(tempTile.getType() == TileType.MOUNTAIN){
+						divideRow = true;
+					}
+					
+					if(divideRow){
+						rowScores2[i][0] += tempTile.getValue();
+					}else{
+						rowScores1[i][0] += tempTile.getValue();
+					}
+					
+				}
+			}
+			
+			divideRow = false;
+		}
+		
+		
+		for(int i = 0 ; i < noOfRows; i++){
+			
+			if(game.gameBoard[0][i] instanceof components.Tile){
+				Tile tempTile = (Tile)game.gameBoard[0][i];
+				if(tempTile.getType() == TileType.MOUNTAIN){
+					divideCol = true;
+				}
+				if(divideCol){
+					colScores2[i][0] += tempTile.getValue();
+				}
+				else{
+					colScores1[i][0] += tempTile.getValue();
+				}
+				
+			}
+			
+			if(game.gameBoard[1][i] instanceof components.Tile){
+				Tile tempTile = (Tile)game.gameBoard[1][i];
+				if(tempTile.getType() == TileType.MOUNTAIN){
+					divideCol = true;
+				}
+				if(divideCol){
+					colScores2[i][0] += tempTile.getValue();
+				}
+				else{
+					colScores1[i][0] += tempTile.getValue();
+				}
+			}
+			
+			if(game.gameBoard[2][i] instanceof components.Tile){
+				Tile tempTile = (Tile)game.gameBoard[2][i];
+				if(tempTile.getType() == TileType.MOUNTAIN){
+					divideCol = true;
+				}
+				if(divideCol){
+					colScores2[i][0] += tempTile.getValue();
+				}
+				else{
+					colScores1[i][0] += tempTile.getValue();
+				}
+			}
+			
+			if(game.gameBoard[3][i] instanceof components.Tile){
+				Tile tempTile = (Tile)game.gameBoard[3][i];
+				if(tempTile.getType() == TileType.MOUNTAIN){
+					divideCol = true;
+				}
+				if(divideCol){
+					colScores2[i][0] += tempTile.getValue();
+				}
+				else{
+					colScores1[i][0] += tempTile.getValue();
+				}
+			}
+			
+			if(game.gameBoard[4][i] instanceof components.Tile){
+				Tile tempTile = (Tile)game.gameBoard[4][i];
+				if(tempTile.getType() == TileType.MOUNTAIN){
+					divideCol = true;
+				}
+				if(divideCol){
+					colScores2[i][0] += tempTile.getValue();
+				}
+				else{
+					colScores1[i][0] += tempTile.getValue();
+				}
+			}
+			
+			
+			
+			divideCol = false;
+			
+			
+		}
+		
+		System.out.println(rowScores1);
+		System.out.println(colScores1);
+		System.out.println(colScores2);
+		
 	}
 }
