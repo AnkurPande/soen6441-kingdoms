@@ -9,7 +9,10 @@ import javax.xml.bind.annotation.XmlAttribute;
  */
 public class Tile extends GameComponents {
 	
+	@XmlAttribute
 	private TileType type;
+	
+	@XmlAttribute
 	private int value;
 	
 	/**
@@ -29,7 +32,6 @@ public class Tile extends GameComponents {
 		this.value = val;
 	}
 	
-	@XmlAttribute
 	/**
 	 * Gets the type of the tile.
 	 * 
@@ -39,7 +41,6 @@ public class Tile extends GameComponents {
 		return this.type;
 	}
 	
-	@XmlAttribute
 	/**
 	 * Gets the value of the tile for score computation purposes.
 	 * @return Returns the numeric value of the tile to be considered in score computation.

@@ -97,7 +97,7 @@ public class TestModel {
 	 */
 	public void testGameInstanceEpochCounter(){
 		
-		int currentEpoch = gi.getCurrentEpoch().getCurrentEpochNo();
+		int currentEpoch = gi.getCurrentEpoch().getEpochNo();
 		assertTrue(currentEpoch <= 3 && currentEpoch >= 1);
 	}
 	
