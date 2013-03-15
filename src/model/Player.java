@@ -2,8 +2,6 @@ package model;
 
 import java.util.Vector;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
-import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;

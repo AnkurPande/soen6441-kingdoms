@@ -19,30 +19,25 @@ public class GameRunner {
 		
 		GameController gameController = new GameController(conf);
 		
-//		gameController.loadAndSetGame("test_file1.xml");
-		
-//		gameController.playEpoch(1);
-		
-		GameView gv = new GameView(gameController.getGame());
-		
 		gameController.playEpoch(1);
+		gameController.saveGame("test_file1.xml");
+		gameController.loadAndSetGame("test_file1.xml");
+		gameController.resetGameAtEpochEnd();
 		
+		gameController.playEpoch(2);
+		gameController.saveGame("test_file2.xml");
+		gameController.loadAndSetGame("test_file2.xml");
+		gameController.resetGameAtEpochEnd();
+		
+		gameController.playEpoch(3);
+		gameController.saveGame("test_file3.xml");
+		gameController.loadAndSetGame("test_file3.xml");
 		//gameController.resetGameAtEpochEnd();
-		
-//		gameController.saveGame("test_file2.xml");
-//		
-//		gameController.playEpoch(2);
-//		GameView gv1 = new GameView(gameController.getGame());
-//		gameController.resetGameAtEpochEnd();
-//		
-//		gameController.playEpoch(3);
-//		GameView gv3 = new GameView(gameController.getGame());
-//		
-//		gameController.saveGame("test_file3.xml");
+				
+		GameView gv = new GameView(gameController.getGame());
 		
 		System.out.println(gameController.getGame().gameActionLog.replace('.','\n'));
 		
-		//gameController.loadAndSetGame("test_file10.xml");
 
 	}
 
