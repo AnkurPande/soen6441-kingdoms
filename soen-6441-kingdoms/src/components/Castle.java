@@ -5,7 +5,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import model.GameInstance.PlayerColor;
 
 /**
- * This class defines the castle components for the game.
+ * This class defines the castle components for the game. A castle is a game component that can be placed on the board by a particular player.
+ * Each castle has a member called 'color' which shows which player they belong to. 
  * @author Team B
  */
 public class Castle extends GameComponents {

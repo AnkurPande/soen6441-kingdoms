@@ -2,8 +2,17 @@ package controller;
 
 import components.Castle;
 
+/**
+ * The strategy makes the player choose moves one after the other first place first tile, then place castle and finally draw and place tiles
+ * - whichever succeeds first.
+ * @author Team B
+ *
+ */
 public class PlayingStrategyTryOneByOne implements PlayingStrategy {
 	
+	/**
+	 * This method determines the move a player will make next.
+	 */
 	@Override
 	public void selectAndMakeMove(GameController gc) {
 		int[] firstVacantSpace = gc.nextVacantSpaceOnBoard();
