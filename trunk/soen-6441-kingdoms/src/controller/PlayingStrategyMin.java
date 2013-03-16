@@ -3,8 +3,16 @@ package controller;
 import components.Castle;
 import components.Tile.TileType;
 
+/**
+ * The strategy makes the player choose the move that will minimize other players scores at that turn.
+ * @author Team B
+ *
+ */
 public class PlayingStrategyMin implements PlayingStrategy {
 	
+	/**
+	 * This method determines the move a player will make next.
+	 */
 	@Override
 	public void selectAndMakeMove(GameController gc) {
 		int[] firstVacantSpace = gc.nextVacantSpaceOnBoard();

@@ -5,8 +5,17 @@ import java.util.Random;
 
 import components.Castle;
 
+/**
+ * The strategy makes the player choose random moves.
+ * 
+ * @author Team B
+ *
+ */
 public class PlayingStrategyRandom implements PlayingStrategy {
 	
+	/**
+	 * This method determines the move a player will make next.
+	 */
 	@Override
 	public void selectAndMakeMove(GameController gc) {
 		

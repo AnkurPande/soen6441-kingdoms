@@ -2,7 +2,6 @@ package model;
 
 import java.util.Vector;
 
-import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -24,48 +23,48 @@ import controller.PlayingStrategy;
  */
 @XmlRootElement
 public class Player{
-	
+
 	private String name;
-	
+
 	@XmlTransient
 	private PlayingStrategy strategy;
 
 	@XmlElementWrapper(name="rank1Castles")
 	@XmlElement(name="castle") 
 	public Vector<Castle> rank1Castles;
-	
+
 	@XmlElementWrapper(name="rank2Castles")
 	@XmlElement(name="castle") 
 	public Vector<Castle> rank2Castles;
-	
+
 	@XmlElementWrapper(name="rank3Castles")
 	@XmlElement(name="castle")
 	public Vector<Castle> rank3Castles;
-	
+
 	@XmlElementWrapper(name="rank4Castles")
 	@XmlElement(name="castle")
 	public Vector<Castle> rank4Castles;
-	
+
 	@XmlElementWrapper(name="playerCoins")
 	@XmlElement(name="coin")
 	public Vector<Coin> playerCoins;
-	
+
 	@XmlElementWrapper(name="playerTiles")
 	@XmlElement(name="tile")
 	public Vector<Tile> playerTiles;
-	
+
 	private PlayerColor playerColor;
-	
+
 	private Config gameConfig;
-	
-	
+
+
 	/**
 	 * Default constructor.
 	 */
 	public Player(){
-		
+
 	}
-	
+
 	/**
 	 * Creates a player with a specified color, name and configuration.
 	 * 
@@ -74,37 +73,37 @@ public class Player{
 	 * @param config The configuration object to use for this player. This is coming from the GameInstance that is loading this player.
 	 */
 	public Player(PlayerColor color, String name, Config config){
-		
+
 		//Set the player color & name
 		this.setPlayerColor(color);			
 		this.setName(name);
-		
+
 		//Set the configuration object of the current player.
 		this.gameConfig = config;
-		
+
 		//Initialize the castle objects owned by the players
 		initCastles();
-		
+
 		//Initialize the coins for the player - at start of game each player is given a certain no of coins
 		initPlayerCoins();
-		
+
 		//Initialize the tiles owned by the player
 		initPlayerTiles();
 
 	}
-	
+
 	/**
 	 * Initialize the castle objects of this player.
 	 */
 	private void initCastles(){
 		//TODO refactor
-		
+
 		//Initialize the castles
 		rank1Castles = new Vector<Castle>();
 		rank2Castles = new Vector<Castle>();
 		rank3Castles = new Vector<Castle>();
 		rank4Castles = new Vector<Castle>();
-		
+
 		//Create the Rank 1 castles
 		for(int i=0;i<gameConfig.NO_OF_RANK1CASTLES_PER_PLAYER;i++){
 			Castle temp = new Castle(this.playerColor, CastleRank.ONE);
@@ -112,7 +111,7 @@ public class Player{
 			temp.setIconFileName(iconFile);
 			rank1Castles.add(temp);
 		}
-	
+
 		//Create the Rank 2 castles
 		for(int i=0;i<gameConfig.NO_OF_RANK2CASTLES_PER_PLAYER;i++){
 			Castle temp = new Castle(this.playerColor, CastleRank.TWO);
@@ -120,7 +119,7 @@ public class Player{
 			temp.setIconFileName(iconFile);
 			rank2Castles.add(temp);
 		}
-		
+
 		//Create the Rank 3 castles
 		for(int i=0;i<gameConfig.NO_OF_RANK3CASTLES_PER_PLAYER;i++){
 			Castle temp = new Castle(this.playerColor, CastleRank.THREE);
@@ -128,7 +127,7 @@ public class Player{
 			temp.setIconFileName(iconFile);
 			rank3Castles.add(temp);
 		}
-		
+
 		//Create the Rank 4 castles
 		for(int i=0;i<gameConfig.NO_OF_RANK4CASTLES_PER_PLAYER;i++){
 			Castle temp = new Castle(this.playerColor, CastleRank.FOUR);
@@ -136,20 +135,20 @@ public class Player{
 			temp.setIconFileName(iconFile);
 			rank4Castles.add(temp);
 		}
-		
+
 	}
-	
+
 	/**
 	 * Initialize the coin object for this player.
 	 */
 	private void initPlayerCoins(){
 		playerCoins = new Vector<Coin>();
 	}
-	
+
 	private void initPlayerTiles(){
 		playerTiles = new Vector<Tile>();
 	}
-	
+
 	@XmlAttribute
 	/**
 	 * Gets the name of a player.
@@ -158,7 +157,7 @@ public class Player{
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * Sets the name of a player.
 	 * @param name The name to assign to the player
@@ -166,7 +165,7 @@ public class Player{
 	private void setName(String name) {
 		this.name = name;
 	}
-	
+
 	@XmlAttribute
 	/**
 	 * Gets the player color.
@@ -176,7 +175,7 @@ public class Player{
 	public PlayerColor getPlayerColor() {
 		return playerColor;
 	}
-	
+
 	/**
 	 * Set the player color
 	 * 
@@ -185,7 +184,12 @@ public class Player{
 	private void setPlayerColor(PlayerColor playerColor) {
 		this.playerColor = playerColor;
 	}
-	
+
+	/**
+	 * Checks if a player has the first tile in hand (not already placed in board)
+	 * 
+	 * @return Returns true if the player has tiles in hand - returns false otherwise.
+	 */
 	public boolean hasFirstTile(){
 		if(playerTiles.size() > 0){
 			return true;
@@ -194,14 +198,60 @@ public class Player{
 			return false;
 		}
 	}
-	
+
+	/**
+	 * Getter for the strategy of the player.
+	 * @return Returns the players strategy.
+	 */
 	@XmlTransient
 	public PlayingStrategy getStrategy() {
 		return strategy;
 	}
 
-	public void setStrategy(PlayingStrategy strategy) {
-		this.strategy = strategy;
+	/**
+	 * Setter for the strategy of the player.
+	 * @param newStrategy The new strategy to set the player to.
+	 */
+	public void setStrategy(PlayingStrategy newStrategy) {
+		this.strategy = newStrategy;
 	}
-	
+
+	/**
+	 * Gets a textual description for the player i.e. castles/tiles in hand, score. 
+	 * 
+	 * @return Textual description of the players current status is returned.
+	 */
+	public String getStatusDescription(){
+		String description = "";
+
+		description += this.getName() + " -> ";
+		description += "Rank 1 castles :" + this.rank1Castles.size() + ",";
+		description += "Rank 2 castles :" + this.rank2Castles.size() + ",";
+		description += "Rank 3 castles :" + this.rank3Castles.size() + ",";
+		description += "Rank 4 castles :" + this.rank4Castles.size() + "|";
+
+		description += "Tile(s) :" + this.playerTiles.size() + "|";
+		description += "Coins/Score :" + this.evaluateScore() + "|";
+
+		return description;
+	}
+
+	/**
+	 * Evaluates and returns the players current score based on the coins the player has.
+	 * 
+	 * @return The score of the player.
+	 */
+	public int evaluateScore(){
+
+		int score = 0;
+		java.util.Iterator<Coin> itr = this.playerCoins.iterator();
+
+		while(itr.hasNext()){
+			Coin c = itr.next();
+			score += c.getValue();
+		}
+
+		return score;
+	}
+
 }

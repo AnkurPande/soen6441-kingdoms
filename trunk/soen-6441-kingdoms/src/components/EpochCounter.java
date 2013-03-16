@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author Team B
  */
 public class EpochCounter extends GameComponents {
+	
+	@XmlAttribute
 	private int currentEpochNo;
 	
 	/**
@@ -26,12 +28,11 @@ public class EpochCounter extends GameComponents {
 		setCurrentEpochNo(currentEpoch);
 	}
 	
-	@XmlAttribute
 	/**
 	 * Gets the current epoch no of the EpochCounter.
 	 * @return The current epoch no.
 	 */
-	public int getCurrentEpochNo() {
+	public int getEpochNo() {
 		return this.currentEpochNo;
 	}
 	
@@ -45,7 +46,7 @@ public class EpochCounter extends GameComponents {
 			this.currentEpochNo = newEpochNo;
 		}
 		else{
-			System.out.println("Invalid Epoch No.");
+			System.out.println("Invalid Epoch No:" + newEpochNo + " specified.");
 			if(this.currentEpochNo > 0){
 				System.out.println("Keeping previous epoch no:" + this.currentEpochNo);
 			}

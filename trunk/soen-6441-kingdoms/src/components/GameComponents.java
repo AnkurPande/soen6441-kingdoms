@@ -36,5 +36,34 @@ public abstract class GameComponents {
 	public void setIconFileName(String path){
 		this.iconFileName = path;
 	}
+	
+	/**
+	 * This method calculates and returns a textual description of the game component.
+	 * If the game component is a tile - it will return the tile type and value for the tile.
+	 * If it's a castle - it will return the castle rank and color.
+	 * If it's a placeholder - it will return empty space.
+	 * @return A description of the game component (i.e. type, rank, color, etc.)
+	 */
+	public String description(){
+		
+		String description = "";
+		
+		if(this instanceof components.Tile){
+			Tile tile = (Tile)this;
+			description = "TILE:" + tile.getType().toString() + " value:" + tile.getValue();
+		}
+		
+		if(this instanceof components.Castle){
+			Castle castle = (Castle)this;
+			description = "Castle:" + castle.getColor().toString() + " rank:" + castle.getRank().toString();
+		}
+		
+		if(this instanceof components.Placeholder){
+			description = "Empty Space";
+		}
+		
+		return description;
+		
+	}
 
 }
