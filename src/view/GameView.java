@@ -19,7 +19,6 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 
 import model.Config;
@@ -161,7 +160,7 @@ public class GameView extends JFrame implements PropertyChangeListener {
 		}
 
 		try {
-			Thread.sleep(500);
+			Thread.sleep(200);
 		} catch (InterruptedException ie) {
 			//Handle exception
 		}

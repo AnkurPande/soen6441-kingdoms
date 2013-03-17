@@ -50,15 +50,15 @@ public class GameInstance {
 	private int turnCounter = 0;
 	private int roundCounter = 0;
 	private boolean gameEnded = false;
-
-	private ArrayList<PropertyChangeListener> listeners = new ArrayList<PropertyChangeListener>();
+	
+	private ArrayList<PropertyChangeListener> listeners;
 
 
 	/**
 	 * Default constructor. Creates a blank by default.
 	 */
 	public GameInstance(){
-
+		listeners = new ArrayList<PropertyChangeListener>();
 	}
 
 	/**
@@ -68,7 +68,8 @@ public class GameInstance {
 	 */
 	public GameInstance(Config config){
 		this.gameConfig = config;
-		createNewGame();		
+		createNewGame();
+		listeners = new ArrayList<PropertyChangeListener>();
 	}
 
 	/**
