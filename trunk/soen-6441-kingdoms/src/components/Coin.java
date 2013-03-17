@@ -11,8 +11,7 @@ public class Coin extends GameComponents {
 	@XmlAttribute
 	private Material material;
 	
-
-	@XmlAttribute
+	
 	private int value;
 	
 	/**
@@ -33,12 +32,21 @@ public class Coin extends GameComponents {
 		this.value = val;
 	}
 	
+	@XmlAttribute
 	/**
 	 * Returns the value of the coin
 	 * @return The numeric value of the coin for scoring purposes.
 	 */
 	public int getValue() {
 		return this.value;
+	}
+	
+	/**
+	 * Sets the value of the coin
+	 * 
+	 */
+	public void setValue(int newValue) {
+		this.value = newValue;
 	}
 	
 	/**

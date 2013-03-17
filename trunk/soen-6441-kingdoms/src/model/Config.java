@@ -68,7 +68,7 @@ public class Config{
 	public final int MAX_VALUE_OF_RESOURCE_TILES = 6;
 	public final int MIN_VALUE_OF_HAZARD_TILES = -6;
 	public final int VALUE_OF_MOUNTAIN_TILES = 0;
-	public final int VALUE_OF_DRAGON_TILES = -6;
+	public final int VALUE_OF_DRAGON_TILES = 0;
 	public final int VALUE_OF_GOLDMINE_TILES = 0;
 	public final int VALUE_OF_WIZARD_TILES = 0;
 	//----------------------------------------------------------------------------
