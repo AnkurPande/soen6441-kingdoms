@@ -19,23 +19,28 @@ public class GameRunner {
 		
 		GameController gameController = new GameController(conf);
 		
-		GameView gv = new GameView(gameController.getGame(),"EveryRound");
+		GameView gv = new GameView(gameController.getGame(),"EveryEpoch");
 		
-		gameController.saveGame("test_file1.xml");
+		//gameController.playAllEpochs();
+		
+		//gameController.saveGame("test_file1.xml");
 		gameController.playEpoch(1);
 		gameController.saveGame("test_file1.xml");
 		gameController.loadAndSetGame("test_file1.xml");
+		gameController.calculateScore();
 		gameController.resetGameAtEpochEnd();
 		
 		gameController.playEpoch(2);
 		gameController.saveGame("test_file2.xml");
 		gameController.loadAndSetGame("test_file2.xml");
+		gameController.calculateScore();
 		gameController.resetGameAtEpochEnd();
 		
 		gameController.playEpoch(3);
 		gameController.saveGame("test_file3.xml");
 		gameController.loadAndSetGame("test_file3.xml");
-		//gameController.resetGameAtEpochEnd();
+		gameController.calculateScore();
+		gameController.resetGameAtEpochEnd();
 		
 		System.out.println(gameController.getGame().gameActionLog.replace('.','\n'));
 		

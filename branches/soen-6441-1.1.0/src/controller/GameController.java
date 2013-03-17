@@ -333,20 +333,20 @@ public class GameController {
 	
 	/**
 	 * Checks if a the specified place on the game board is vacant (a game component such as castle/tile to be placed at that location).
-	 * @param row The row index of the game board to check.
-	 * @param col The column index of the game board to check.
+	 * @param rowIndex The row index of the game board to check.
+	 * @param columnIndex The column index of the game board to check.
 	 * @return Returns true if the specified location of the game board is vacant - otherwise returns false.
 	 */
-	private boolean isGameBoardPlaceValidAndVacant(int row, int col){
-		if(col < 0 || col >= game.gameBoard.length){
+	private boolean isGameBoardPlaceValidAndVacant(int rowIndex, int columnIndex){
+		if(columnIndex < 0 || columnIndex >= game.gameBoard.length){
 			return false;
 		}
 		
-		if(row < 0 || row >= game.gameBoard[0].length){
+		if(rowIndex < 0 || rowIndex >= game.gameBoard[0].length){
 			return false;
 		}
 		
-		if( !(game.gameBoard[col][row] instanceof Placeholder)){
+		if( !(game.gameBoard[columnIndex][rowIndex] instanceof Placeholder)){
 			return false;
 		}
 		
@@ -422,10 +422,16 @@ public class GameController {
 	 */
 	public void playAllEpochs(){
 		playEpoch(1);
+		calculateScore();
 		resetGameAtEpochEnd();
+		
 		playEpoch(2);
+		calculateScore();
 		resetGameAtEpochEnd();
+		
 		playEpoch(3);
+		calculateScore();
+		resetGameAtEpochEnd();
 		
 		game.setGameEnded(true);
 		
@@ -446,8 +452,12 @@ public class GameController {
 	 */
 	private void incrementEpoch() {
 		int currentEpochNo = game.getCurrentEpoch().getEpochNo();
-		if(++currentEpochNo <= 3){
-			game.setCurrentEpoch(new EpochCounter(currentEpochNo));		
+		int nextEpochNo = currentEpochNo + 1;
+		if(nextEpochNo <= 3){
+			game.setCurrentEpoch(new EpochCounter(nextEpochNo));		
+		}
+		else if(nextEpochNo == 4){
+			game.setCurrentEpoch(new EpochCounter(nextEpochNo-1));
 		}
 	}
 	
@@ -585,107 +595,231 @@ public class GameController {
 		boolean divideRow = false;
 		boolean divideCol = false;
 		
+		boolean[] rowHasGoldMineTile = new boolean[noOfCols];
+		boolean[] colHasGoldMineTile = new boolean[noOfRows];
+		boolean[] rowHasDragonTile = new boolean[noOfCols];
+		boolean[] colHasDragonTile = new boolean[noOfRows];
+		
+		
+		//Check rows and columns for the existence of Gold Mine and Dragon tiles.
+		//-------------------------------------------------------------------------------------
 		for(int i = 0 ; i < noOfCols; i++){
 			for(int j = 0 ; j < noOfRows; j++){
 				if(game.gameBoard[i][j] instanceof components.Tile){
-					
+
 					Tile tempTile = (Tile)game.gameBoard[i][j];
+
+					if(tempTile.getType() == TileType.GOLDMINE){
+						rowHasGoldMineTile[i] = true;
+						colHasGoldMineTile[j] = true;
+					}
 					
+					if(tempTile.getType() == TileType.DRAGON){
+						rowHasDragonTile[i] = true;
+						colHasDragonTile[j] = true;
+					}
+				}
+			}
+		}
+		//-------------------------------------------------------------------------------------
+		
+		//Calculate row wise score of the board
+		//-------------------------------------------------------------------------------------
+		for(int i = 0 ; i < noOfCols; i++){
+			for(int j = 0 ; j < noOfRows; j++){
+				if(game.gameBoard[i][j] instanceof components.Tile){
+
+					Tile tempTile = (Tile)game.gameBoard[i][j];
+					int multiplyFactor = 1;
+
 					if(tempTile.getType() == TileType.MOUNTAIN){
 						divideRow = true;
 					}
 					
-					if(divideRow){
-						rowScores2[i][0] += tempTile.getValue();
-					}else{
-						rowScores1[i][0] += tempTile.getValue();
+					if(rowHasGoldMineTile[i]){
+						multiplyFactor = 2;
 					}
 					
+					if(rowHasDragonTile[i] && tempTile.getType() == TileType.RESOURCES){
+						multiplyFactor = 0;
+					}
+
+					if(divideRow){
+						rowScores2[i][0] += tempTile.getValue()*multiplyFactor;
+					}else{
+						rowScores1[i][0] += tempTile.getValue()*multiplyFactor;
+					}
 				}
 			}
-			
+
 			divideRow = false;
 		}
+		//-------------------------------------------------------------------------------------
 		
-		
+		//Calculate column wise score of the board
+		//-------------------------------------------------------------------------------------
 		for(int i = 0 ; i < noOfRows; i++){
-			
-			if(game.gameBoard[0][i] instanceof components.Tile){
-				Tile tempTile = (Tile)game.gameBoard[0][i];
-				if(tempTile.getType() == TileType.MOUNTAIN){
-					divideCol = true;
-				}
-				if(divideCol){
-					colScores2[i][0] += tempTile.getValue();
-				}
-				else{
-					colScores1[i][0] += tempTile.getValue();
-				}
-				
+			for(int j = 0 ; j < noOfCols ; j++){
+				divideCol = updateScoreColumnWise(i, j, colScores1, colScores2, divideCol, colHasGoldMineTile[i], colHasDragonTile[i]);
 			}
-			
-			if(game.gameBoard[1][i] instanceof components.Tile){
-				Tile tempTile = (Tile)game.gameBoard[1][i];
-				if(tempTile.getType() == TileType.MOUNTAIN){
-					divideCol = true;
-				}
-				if(divideCol){
-					colScores2[i][0] += tempTile.getValue();
-				}
-				else{
-					colScores1[i][0] += tempTile.getValue();
-				}
-			}
-			
-			if(game.gameBoard[2][i] instanceof components.Tile){
-				Tile tempTile = (Tile)game.gameBoard[2][i];
-				if(tempTile.getType() == TileType.MOUNTAIN){
-					divideCol = true;
-				}
-				if(divideCol){
-					colScores2[i][0] += tempTile.getValue();
-				}
-				else{
-					colScores1[i][0] += tempTile.getValue();
-				}
-			}
-			
-			if(game.gameBoard[3][i] instanceof components.Tile){
-				Tile tempTile = (Tile)game.gameBoard[3][i];
-				if(tempTile.getType() == TileType.MOUNTAIN){
-					divideCol = true;
-				}
-				if(divideCol){
-					colScores2[i][0] += tempTile.getValue();
-				}
-				else{
-					colScores1[i][0] += tempTile.getValue();
-				}
-			}
-			
-			if(game.gameBoard[4][i] instanceof components.Tile){
-				Tile tempTile = (Tile)game.gameBoard[4][i];
-				if(tempTile.getType() == TileType.MOUNTAIN){
-					divideCol = true;
-				}
-				if(divideCol){
-					colScores2[i][0] += tempTile.getValue();
-				}
-				else{
-					colScores1[i][0] += tempTile.getValue();
-				}
-			}
-			
-			
 			
 			divideCol = false;
+		}
+		//-------------------------------------------------------------------------------------
+		
+		int[] playerScoreByRow = new int[game.players.length];
+		int[] playerScoreByColumn = new int[game.players.length];
+		int[] playerScoreTotal = new int[game.players.length];
+		
+		//Calculate player scores by row
+		//-------------------------------------------------------------------------------------
+		for(int i = 0 ; i < noOfCols; i++){
+			for(int j = 0 ; j < noOfRows; j++){
+				if(game.gameBoard[i][j] instanceof components.Castle){
+					Castle tempCastle = (Castle)game.gameBoard[i][j];
+					
+					int rankIncreaseBy = 0;
+					if(isLocationAdjacentToWizardTile(j,i)){
+						rankIncreaseBy = 1;
+					}
+					
+					for(int k = 0 ; k < game.players.length ; k++){
+						if(game.players[k].getPlayerColor() == tempCastle.getColor()){
+							playerScoreByRow[k] += (tempCastle.getRankValue() + rankIncreaseBy)* (rowScores1[i][0] + rowScores2[i][0]);
+						}
+					}
+				}
+			}
+		}
+		//-------------------------------------------------------------------------------------
+		
+		//Calculate player scores by column
+		//-------------------------------------------------------------------------------------
+		for(int i = 0 ; i < noOfRows; i++){
+			for(int j = 0 ; j < noOfCols ; j++){
+				if(game.gameBoard[j][i] instanceof components.Castle){
+					Castle tempCastle = (Castle)game.gameBoard[j][i];
+					
+
+					int rankIncreaseBy = 0;
+					if(isLocationAdjacentToWizardTile(i,j)){
+						rankIncreaseBy = 1;
+					}
+					
+					for(int k = 0 ; k < game.players.length ; k++){
+						if(game.players[k].getPlayerColor() == tempCastle.getColor()){
+							playerScoreByColumn[k] +=  (tempCastle.getRankValue() + rankIncreaseBy) * (colScores1[i][0] + colScores2[i][0]);
+						}
+					}
+				}
+			}
+		}
+		//-------------------------------------------------------------------------------------
+		
+		//Add the player scores by row and column to get the total score. Then sets the players coin value to the score.
+		//-------------------------------------------------------------------------------------
+		for(int i = 0; i < playerScoreTotal.length ; i++){
+			playerScoreTotal[i] = playerScoreByRow[i] + playerScoreByColumn[i];
+			int playersCurrentScore = game.players[i].evaluateScore();
+			game.players[i].playerCoins.firstElement().setValue(playerScoreTotal[i] + playersCurrentScore);
+		}
+		//-------------------------------------------------------------------------------------
 			
+//		System.out.println(rowScores1);
+//		System.out.println(rowScores2);
+//		System.out.println(colScores1);
+//		System.out.println(colScores2);
+//		System.out.println(rowHasGoldMineTile);
+//		System.out.println(colHasGoldMineTile);
+//		System.out.println(playerScoreByRow);
+//		System.out.println(playerScoreByColumn);
+	}
+	
+	/**
+	 * This method updates the column wise score arrays based on the type of tile in the specified location. 
+	 * 
+	 * @param rowIndex The row index of the location to check.
+	 * @param colIndex The column index of the location to check.
+	 * @param colScores1 The 1st array to store the column wise scores (for tiles above any mountain tiles).
+	 * @param colScores2 The 2nd array to store the column wise scores (for tiles below the mountain tiles).
+	 * @param divideCol Determines whether to divide the columns due to the existence of a mountain tile in the column. 
+	 * @param goldMineImpact Determines whether to include the GoldMine impact (multiply all resource and hazard tile values by 2).
+	 * @param dragonTileImpact Determines whether to include the Dragon tile impact (nullify all the resource tiles values).
+	 * @return Returns whether to keep the column divided due to an existence of a mountain tile in the column.
+	 */
+	private boolean updateScoreColumnWise(int rowIndex, int colIndex, int[][] colScores1, int[][] colScores2, boolean divideCol, boolean goldMineImpact, boolean dragonTileImpact){
+		
+		if(game.gameBoard[colIndex][rowIndex] instanceof components.Tile){
+			Tile tempTile = (Tile)game.gameBoard[colIndex][rowIndex];
+			int multiplyFactor = 1;
 			
+			if(tempTile.getType() == TileType.MOUNTAIN){
+				divideCol = true;
+			}
+			
+			if(goldMineImpact){
+				multiplyFactor = 2;
+			}
+			
+			if(dragonTileImpact && tempTile.getType() == TileType.RESOURCES){
+				multiplyFactor = 0;
+			}
+			
+			if(divideCol){
+				colScores2[rowIndex][0] += tempTile.getValue()*multiplyFactor;
+			}
+			else{
+				colScores1[rowIndex][0] += tempTile.getValue()*multiplyFactor;
+			}
 		}
 		
-		System.out.println(rowScores1);
-		System.out.println(colScores1);
-		System.out.println(colScores2);
+		return divideCol;
+	}
+	
+	/**
+	 * Method to check if a location on the Game Board is orthogonally adjacent to a wizard tile.
+	 * 
+	 * @param rowIndex The row index of the location on the Game Board to check.
+	 * @param columnIndex The column index of the location on the Game Board to check.
+	 * @return Returns true if the specified location has an orthogonally adjacent wizard tile - returns false otherwise. If the specified location is invalid also returns false.
+	 */
+	private boolean isLocationAdjacentToWizardTile(int rowIndex, int columnIndex){
 		
+		boolean wizardTileAbove = hasLocationWizardTile(rowIndex, columnIndex - 1);
+		boolean wizardTileBelow = hasLocationWizardTile(rowIndex, columnIndex + 1);
+		boolean wizardTileOnLeft = hasLocationWizardTile(rowIndex - 1, columnIndex);
+		boolean wizardTileOnRight = hasLocationWizardTile(rowIndex + 1, columnIndex);
+		
+		return (wizardTileAbove || wizardTileBelow || wizardTileOnLeft || wizardTileOnRight);
+	}
+	
+	/**
+	 * Method to check if a particular location has a Wizard tile.
+	 * 
+	 * @param rowIndex The row index of the location on the Game Board to check.
+	 * @param columnIndex The column index of the location on the Game Board to check.
+	 * @return Returns true if the specified location has a wizard tile - returns false otherwise. If the specified location is invalid also returns false.
+	 */
+	private boolean hasLocationWizardTile(int rowIndex, int columnIndex){
+		
+		boolean result = false;
+		
+		if(rowIndex < 0 || rowIndex >= game.gameBoard[0].length){
+			return false;
+		}
+		
+		if(columnIndex < 0 || columnIndex >= game.gameBoard.length){
+			return false;
+		}
+		
+		if(game.gameBoard[columnIndex][rowIndex] instanceof components.Tile){
+			Tile temp = (Tile)game.gameBoard[columnIndex][rowIndex];
+			
+			if(temp.getType() == TileType.WIZARD){
+				result = true;
+			}
+		}
+		
+		return result;
 	}
 }
