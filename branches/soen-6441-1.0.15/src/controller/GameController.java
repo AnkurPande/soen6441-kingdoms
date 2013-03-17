@@ -490,8 +490,6 @@ public class GameController {
 						board1[i][j] = tile.getValue();
 					}
 				}
-				System.out.println("Val at board1   :"+"("+i+j+")  "+board1[i][j]);
-				System.out.println("Val at board2   :"+"("+i+j+")  "+board2[i][j]);
 			}
 			divideRow = false;
 		}
@@ -520,20 +518,17 @@ public class GameController {
 						if(dragon){
 							if(mountain){
 								if(mountainRowIndex < dragonRowIndex){
-									nullifyBoardResources(board2,i, j);
+									nullifyBoardResources(board2,i);
 								}
 								else if(mountainRowIndex < dragonRowIndex){
-									nullifyBoardResources(board1,i, j);
+									nullifyBoardResources(board1,i);
 								}
 							}
 							else{
-								nullifyBoardResources(board1, i ,j);
+								nullifyBoardResources(board1, i);
 							}
 						}
 				}
-				System.out.println(dragon);
-				System.out.println("value at board1 at : ("+i+j+")  "+board1[i][j]);
-				System.out.println("value at board2 at : ("+i+j+")  "+board2[i][j]);
 			}
 			dragon = false;
 			mountain = false;
@@ -546,6 +541,8 @@ public class GameController {
 		boolean gold = false;
 		mountainRowIndex = 0;
 		mountain = false;
+		System.out.println("Row wise base value");
+
 		for(int i = 0; i <game.gameBoard.length; i++){
 			for(int j =0; j<game.gameBoard[0].length; j++){
 				if(game.gameBoard[i][j] instanceof Tile) {
@@ -563,13 +560,13 @@ public class GameController {
 						if(gold){
 							if(mountain){
 								if(mountainRowIndex < goldRowIndex){
-									rowScores2[i] = doubleBaseValue(i,noOfRows, board1[i]);							}
+									rowScores2[i] = doubleBaseValue(board2, i);							}
 								else if(mountainRowIndex > goldRowIndex){
-									rowScores1[i] = doubleBaseValue(i,noOfRows, board1[i]);
+									rowScores1[i] = doubleBaseValue(board1, i);
 								}
 							}
 							else{
-								rowScores1[i] = doubleBaseValue(i,noOfRows, board1[i]);
+								rowScores1[i] = doubleBaseValue(board1, i);
 							}
 						}
 						else{
@@ -579,20 +576,18 @@ public class GameController {
 						board1[i][j] = 0;
 						board2[i][j] = 0;
 				}
-				System.out.println(gold);
-				System.out.println("value at board1 at : ("+i+j+")  "+rowScores1[i]);
-				System.out.println("value at board2 at : ("+i+j+")  "+rowScores2[i]);
 			}
 			gold = false;
 			mountain = false;
+			System.out.println("Base value of row "+i+" of board1 :"+rowScores1[i]);
+			System.out.println("Base value of row "+i+" of board2 :"+rowScores2[i]);
 		}
 		
 		// Assign column wise values to double array board1 and board2	
 		
 		board1 = new int[noOfRows][noOfCols];
 		board2 =  new int[noOfRows][noOfCols];
-		System.out.println(noOfRows);
-		System.out.println(noOfCols);
+		
 		for(int i =0; i< noOfRows; i++ ){
 			for(int j = 0 ; j < noOfCols; j++){
 				
@@ -609,9 +604,6 @@ public class GameController {
 					}
 					
 				}
-				System.out.println("==============Column Values=========");
-				System.out.println("Val at board1   :"+"("+i+j+")  "+board1[i][j]);
-				System.out.println("Val at board2   :"+"("+i+j+")  "+board2[i][j]);
 			}
 			divideCol =false;
 		}	
@@ -641,20 +633,17 @@ public class GameController {
 							if(dragon){
 								if(mountain){
 									if(mountainRowIndex < dragonRowIndex){
-										nullifyBoardResources(board2,i, j);
+										nullifyBoardResources(board2,i);
 									}
 									else if(mountainRowIndex < dragonRowIndex){
-										nullifyBoardResources(board1,i, j);
+										nullifyBoardResources(board1,i);
 									}
 								}
 								else{
-									nullifyBoardResources(board1, i ,j);
+									nullifyBoardResources(board1, i);
 								}
 							}
 					}
-					System.out.println(dragon);
-					System.out.println("value at board1 at : ("+i+j+")  "+board1[i][j]);
-					System.out.println("value at board2 at : ("+i+j+")  "+board2[i][j]);
 				}
 				dragon = false;
 				mountain = false;
@@ -667,9 +656,10 @@ public class GameController {
 			gold = false;
 			mountainRowIndex = 0;
 			mountain = false;
+
+			System.out.println("Column wise base value");
 			for(int i =0; i< noOfRows; i++ ){
 				for(int j = 0 ; j < noOfCols; j++){
-					
 					if(game.gameBoard[j][i] instanceof components.Tile){
 						Tile tile = (Tile)game.gameBoard[j][i];
 							if(tile.getType() == Tile.TileType.MOUNTAIN){
@@ -685,13 +675,13 @@ public class GameController {
 							if(gold){
 								if(mountain){
 									if(mountainRowIndex < goldRowIndex){
-										colScores2[i] = doubleBaseValue(i,noOfCols, board1[j]);							}
+										colScores2[i] = doubleBaseValue(board2, i);							}
 									else if(mountainRowIndex > goldRowIndex){
-										colScores1[i] = doubleBaseValue(i,noOfCols, board1[j]);
+										colScores1[i] = doubleBaseValue( board1, i);
 									}
 								}
 								else{
-									colScores1[i] = doubleBaseValue(i,noOfCols, board1[j]);
+									colScores1[i] = doubleBaseValue(board1, i);
 								}
 							}
 							else{
@@ -699,38 +689,34 @@ public class GameController {
 								colScores2[i] += board2[i][j];
 							}
 					}
-					System.out.println(gold);
-					System.out.println("value at board1 at : ("+i+j+")  "+colScores1[i]);
-					System.out.println("value at board2 at : ("+i+j+")  "+colScores2[i]);
 				}
 				gold = false;
 				mountain = false;
+				System.out.println("Base value of column "+i+" of board1 :"+colScores1[i]);
+				System.out.println("Base value of column "+i+" of board2 :"+colScores2[i]);
 			}
 		
+		 
 
 	}
 	
 	
 	//	Nullify the resource values of board array rows and columns in the presence of Dragon tile.
-	private void nullifyBoardResources(int board[][], int i, int j){
-		
-		for(j =0; j< board[0].length; j++){
+	private void nullifyBoardResources(int board[][], int i){
+		for(int j =0; j< board[0].length; j++){
 			if(board[i][j] > 0){
 				board[i][j] = 0;
-				System.out.println("Nullify Val at   :"+"("+i+j+")  "+board[i][j]);
-				System.out.println("==============");
-				
 			}
 		}
 	}
 	
 	// Double the base value of board rows and colmuns in the presence of goldmine tile. 
-	private int doubleBaseValue(int k, int length, int array[]){
+	private int doubleBaseValue(int board[][], int i){
 		int val = 0;
-		for(k=0; k < length; k++){
-			val += 2*array[k]; 
-			
+		for(int j=0; j < board[0].length; j++){
+			val = val + board[i][j]; 
 		}
+		val = 2*val;
 		return val;
 	}
 }
