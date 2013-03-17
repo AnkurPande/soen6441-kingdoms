@@ -73,6 +73,32 @@ public class Castle extends GameComponents {
 	}
 	
 	/**
+	 * Method to convert the rank of the castles to a numeric value for scoring purposes.
+	 * @return Returns the numeric value of the rank of the castle.
+	 */
+	public int getRankValue(){
+		int rankValue = 0;
+		
+		if(this.rank == CastleRank.ONE){
+			rankValue = 1;
+		}
+		
+		if(this.rank == CastleRank.TWO){
+			rankValue = 2;
+		}
+		
+		if(this.rank == CastleRank.THREE){
+			rankValue = 3;
+		}
+		
+		if(this.rank == CastleRank.FOUR){
+			rankValue = 4;
+		}
+		
+		return rankValue;
+	}
+	
+	/**
 	 * An enum to restrict the ranks of castles.
 	 *
 	 */
