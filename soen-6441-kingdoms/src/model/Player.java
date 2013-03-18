@@ -56,6 +56,10 @@ public class Player{
 	private PlayerColor playerColor;
 
 	private Config gameConfig;
+	
+	@XmlElementWrapper(name="playerScoreByEpoch")
+	@XmlElement(name="epochScore")
+	private int[] epochScore = new int[3];
 
 
 	/**
@@ -231,7 +235,25 @@ public class Player{
 		description += "Rank 4 castles :" + this.rank4Castles.size() + "|";
 
 		description += "Tile(s) :" + this.playerTiles.size() + "|";
-		description += "Coins/Score :" + this.evaluateScore() + "|";
+		
+		description += getScoreDescription();
+
+		return description;
+	}
+	
+	/**
+	 * Gets a textual description of the players score.
+	 * 
+	 * @return Textual description of the players score.
+	 */
+	public String getScoreDescription(){
+		String description = "";
+		
+		description += "Epoch 1 score :" + this.getEpochScore(0) + "|";
+		description += "Epoch 2 score :" + this.getEpochScore(1) + "|";
+		description += "Epoch 3 score :" + this.getEpochScore(2) + "|";
+		description += "Total score :" + this.getScoreAllEpochs() + "|";
+		description += "Coin value :" + this.evaluateCoinValue() + "|";
 
 		return description;
 	}
@@ -241,7 +263,7 @@ public class Player{
 	 * 
 	 * @return The score of the player.
 	 */
-	public int evaluateScore(){
+	public int evaluateCoinValue(){
 
 		int score = 0;
 		java.util.Iterator<Coin> itr = this.playerCoins.iterator();
@@ -252,6 +274,41 @@ public class Player{
 		}
 
 		return score;
+	}
+	
+	/**
+	 * Gets the player score for the specified epoch.
+	 * 
+	 * @return The player score for the specified epoch.
+	 */
+	public int getEpochScore(int epochNo) {
+		if(epochNo >= 0 && epochNo < epochScore.length){
+			return epochScore[epochNo];
+		}
+		
+		return 0;
+	}
+	
+	/**
+	 * Sets the player score for the specified epoch no to the specified score.
+	 * 
+	 * @param epochNo The epoch no whose score is to be set.
+	 * @param score The score to set to.
+	 */
+	public void setEpochScore(int epochNo, int score) {
+		if(epochNo >= 0 && epochNo < epochScore.length){
+			epochScore[epochNo] = score;
+		}
+	}
+	
+	private int getScoreAllEpochs(){
+		int sum = 0;
+		
+		for(int i = 0 ; i < this.epochScore.length ; i++){
+			sum += this.epochScore[i];
+		}
+		
+		return sum;
 	}
 
 }
