@@ -53,10 +53,35 @@ public class PlayingStrategyRandom implements PlayingStrategy {
 
 	}
 	
+	/**
+	 * 
+	 * @param moveNo The index of the move to make.
+	 * @param gc The GameController that is triggering the move.
+	 * @return Returns true if the move was successful - otherwise returns false.
+	 */
 	private boolean makeMove(int moveNo, GameController gc){
 		int[] firstVacantSpace = gc.nextVacantSpaceOnBoard();
-		int row = firstVacantSpace[0];
-		int col = firstVacantSpace[1];
+		int row = 0, col = 0;
+		
+		boolean loopCondition = true, randomNotFound = false;
+		int index = 0;
+		while(loopCondition){
+			row =  new Random().nextInt(5);
+			col =  new Random().nextInt(6);
+			
+			if(gc.isGameBoardPlaceValidAndVacant(row, col) || ++index > 100){
+				loopCondition = false;
+				if(index > 100){
+					randomNotFound = true;
+				}
+			}
+		}
+		
+		if(randomNotFound){
+			row = firstVacantSpace[0];
+			col = firstVacantSpace[1];
+		}
+		
 		
 		int currentPlayerIndex = gc.getGame().getCurrentPlayerIndex();
 		
