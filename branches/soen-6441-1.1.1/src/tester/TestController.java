@@ -14,6 +14,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import components.Castle.CastleRank;
+import components.Tile;
+
 import controller.GameController;
 
 /**
@@ -74,6 +77,88 @@ public class TestController {
 		gc.saveGame(file2);
 		
 		assertTrue(compareFileContents(file1, file2));
+	}
+	
+	@Test
+	/**
+	 * Tests the draw and place tile functionality.
+	 */
+	public void testDrawAndPlaceTile(){
+		assertTrue(gc.drawAndPlaceTile(0, 0));
+		assertFalse(gc.drawAndPlaceTile(-8, 100));
+	}
+	
+	@Test
+	/**
+	 * Tests the draw and place first tile functionality.
+	 */
+	public void testPlaceFirstTile(){
+		assertTrue(gc.placeFirstTile(0, 1, 2));
+		assertFalse(gc.placeFirstTile(-10, 55, 2));
+	}
+	
+	@Test
+	/**
+	 * Tests the draw and place castle functionality.
+	 */
+	public void testPlaceCastle(){
+		assertTrue(gc.placeCastle(0, CastleRank.ONE, 3, 2));
+		assertFalse(gc.placeCastle(0, CastleRank.FOUR, 2, 20));
+	}
+	
+	@Test
+	/**
+	 * Tests that there are validations on the test place items on game board.
+	 */
+	public void testPlaceItemOnGameBoard(){
+		assertTrue(gc.isGameBoardPlaceValidAndVacant(0, 0));
+		assertFalse(gc.isGameBoardPlaceValidAndVacant(110, -90));
+	}
+	
+	@Test
+	/**
+	 * Tests that items can't be put on non vacant spaces of the game board.
+	 */
+	public void testItemPlacingOnNonEmptySpace(){
+		gc.getGame().gameBoard[1][1] = new Tile();
+		assertTrue(gc.isGameBoardPlaceValidAndVacant(0, 0));
+		assertFalse(gc.isGameBoardPlaceValidAndVacant(1, 1));
+	}
+	
+	@Test
+	/**
+	 * Tests placing the players first tile on board.
+	 */
+	public void testHasPlayerFirstTile(){
+		gc.placeFirstTile(0, 4, 4);
+		assertTrue(gc.hasPlayerFirstTile(1));
+		assertFalse(gc.hasPlayerFirstTile(0));
+	}
+	
+	@Test
+	/**
+	 * Tests the scoring functionalities from a pre-calculated XML file.
+	 */
+	public void testScoring(){
+		gc.loadAndSetGame("junit_scoring_test.xml");
+		gc.calculateScore();
+		
+		assertTrue(gc.getGame().players[0].getEpochScore(0) == 71);
+		assertTrue(gc.getGame().players[0].getEpochScore(1) == 62);
+		assertTrue(gc.getGame().players[0].getEpochScore(2) == 23);
+		
+		assertTrue(gc.getGame().players[1].getEpochScore(0) == 0);
+		assertTrue(gc.getGame().players[1].getEpochScore(1) == 5);
+		assertTrue(gc.getGame().players[1].getEpochScore(2) == 19);
+		
+		assertTrue(gc.getGame().players[2].getEpochScore(0) == 0);
+		assertTrue(gc.getGame().players[2].getEpochScore(1) == 0);
+		assertTrue(gc.getGame().players[2].getEpochScore(2) == 2);
+		
+		assertTrue(gc.getGame().players[3].getEpochScore(0) == 76);
+		assertTrue(gc.getGame().players[3].getEpochScore(1) == 2);
+		assertTrue(gc.getGame().players[3].getEpochScore(2) == -5);
+		
 	}
 	
 	/**
