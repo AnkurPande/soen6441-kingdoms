@@ -233,7 +233,7 @@ public class GameController {
 	 * @param playerIndex The index of the player whose tile is to be checked.
 	 * @return Returns true if the player has the first tile in hand - otherwise returns false.
 	 */
-	private boolean hasPlayerFirstTile(int playerIndex){
+	public boolean hasPlayerFirstTile(int playerIndex){
 		if(!isValidPlayerIndex(playerIndex)){
 			game.gameActionLog += "Action 'check if player has first tile' failed due to invalid player index.";
 			return false;
@@ -337,7 +337,7 @@ public class GameController {
 	 * @param columnIndex The column index of the game board to check.
 	 * @return Returns true if the specified location of the game board is vacant - otherwise returns false.
 	 */
-	private boolean isGameBoardPlaceValidAndVacant(int rowIndex, int columnIndex){
+	public boolean isGameBoardPlaceValidAndVacant(int rowIndex, int columnIndex){
 		if(columnIndex < 0 || columnIndex >= game.gameBoard.length){
 			return false;
 		}
@@ -441,11 +441,46 @@ public class GameController {
 	 * Resets the game state to the epoch beginning.
 	 */
 	public void resetGameAtEpochEnd() {
+		displayScores();
+		setHighestScorerOfEpochToCurrentPlayer();
 		incrementEpoch();
 		resetCastles();
 		resetTiles();
 		game.initGameBoard();
-	}	
+	}
+	
+	/**
+	 * Sets the highest scorer of the current epoch to the next player.
+	 */
+	private void setHighestScorerOfEpochToCurrentPlayer() {
+		int higestScore = 0, highestScorerIndex = -1;
+		for(int i = 0 ; i < game.players.length ; i++){
+			int currentEpochScore = game.players[i].getEpochScore(game.getCurrentEpoch().getEpochNo() - 1);
+			if( currentEpochScore > higestScore){
+				higestScore = currentEpochScore;
+				highestScorerIndex = i;
+			}
+		}
+		
+		if(highestScorerIndex > -1){
+			game.setCurrentPlayerIndex(highestScorerIndex);
+		}
+		
+		System.out.println("Highest scorer index :" + highestScorerIndex);
+	}
+
+	/**
+     * Displays the scores of the players after epoch end.
+     */
+    private void displayScores() {
+    	System.out.println("-----------------------------------");
+    	System.out.println("Displaying Scores");
+    	System.out.println("-----------------------------------");
+    	
+		for(int i = 0; i < game.players.length ; i++){
+			System.out.println(game.players[i].getScoreDescription());
+		}
+	}
 	
 	/**
 	 * Increments the current epoch to the next one.
@@ -720,7 +755,8 @@ public class GameController {
 		//-------------------------------------------------------------------------------------
 		for(int i = 0; i < playerScoreTotal.length ; i++){
 			playerScoreTotal[i] = playerScoreByRow[i] + playerScoreByColumn[i];
-			int playersCurrentScore = game.players[i].evaluateScore();
+			int playersCurrentScore = game.players[i].evaluateCoinValue();
+			game.players[i].setEpochScore(game.getCurrentEpoch().getEpochNo() - 1, playerScoreTotal[i]);
 			game.players[i].playerCoins.firstElement().setValue(playerScoreTotal[i] + playersCurrentScore);
 		}
 		//-------------------------------------------------------------------------------------
