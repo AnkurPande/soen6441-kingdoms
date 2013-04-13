@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gameInstance currentPlayerIndex="3" roundCounter="3" turnCounter="99">
+    <gameActionLog>Starting Epoch No:1.Player2 requested to perform action 'draw and place tile' at row: 0, col: 0.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:29.Player3 requested to perform action 'place first tile' at row: 1, col: 0.Player3 request to perform action 'place first tile' succeeded.Empty spaces on board:28.Player0 requested to perform action 'place first tile' at row: 0, col: 1.Player0 request to perform action 'place first tile' succeeded.Empty spaces on board:27.Player1 requested to perform action 'draw and place tile' at row: 2, col: 0.Player1 request to perform action 'draw and place tile' succeeded.Empty spaces on board:26.Player2 requested to perform action 'draw and place tile' at row: 3, col: 0.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:25.Player3 requested to perform action 'place first tile' at row: 4, col: 0.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'place castle' at row: 4, col: 0.Player3 request to perform action 'place castle' succeeded.Empty spaces on board:24.Player0 requested to perform action 'place castle' at row: 2, col: 1.Player0 request to perform action 'place castle' succeeded.Empty spaces on board:23.Player1 requested to perform action 'draw and place tile' at row: 5, col: 0.Player1 request to perform action 'draw and place tile' succeeded.Empty spaces on board:22.Player2 requested to perform action 'draw and place tile' at row: 1, col: 1.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:21.Player3 requested to perform action 'place first tile' at row: 3, col: 1.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'place castle' at row: 3, col: 1.Player3 request to perform action 'place castle' succeeded.Empty spaces on board:20.Player0 requested to perform action 'place castle' at row: 0, col: 4.Player0 request to perform action 'place castle' succeeded.Empty spaces on board:19.Player1 requested to perform action 'draw and place tile' at row: 4, col: 1.Player1 request to perform action 'draw and place tile' succeeded.Empty spaces on board:18.Player2 requested to perform action 'draw and place tile' at row: 5, col: 1.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:17.Player3 requested to perform action 'place first tile' at row: 0, col: 2.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'place castle' at row: 0, col: 2.Player3 request to perform action 'place castle' succeeded.Empty spaces on board:16.Player0 requested to perform action 'place first tile' at row: 4, col: 3.Action 'place first tile' failed as player's first tile is already placed.Player0 requested to perform action 'place castle' at row: 3, col: 2.Player0 request to perform action 'place castle' succeeded.Empty spaces on board:15.Player1 requested to perform action 'draw and place tile' at row: 1, col: 2.Player1 request to perform action 'draw and place tile' succeeded.Empty spaces on board:14.Player2 requested to perform action 'draw and place tile' at row: 2, col: 2.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:13.Player3 requested to perform action 'place first tile' at row: 4, col: 2.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'place castle' at row: 4, col: 2.Player3 request to perform action 'place castle' succeeded.Empty spaces on board:12.Player0 requested to perform action 'place castle' at row: 1, col: 4.Player0 request to perform action 'place castle' succeeded.Empty spaces on board:11.Player1 requested to perform action 'draw and place tile' at row: 5, col: 2.Player1 request to perform action 'draw and place tile' succeeded.Empty spaces on board:10.Player2 requested to perform action 'draw and place tile' at row: 0, col: 3.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:9.Player3 requested to perform action 'place first tile' at row: 1, col: 3.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'place castle' at row: 1, col: 3.Player3 request to perform action 'place castle' succeeded.Empty spaces on board:8.Player0 requested to perform action 'draw and place tile' at row: 3, col: 3.Player0 request to perform action 'draw and place tile' succeeded.Empty spaces on board:7.Player1 requested to perform action 'draw and place tile' at row: 2, col: 3.Player1 request to perform action 'draw and place tile' succeeded.Empty spaces on board:6.Player2 requested to perform action 'draw and place tile' at row: 4, col: 3.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:5.Player3 requested to perform action 'place first tile' at row: 5, col: 3.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'place castle' at row: 5, col: 3.Player3 request to perform action 'place castle' succeeded.Empty spaces on board:4.Player0 requested to perform action 'place castle' at row: 4, col: 4.Player0 request to perform action 'place castle' succeeded.Empty spaces on board:3.Player1 requested to perform action 'draw and place tile' at row: 2, col: 4.Player1 request to perform action 'draw and place tile' succeeded.Empty spaces on board:2.Player2 requested to perform action 'draw and place tile' at row: 3, col: 4.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:1.Player3 requested to perform action 'place first tile' at row: 5, col: 4.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'place castle' at row: 5, col: 4.Player3 request to perform action 'place castle' succeeded.Empty spaces on board:0.Starting Epoch No:2.Player3 requested to perform action 'place first tile' at row: 0, col: 0.Player3 request to perform action 'place first tile' succeeded.Empty spaces on board:29.Player0 requested to perform action 'place castle' at row: 4, col: 4.Player0 request to perform action 'place castle' succeeded.Empty spaces on board:28.Player1 requested to perform action 'draw and place tile' at row: 1, col: 0.Player1 request to perform action 'draw and place tile' succeeded.Empty spaces on board:27.Player2 requested to perform action 'draw and place tile' at row: 2, col: 0.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:26.Player3 requested to perform action 'place first tile' at row: 3, col: 0.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'place castle' at row: 3, col: 0.Player3 request to perform action 'place castle' succeeded.Empty spaces on board:25.Player0 requested to perform action 'draw and place tile' at row: 3, col: 1.Player0 request to perform action 'draw and place tile' succeeded.Empty spaces on board:24.Player1 requested to perform action 'draw and place tile' at row: 4, col: 0.Player1 request to perform action 'draw and place tile' succeeded.Empty spaces on board:23.Player2 requested to perform action 'draw and place tile' at row: 5, col: 0.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:22.Player3 requested to perform action 'place first tile' at row: 0, col: 1.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'place castle' at row: 0, col: 1.Player3 request to perform action 'place castle' succeeded.Empty spaces on board:21.Player0 requested to perform action 'draw and place tile' at row: 3, col: 2.Player0 request to perform action 'draw and place tile' succeeded.Empty spaces on board:20.Player1 requested to perform action 'draw and place tile' at row: 1, col: 1.Player1 request to perform action 'draw and place tile' succeeded.Empty spaces on board:19.Player2 requested to perform action 'draw and place tile' at row: 2, col: 1.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:18.Player3 requested to perform action 'place first tile' at row: 4, col: 1.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'place castle' at row: 4, col: 1.Player3 request to perform action 'place castle' succeeded.Empty spaces on board:17.Player0 requested to perform action 'draw and place tile' at row: 0, col: 3.Player0 request to perform action 'draw and place tile' succeeded.Empty spaces on board:16.Player1 requested to perform action 'draw and place tile' at row: 5, col: 1.Player1 request to perform action 'draw and place tile' succeeded.Empty spaces on board:15.Player2 requested to perform action 'draw and place tile' at row: 0, col: 2.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:14.Player3 requested to perform action 'place first tile' at row: 1, col: 2.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'draw and place tile' at row: 1, col: 2.Player3 request to perform action 'draw and place tile' succeeded.Empty spaces on board:13.Player0 requested to perform action 'place first tile' at row: 0, col: 4.Player0 request to perform action 'place first tile' succeeded.Empty spaces on board:12.Player1 requested to perform action 'draw and place tile' at row: 2, col: 2.Player1 request to perform action 'draw and place tile' succeeded.Empty spaces on board:11.Player2 requested to perform action 'draw and place tile' at row: 4, col: 2.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:10.Player3 requested to perform action 'place first tile' at row: 5, col: 2.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'draw and place tile' at row: 5, col: 2.Player3 request to perform action 'draw and place tile' succeeded.Empty spaces on board:9.Player0 requested to perform action 'place castle' at row: 3, col: 4.Player0 request to perform action 'place castle' succeeded.Empty spaces on board:8.Player1 requested to perform action 'draw and place tile' at row: 1, col: 3.Player1 request to perform action 'draw and place tile' succeeded.Empty spaces on board:7.Player2 requested to perform action 'draw and place tile' at row: 2, col: 3.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:6.Player3 requested to perform action 'place first tile' at row: 3, col: 3.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'draw and place tile' at row: 3, col: 3.Action 'draw and place tile' failed - tile bank has no more tiles.Player 3 could not make any moves - passing on to the next player.Empty spaces on board:6.Player0 requested to perform action 'draw and place tile' at row: 1, col: 4.Action 'draw and place tile' failed - tile bank has no more tiles.Player0 requested to perform action 'place first tile' at row: 4, col: 3.Action 'place first tile' failed as player's first tile is already placed.Player0 requested to perform action 'place castle' at row: 3, col: 3.Player0 request to perform action 'place castle' succeeded.Empty spaces on board:5.Player1 requested to perform action 'draw and place tile' at row: 4, col: 3.Action 'draw and place tile' failed - tile bank has no more tiles.Player1 requested to perform action 'place castle' at row: 4, col: 3.Player1 request to perform action 'place castle' succeeded.Empty spaces on board:4.Player2 requested to perform action 'draw and place tile' at row: 5, col: 3.Action 'draw and place tile' failed - tile bank has no more tiles.Player2 requested to perform action 'place castle' at row: 5, col: 3.Player2 request to perform action 'place castle' succeeded.Empty spaces on board:3.Player3 requested to perform action 'place first tile' at row: 1, col: 4.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'draw and place tile' at row: 1, col: 4.Action 'draw and place tile' failed - tile bank has no more tiles.Player 3 could not make any moves - passing on to the next player.Empty spaces on board:3.Player0 requested to perform action 'draw and place tile' at row: 2, col: 4.Action 'draw and place tile' failed - tile bank has no more tiles.Player0 requested to perform action 'place castle' at row: 2, col: 4.Player0 request to perform action 'place castle' succeeded.Empty spaces on board:2.Player1 requested to perform action 'draw and place tile' at row: 1, col: 4.Action 'draw and place tile' failed - tile bank has no more tiles.Player1 requested to perform action 'place castle' at row: 1, col: 4.Player1 request to perform action 'place castle' succeeded.Empty spaces on board:1.Player2 requested to perform action 'draw and place tile' at row: 5, col: 4.Action 'draw and place tile' failed - tile bank has no more tiles.Player2 requested to perform action 'place castle' at row: 5, col: 4.Player2 request to perform action 'place castle' succeeded.Empty spaces on board:0.Starting Epoch No:3.Player0 requested to perform action 'place first tile' at row: 2, col: 1.Player0 request to perform action 'place first tile' succeeded.Empty spaces on board:29.Player1 requested to perform action 'draw and place tile' at row: 0, col: 0.Player1 request to perform action 'draw and place tile' succeeded.Empty spaces on board:28.Player2 requested to perform action 'draw and place tile' at row: 1, col: 0.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:27.Player3 requested to perform action 'place first tile' at row: 2, col: 0.Player3 request to perform action 'place first tile' succeeded.Empty spaces on board:26.Player0 requested to perform action 'place first tile' at row: 0, col: 1.Action 'place first tile' failed as player's first tile is already placed.Player0 requested to perform action 'place castle' at row: 0, col: 3.Player0 request to perform action 'place castle' succeeded.Empty spaces on board:25.Player1 requested to perform action 'draw and place tile' at row: 3, col: 0.Player1 request to perform action 'draw and place tile' succeeded.Empty spaces on board:24.Player2 requested to perform action 'draw and place tile' at row: 4, col: 0.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:23.Player3 requested to perform action 'place first tile' at row: 5, col: 0.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'place castle' at row: 5, col: 0.Player3 request to perform action 'place castle' succeeded.Empty spaces on board:22.Player0 requested to perform action 'draw and place tile' at row: 0, col: 4.Player0 request to perform action 'draw and place tile' succeeded.Empty spaces on board:21.Player1 requested to perform action 'draw and place tile' at row: 0, col: 1.Player1 request to perform action 'draw and place tile' succeeded.Empty spaces on board:20.Player2 requested to perform action 'draw and place tile' at row: 1, col: 1.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:19.Player3 requested to perform action 'place first tile' at row: 3, col: 1.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'place castle' at row: 3, col: 1.Player3 request to perform action 'place castle' succeeded.Empty spaces on board:18.Player0 requested to perform action 'draw and place tile' at row: 3, col: 4.Player0 request to perform action 'draw and place tile' succeeded.Empty spaces on board:17.Player1 requested to perform action 'draw and place tile' at row: 4, col: 1.Player1 request to perform action 'draw and place tile' succeeded.Empty spaces on board:16.Player2 requested to perform action 'draw and place tile' at row: 5, col: 1.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:15.Player3 requested to perform action 'place first tile' at row: 0, col: 2.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'draw and place tile' at row: 0, col: 2.Player3 request to perform action 'draw and place tile' succeeded.Empty spaces on board:14.Player0 requested to perform action 'place first tile' at row: 4, col: 3.Action 'place first tile' failed as player's first tile is already placed.Player0 requested to perform action 'place castle' at row: 1, col: 3.Player0 request to perform action 'place castle' succeeded.Empty spaces on board:13.Player1 requested to perform action 'draw and place tile' at row: 1, col: 2.Player1 request to perform action 'draw and place tile' succeeded.Empty spaces on board:12.Player2 requested to perform action 'draw and place tile' at row: 2, col: 2.Player2 request to perform action 'draw and place tile' succeeded.Empty spaces on board:11.Player3 requested to perform action 'place first tile' at row: 3, col: 2.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'draw and place tile' at row: 3, col: 2.Player3 request to perform action 'draw and place tile' succeeded.Empty spaces on board:10.Player0 requested to perform action 'draw and place tile' at row: 1, col: 4.Player0 request to perform action 'draw and place tile' succeeded.Empty spaces on board:9.Player1 requested to perform action 'draw and place tile' at row: 4, col: 2.Action 'draw and place tile' failed - tile bank has no more tiles.Player1 requested to perform action 'place castle' at row: 4, col: 2.Player1 request to perform action 'place castle' succeeded.Empty spaces on board:8.Player2 requested to perform action 'draw and place tile' at row: 5, col: 2.Action 'draw and place tile' failed - tile bank has no more tiles.Player2 requested to perform action 'place castle' at row: 5, col: 2.Player2 request to perform action 'place castle' succeeded.Empty spaces on board:7.Player3 requested to perform action 'place first tile' at row: 2, col: 3.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'draw and place tile' at row: 2, col: 3.Action 'draw and place tile' failed - tile bank has no more tiles.Player 3 could not make any moves - passing on to the next player.Empty spaces on board:7.Player0 requested to perform action 'draw and place tile' at row: 4, col: 4.Action 'draw and place tile' failed - tile bank has no more tiles.Player0 requested to perform action 'place castle' at row: 4, col: 4.Player0 request to perform action 'place castle' succeeded.Empty spaces on board:6.Player1 requested to perform action 'draw and place tile' at row: 2, col: 3.Action 'draw and place tile' failed - tile bank has no more tiles.Player1 requested to perform action 'place castle' at row: 2, col: 3.Player1 request to perform action 'place castle' succeeded.Empty spaces on board:5.Player2 requested to perform action 'draw and place tile' at row: 3, col: 3.Action 'draw and place tile' failed - tile bank has no more tiles.Player2 requested to perform action 'place castle' at row: 3, col: 3.Player2 request to perform action 'place castle' succeeded.Empty spaces on board:4.Player3 requested to perform action 'place first tile' at row: 4, col: 3.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'draw and place tile' at row: 4, col: 3.Action 'draw and place tile' failed - tile bank has no more tiles.Player 3 could not make any moves - passing on to the next player.Empty spaces on board:4.Player0 requested to perform action 'place first tile' at row: 2, col: 4.Action 'place first tile' failed as player's first tile is already placed.Player0 requested to perform action 'place castle' at row: 2, col: 4.Action 'place castle' failed due to invalid castle rank or player has no more of castles of specified rank.Player0 requested to perform action 'draw and place tile' at row: 4, col: 3.Action 'draw and place tile' failed - tile bank has no more tiles.Player 0 could not make any moves - passing on to the next player.Empty spaces on board:4.Player1 requested to perform action 'draw and place tile' at row: 4, col: 3.Action 'draw and place tile' failed - tile bank has no more tiles.Player1 requested to perform action 'place castle' at row: 4, col: 3.Player1 request to perform action 'place castle' succeeded.Empty spaces on board:3.Player2 requested to perform action 'draw and place tile' at row: 5, col: 3.Action 'draw and place tile' failed - tile bank has no more tiles.Player2 requested to perform action 'place castle' at row: 5, col: 3.Player2 request to perform action 'place castle' succeeded.Empty spaces on board:2.Player3 requested to perform action 'place first tile' at row: 2, col: 4.Action 'place first tile' failed as player's first tile is already placed.Player3 requested to perform action 'draw and place tile' at row: 2, col: 4.Action 'draw and place tile' failed - tile bank has no more tiles.Player 3 could not make any moves - passing on to the next player.Empty spaces on board:2.Player0 requested to perform action 'draw and place tile' at row: 2, col: 4.Action 'draw and place tile' failed - tile bank has no more tiles.Player0 requested to perform action 'place castle' at row: 2, col: 4.Action 'place castle' failed due to invalid castle rank or player has no more of castles of specified rank.Player0 requested to perform action 'place first tile' at row: 2, col: 4.Action 'place first tile' failed as player's first tile is already placed.Player 0 could not make any moves - passing on to the next player.Empty spaces on board:2.Player1 requested to perform action 'draw and place tile' at row: 2, col: 4.Action 'draw and place tile' failed - tile bank has no more tiles.Player1 requested to perform action 'place castle' at row: 2, col: 4.Player1 request to perform action 'place castle' succeeded.Empty spaces on board:1.Player2 requested to perform action 'draw and place tile' at row: 5, col: 4.Action 'draw and place tile' failed - tile bank has no more tiles.Player2 requested to perform action 'place castle' at row: 5, col: 4.Player2 request to perform action 'place castle' succeeded.Empty spaces on board:0.</gameActionLog>
+    <players>
+        <player name="Player1" playerColor="RED">
+            <rank1Castles/>
+            <rank2Castles/>
+            <rank3Castles/>
+            <rank4Castles/>
+            <playerCoins>
+                <coin material="GOLD" value="230"/>
+            </playerCoins>
+            <playerTiles/>
+            <playerScoreByEpoch>
+                <epochScore>70</epochScore>
+                <epochScore>110</epochScore>
+                <epochScore>0</epochScore>
+            </playerScoreByEpoch>
+        </player>
+        <player name="Player2" playerColor="YELLOW">
+            <rank1Castles/>
+            <rank2Castles>
+                <castle color="YELLOW" rank="TWO"/>
+            </rank2Castles>
+            <rank3Castles>
+                <castle color="YELLOW" rank="THREE"/>
+                <castle color="YELLOW" rank="THREE"/>
+            </rank3Castles>
+            <rank4Castles>
+                <castle color="YELLOW" rank="FOUR"/>
+            </rank4Castles>
+            <playerCoins>
+                <coin material="GOLD" value="75"/>
+            </playerCoins>
+            <playerTiles>
+                <tile type="DRAGON" value="0"/>
+                <tile type="RESOURCES" value="1"/>
+                <tile type="RESOURCES" value="6"/>
+            </playerTiles>
+            <playerScoreByEpoch>
+                <epochScore>0</epochScore>
+                <epochScore>25</epochScore>
+                <epochScore>0</epochScore>
+            </playerScoreByEpoch>
+        </player>
+        <player name="Player3" playerColor="BLUE">
+            <rank1Castles/>
+            <rank2Castles>
+                <castle color="BLUE" rank="TWO"/>
+            </rank2Castles>
+            <rank3Castles>
+                <castle color="BLUE" rank="THREE"/>
+                <castle color="BLUE" rank="THREE"/>
+            </rank3Castles>
+            <rank4Castles>
+                <castle color="BLUE" rank="FOUR"/>
+            </rank4Castles>
+            <playerCoins>
+                <coin material="GOLD" value="79"/>
+            </playerCoins>
+            <playerTiles>
+                <tile type="HAZARD" value="-6"/>
+                <tile type="MOUNTAIN" value="0"/>
+                <tile type="RESOURCES" value="3"/>
+            </playerTiles>
+            <playerScoreByEpoch>
+                <epochScore>0</epochScore>
+                <epochScore>29</epochScore>
+                <epochScore>0</epochScore>
+            </playerScoreByEpoch>
+        </player>
+        <player name="Player4" playerColor="GREEN">
+            <rank1Castles/>
+            <rank2Castles/>
+            <rank3Castles/>
+            <rank4Castles/>
+            <playerCoins>
+                <coin material="GOLD" value="179"/>
+            </playerCoins>
+            <playerTiles/>
+            <playerScoreByEpoch>
+                <epochScore>89</epochScore>
+                <epochScore>40</epochScore>
+                <epochScore>0</epochScore>
+            </playerScoreByEpoch>
+        </player>
+    </players>
+    <gameBoard>
+        <placeOnBoard>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="RESOURCES" value="1"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="MOUNTAIN" value="0"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="HAZARD" value="-2"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="RESOURCES" value="2"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="HAZARD" value="-5"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="GREEN" rank="ONE"/>
+        </placeOnBoard>
+        <placeOnBoard>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="RESOURCES" value="4"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="WIZARD" value="0"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="RESOURCES" value="5"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="GREEN" rank="ONE"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="RESOURCES" value="3"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="GOLDMINE" value="0"/>
+        </placeOnBoard>
+        <placeOnBoard>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="RESOURCES" value="4"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="RESOURCES" value="6"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="HAZARD" value="-3"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="RESOURCES" value="5"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="YELLOW" rank="ONE"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="BLUE" rank="ONE"/>
+        </placeOnBoard>
+        <placeOnBoard>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="RED" rank="ONE"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="RED" rank="ONE"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="YELLOW" rank="ONE"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="BLUE" rank="ONE"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="YELLOW" rank="TWO"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="BLUE" rank="TWO"/>
+        </placeOnBoard>
+        <placeOnBoard>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="HAZARD" value="-4"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="RESOURCES" value="2"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="YELLOW" rank="TWO"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tile" type="HAZARD" value="-1"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="RED" rank="FOUR"/>
+            <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="castle" color="BLUE" rank="TWO"/>
+        </placeOnBoard>
+    </gameBoard>
+    <tilebank/>
+    <coinBank>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="1"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="COPPER" value="5"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="SILVER" value="10"/>
+        <coin material="GOLD" value="50"/>
+        <coin material="GOLD" value="50"/>
+        <coin material="GOLD" value="50"/>
+        <coin material="GOLD" value="50"/>
+        <coin material="GOLD" value="4"/>
+        <coin material="GOLD" value="4"/>
+        <coin material="GOLD" value="4"/>
+        <coin material="GOLD" value="4"/>
+    </coinBank>
+    <currentEpoch currentEpochNo="3"/>
+    <emptyPlacesOnBoard>0</emptyPlacesOnBoard>
+    <gameConfig>
+        <NO_OF_PLAYERS>4</NO_OF_PLAYERS>
+        <NO_OF_RANK1CASTLES_PER_PLAYER>2</NO_OF_RANK1CASTLES_PER_PLAYER>
+        <NO_OF_RANK2CASTLES_PER_PLAYER>3</NO_OF_RANK2CASTLES_PER_PLAYER>
+        <NO_OF_RANK3CASTLES_PER_PLAYER>2</NO_OF_RANK3CASTLES_PER_PLAYER>
+        <NO_OF_RANK4CASTLES_PER_PLAYER>1</NO_OF_RANK4CASTLES_PER_PLAYER>
+        <NO_OF_ROWS>6</NO_OF_ROWS>
+        <NO_OF_COLS>5</NO_OF_COLS>
+        <BOARD_AREA_COLOR>#000000</BOARD_AREA_COLOR>
+        <BOARD_AREA_FIELD_COLOR1>#E0E0E0</BOARD_AREA_FIELD_COLOR1>
+        <BOARD_AREA_FIELD_COLOR2>#CCCCFF</BOARD_AREA_FIELD_COLOR2>
+        <SCORING_AREA_COLOR>#C0C0C0</SCORING_AREA_COLOR>
+        <PLAYER_INFO_AREA_COLOR>#808080</PLAYER_INFO_AREA_COLOR>
+        <GAME_INFO_AREA_COLOR>#808080</GAME_INFO_AREA_COLOR>
+        <NO_OF_COPPER_COINS_VAL1>19</NO_OF_COPPER_COINS_VAL1>
+        <COPPER_COINS_VAL1_VAL>1</COPPER_COINS_VAL1_VAL>
+        <NO_OF_COPPER_COINS_VAL5>12</NO_OF_COPPER_COINS_VAL5>
+        <COPPER_COINS_VAL5_VAL>5</COPPER_COINS_VAL5_VAL>
+        <NO_OF_SILVER_COINS>20</NO_OF_SILVER_COINS>
+        <SILVER_COINS_VAL>10</SILVER_COINS_VAL>
+        <NO_OF_GOLD_COINS_VAL50>8</NO_OF_GOLD_COINS_VAL50>
+        <GOLD_COINS_VAL50_VAL>50</GOLD_COINS_VAL50_VAL>
+        <NO_OF_GOLD_COINS_VAL100>4</NO_OF_GOLD_COINS_VAL100>
+        <GOLD_COINS_VAL100_VAL>4</GOLD_COINS_VAL100_VAL>
+        <TOTAL_NO_OF_COINS>63</TOTAL_NO_OF_COINS>
+        <NO_OF_RESOURCE_TILES>12</NO_OF_RESOURCE_TILES>
+        <NO_OF_HAZARD_TILES>6</NO_OF_HAZARD_TILES>
+        <NO_OF_MOUNTAIN_TILES>2</NO_OF_MOUNTAIN_TILES>
+        <NO_OF_DRAGON_TILES>1</NO_OF_DRAGON_TILES>
+        <NO_OF_GOLDMINE_TILES>1</NO_OF_GOLDMINE_TILES>
+        <NO_OF_WIZARD_TILES>1</NO_OF_WIZARD_TILES>
+        <TOTAL_NO_OF_TILES>23</TOTAL_NO_OF_TILES>
+        <NO_OF_TILES_PER_PLAYER>1</NO_OF_TILES_PER_PLAYER>
+        <MAX_VALUE_OF_RESOURCE_TILES>6</MAX_VALUE_OF_RESOURCE_TILES>
+        <MIN_VALUE_OF_HAZARD_TILES>-6</MIN_VALUE_OF_HAZARD_TILES>
+        <VALUE_OF_MOUNTAIN_TILES>0</VALUE_OF_MOUNTAIN_TILES>
+        <VALUE_OF_DRAGON_TILES>0</VALUE_OF_DRAGON_TILES>
+        <VALUE_OF_GOLDMINE_TILES>0</VALUE_OF_GOLDMINE_TILES>
+        <VALUE_OF_WIZARD_TILES>0</VALUE_OF_WIZARD_TILES>
+        <MAX_ITERATIONS_PER_EPOCH>1000</MAX_ITERATIONS_PER_EPOCH>
+    </gameConfig>
+    <gameEnded>false</gameEnded>
+</gameInstance>
