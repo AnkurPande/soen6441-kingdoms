@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.File;
+import java.util.Scanner;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -385,7 +387,8 @@ public class GameController {
 		
 		game.gameActionLog += "Starting Epoch No:" + currentEpochNo + ".";
 		
-		setPlayerStrategies();
+		//setPlayerStrategies();
+		setPlayerStrategiesByUserInput();
 		
 		while(loopCondition){
 			game.players[currentPlayerIndex].getStrategy().selectAndMakeMove(this);
@@ -544,6 +547,7 @@ public class GameController {
 	 * @return Returns the playing strategy of the player index specified.
 	 */
 	private PlayingStrategy getPlayerStrategy(int playerIndex){
+		
 		switch(playerIndex){
 			case 0:	return new PlayingStrategyRandom();
 			case 1: return new PlayingStrategyMin();
@@ -553,13 +557,90 @@ public class GameController {
 		}		
 	}
 	
+	
+	private PlayingStrategy getPlayerStrategyByUserInput(int strategyIndex){
+
+		switch(strategyIndex){
+			case 0:	return new PlayingStrategyRandom();
+			case 1: return new PlayingStrategyMin();
+			case 2: return new PlayingStrategyMax();
+			case 3: return new PlayingStrategyTryOneByOne();
+			case 4: return new PlayingStrategyHuman();
+			default:return null;
+		}		
+	}
+	
 	/**
 	 * Sets the playing strategies for all the players.
 	 */
 	private void setPlayerStrategies(){
-		for(int i=  0; i <game.players.length ; i++){
+		for(int i =  0; i <game.players.length ; i++){
 			game.players[i].setStrategy(getPlayerStrategy(i));
 		}
+	}
+	
+	private void setPlayerStrategiesByUserInput(){
+		for(int i =  0; i <game.players.length ; i++){
+			System.out.println("------------------------------------------------------------------------------------");
+			System.out.println("Please select strategy for player index: " + i);
+			System.out.println("------------------------------------------------------------------------------------");
+			int selectedStrategyIndex = getUserInputStrategy();
+			game.players[i].setStrategy(getPlayerStrategyByUserInput(selectedStrategyIndex));
+		}
+	}
+	
+	private int getUserInputStrategy(){
+		int maxStrategyIndex = 4;
+		int input;
+						
+	    Scanner sc = new Scanner(System.in);
+	    
+		do {
+			System.out.println("------------------------------------------------------------------------------------");
+			System.out.println("Strategy 0 : Random. Strategy 1 : Min. Strategy 2 : Max. Strategy 3 : OneByOne. Strategy 4 : Human.");
+			System.out.println("------------------------------------------------------------------------------------");
+			System.out.print("Please enter the strategy index number (whole no between 0 and " + maxStrategyIndex + ") :");
+			while (!sc.hasNextInt()) {
+				System.out.println("Invalid input! Please try again:");
+				sc.next();
+				System.out.print("Please enter the strategy index number (whole no between 0 and " + maxStrategyIndex + ") :");
+			}
+			
+			input = sc.nextInt();
+			
+			if(input < 0 || input > maxStrategyIndex){
+				System.out.println("Input must be within the specified range! Please try again:");
+			}
+			
+		} while (input < 0 || input > maxStrategyIndex);
+		
+		return input;
+	}
+	
+	
+	public int getUserInputNoOfPlayers(){
+		int maxNoOfPlayers = 4;
+		int input;
+						
+	    Scanner sc = new Scanner(System.in);
+	    
+		do {
+			System.out.print("Please enter the no of players (whole no between 2 and " + maxNoOfPlayers + ") :");
+			while (!sc.hasNextInt()) {
+				System.out.println("Invalid input! Please try again:");
+				sc.next();
+				System.out.print("Please enter the no of players (whole no between 2 and " + maxNoOfPlayers + ") :");
+			}
+			
+			input = sc.nextInt();
+			
+			if(input < 0 || input > maxNoOfPlayers){
+				System.out.println("Input must be within the specified range! Please try again:");
+			}
+			
+		} while (input < 2 || input > maxNoOfPlayers);
+		
+		return input;
 	}
 	
 	/**
