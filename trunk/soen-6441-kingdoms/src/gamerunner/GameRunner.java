@@ -15,11 +15,13 @@ public class GameRunner {
 	 */
 	public static void main(String[] args) {
 		
-		Config conf = new Config(4);
+		GameController gameController = new GameController();
 		
-		GameController gameController = new GameController(conf);
+		int noOfPlayers = gameController.getUserInputNoOfPlayers();
+		Config conf = new Config(noOfPlayers);
+		gameController = new GameController(conf);
 		
-		GameView gv = new GameView(gameController.getGame(),"EveryEpoch");
+		GameView gv = new GameView(gameController.getGame(),"EveryTurn");
 		
 		//gameController.playAllEpochs();
 		
