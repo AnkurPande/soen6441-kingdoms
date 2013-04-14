@@ -23,7 +23,7 @@ public class PlayingStrategyTryOneByOne implements PlayingStrategy {
 		
 		boolean placeFirstTileAttempt = false, drawAndPlaceTileAttempt = false, placeCastleAttempt = false;
 		
-		placeFirstTileAttempt = gc.placeFirstTile(currentPlayerIndex, row, col);
+		placeFirstTileAttempt = gc.placeTileAndDraw(row, col);
 		
 		Castle.CastleRank nextAvailableCastleRank = gc.nextAvailableCastleRank(currentPlayerIndex);
 		if(!placeFirstTileAttempt && nextAvailableCastleRank != null){
@@ -31,7 +31,7 @@ public class PlayingStrategyTryOneByOne implements PlayingStrategy {
 		}
 		
 		if(!placeCastleAttempt && !placeFirstTileAttempt){
-			drawAndPlaceTileAttempt =  gc.drawAndPlaceTile(row, col);
+			drawAndPlaceTileAttempt =  gc.placeTileAndDraw(row, col);
 		}
 		
 		if(!drawAndPlaceTileAttempt){

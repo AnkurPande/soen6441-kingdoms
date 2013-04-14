@@ -38,11 +38,11 @@ public class EpochCounter extends GameComponents {
 	
 	/**
 	 * Sets the current epoch no to the value specified in the parameter - as long as the parameter is within a 
-	 * certain range (integers between 1 and 3 as of build 1).
+	 * certain range (integers between 1 and 6 as of build 3).
 	 * @param newEpochNo The epoch number to set to.
 	 */
 	public void setCurrentEpochNo(int newEpochNo) {
-		if(newEpochNo > 0 && newEpochNo <=3){ 
+		if(newEpochNo > 0 && newEpochNo <=6){ 
 			this.currentEpochNo = newEpochNo;
 		}
 		else{

@@ -94,9 +94,11 @@ public class GameInstance {
 
 		//Give 50 Gold to each player.
 		giveFirstSetOfCoinsToPlayers();
+		
+		initPlayerCoins();
 
 		//Give each player a random first tile
-		assignOneSetOfTilesToPlayers();
+		//assignOneSetOfTilesToPlayers();
 
 		//Initialize the game board
 		initGameBoard();
@@ -208,8 +210,10 @@ public class GameInstance {
 	 */
 	public void assignOneSetOfTilesToPlayers(){
 		for(int i = 0; i < players.length; i++){
-			Tile temp = tileBank.remove(0);
-			players[i].playerTiles.add(temp);
+			if(!tileBank.isEmpty()){
+				Tile temp = tileBank.remove(0);
+				players[i].playerTiles.add(temp);
+			}
 		}
 	}
 
@@ -227,7 +231,19 @@ public class GameInstance {
 					break;
 				}
 			}
+		
 			players[i].playerCoins.add(tempGoldCoin);
+		}
+	}
+	
+	private void initPlayerCoins(){
+		int maxNoOfEpochs = this.gameConfig.MAX_NO_OF_EPOCHS;
+		for(int i = 0; i < players.length; i++){
+			
+			for(int j = 0; j <= maxNoOfEpochs ; j++){
+				players[i].playerCoins.add(new Coin());
+			}
+			
 		}
 	}
 
