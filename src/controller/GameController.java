@@ -1,6 +1,9 @@
 package controller;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Random;
 import java.util.Scanner;
 
 import javax.xml.bind.JAXBContext;
@@ -9,6 +12,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import components.Castle;
+import components.Castle.CastleRank;
 import components.EpochCounter;
 import components.GameComponents;
 import components.Placeholder;
@@ -165,6 +169,10 @@ public class GameController {
 	public boolean drawAndPlaceTile(int rowOfGameBoard, int colOfGameBoard){
 		
 		game.gameActionLog += "Player" + game.getCurrentPlayerIndex() + " requested to perform action 'draw and place tile' at row: " + rowOfGameBoard + ", col: " + colOfGameBoard + ".";
+		game.gameActionLog += "Action 'draw and place tile' failed as this move has been removed.";
+		return false;
+		/*
+		game.gameActionLog += "Player" + game.getCurrentPlayerIndex() + " requested to perform action 'draw and place tile' at row: " + rowOfGameBoard + ", col: " + colOfGameBoard + ".";
 		
 		if(!isGameBoardPlaceValidAndVacant(rowOfGameBoard, colOfGameBoard)){
 			game.gameActionLog += "Action 'draw and place tile' failed due to specified location on game board isn't valid or isn't vacant.";
@@ -182,6 +190,44 @@ public class GameController {
 		placeComponentOnGameBoard(tileToPlace,rowOfGameBoard,colOfGameBoard);
 		game.gameActionLog += "Player" + game.getCurrentPlayerIndex() + " request to perform action 'draw and place tile' succeeded.";
 		return true;
+		*/
+	}
+	
+	public boolean placeTileAndDraw(int rowOfGameBoard, int colOfGameBoard){
+		
+		game.gameActionLog += "Player" + game.getCurrentPlayerIndex() + " requested to perform action 'place tile and draw' at row: " + rowOfGameBoard + ", col: " + colOfGameBoard + ".";
+		
+		if(!isGameBoardPlaceValidAndVacant(rowOfGameBoard, colOfGameBoard)){
+			game.gameActionLog += "Action 'place tile and draw' failed due to specified location on game board isn't valid or isn't vacant.";
+			return false;
+		}
+		
+		int currentPlayerIndex = game.getCurrentPlayerIndex();
+		
+		if(game.players[currentPlayerIndex].playerTiles.isEmpty()){
+			game.gameActionLog += "Action 'place tile and draw' failed as player of index " + currentPlayerIndex + " does not have any more tiles.";
+			return false;
+		}
+		
+		Tile tileToPlace = game.players[game.getCurrentPlayerIndex()].playerTiles.remove(0);
+		placeComponentOnGameBoard(tileToPlace,rowOfGameBoard,colOfGameBoard);
+		
+		if(game.tileBank.size() > 0 ){
+			
+			Tile newlyDrawnTile = null;
+			try {
+				newlyDrawnTile = drawTile();
+			} catch (Exception e) {
+				
+			}
+			
+			game.players[currentPlayerIndex].playerTiles.add(newlyDrawnTile);
+		}
+		
+		game.gameActionLog += "Player" + game.getCurrentPlayerIndex() + " request to perform action 'place tile and draw' succeeded.";
+		return true;
+		
+
 	}
 	
 	/**
@@ -211,7 +257,10 @@ public class GameController {
 	public boolean placeFirstTile(int playerIndex, int rowOfGameBoard, int colOfGameBoard ){
 		
 		game.gameActionLog += "Player" + game.getCurrentPlayerIndex() + " requested to perform action 'place first tile' at row: " + rowOfGameBoard + ", col: " + colOfGameBoard + ".";
+		game.gameActionLog += "Action 'place first tile' failed as this action has been removed.";	
+		return false;
 		
+		/*
 		if(!isValidPlayerIndex(playerIndex)){
 			game.gameActionLog += "Action 'place first tile' failed due to invalid player index.";
 			return false;
@@ -227,6 +276,7 @@ public class GameController {
 		placeComponentOnGameBoard(playersFirstTile,rowOfGameBoard,colOfGameBoard);
 		game.gameActionLog += "Player" + game.getCurrentPlayerIndex() + " request to perform action 'place first tile' succeeded.";
 		return true;
+		*/
 	}
 	
 	/**
@@ -390,18 +440,63 @@ public class GameController {
 		//setPlayerStrategies();
 		setPlayerStrategiesByUserInput();
 		
+		randomlyPlaceTiles();
+		Collections.shuffle(game.tileBank);
+		
+		//Assign three set of tiles to each of the players
+		game.assignOneSetOfTilesToPlayers();
+		game.assignOneSetOfTilesToPlayers();
+		game.assignOneSetOfTilesToPlayers();
+		
 		while(loopCondition){
 			game.players[currentPlayerIndex].getStrategy().selectAndMakeMove(this);
+			
+			calculateScore();
+			displayScores();
+			
+			for(int i = 0 ; i < game.players.length ; i++){
+				if(game.players[i].evaluateCoinValue() > this.gameConfig.COIN_VALUE_TO_END_GAME){
+					game.setGameEnded(true);
+					displayWinner();
+				}	
+			}
 			
 			currentPlayerIndex = (++currentPlayerIndex)%noOfPlayers;
 			game.setCurrentPlayerIndex(currentPlayerIndex);
 			
 			game.gameActionLog += "Empty spaces on board:" + game.getEmptyPlacesOnBoard() + ".";
 			iteration++;
-			if(game.getEmptyPlacesOnBoard() <= 0 || iteration > game.getGameConfig().MAX_ITERATIONS_PER_EPOCH){
+			if(game.isGameEnded() || game.getEmptyPlacesOnBoard() <= 0 || iteration > game.getGameConfig().MAX_ITERATIONS_PER_EPOCH){
 				loopCondition = false;
 			}
 		}
+	}
+	
+	private void displayWinner(){
+		System.out.println("*********************************************************");
+		int highestScoringPlayer = getHighestScorerForAllEpochs() + 1;
+		System.out.println("Winner is Player " + highestScoringPlayer);
+		System.out.println("*********************************************************");
+	}
+	
+	private void randomlyPlaceTiles(){
+		
+		for(int i = 0 ; i < game.tileBank.size() ; i++){
+			Tile tempTile = game.tileBank.get(i);
+			TileType type = tempTile.getType();
+			
+			if(type == TileType.DRAGON || type == TileType.GOLDMINE || type == TileType.WIZARD){
+				int row =  new Random().nextInt(game.gameBoard[0].length);
+				int col =  new Random().nextInt(game.gameBoard.length);
+				
+				if(this.isGameBoardPlaceValidAndVacant(row, col)){
+					game.tileBank.remove(tempTile);
+					placeComponentOnGameBoard(tempTile,row,col);
+				}
+			}
+		}
+		
+		
 	}
 	
 	/**
@@ -411,12 +506,18 @@ public class GameController {
 	public void playEpoch(int epochNoToPlay){
 		int currentEpochNo = game.getCurrentEpoch().getEpochNo();
 		
-		if(currentEpochNo == epochNoToPlay){
+		if(currentEpochNo == epochNoToPlay && !game.isGameEnded()){
 			playOneEpoch();
 		}
-		else
+		else if(currentEpochNo != epochNoToPlay)
 		{
 			game.gameActionLog += "Can't start epoch no " + epochNoToPlay +" as games current epoch is not the same as requested epoch to play - current epoch no is:" + currentEpochNo + ".";
+		}
+		else if(game.isGameEnded()){
+			game.gameActionLog += "Can't start epoch no " + epochNoToPlay + " as game has already ended.";
+		}
+		else{
+			game.gameActionLog += "Can't play epoch " + epochNoToPlay + " for unknow reason.";
 		}
 	}
 	
@@ -440,16 +541,46 @@ public class GameController {
 		
 	}
 	
+	public void playAllSixEpochs(){
+		
+		playEpoch(1);
+		resetGameAtEpochEnd();
+		
+		playEpoch(2);
+		resetGameAtEpochEnd();
+		
+		playEpoch(3);
+		resetGameAtEpochEnd();
+
+		playEpoch(4);
+		resetGameAtEpochEnd();
+
+		playEpoch(5);
+		resetGameAtEpochEnd();
+		
+		playEpoch(6);
+		resetGameAtEpochEnd();
+		
+		game.setGameEnded(true);
+	}
+	
 	/**
 	 * Resets the game state to the epoch beginning.
 	 */
 	public void resetGameAtEpochEnd() {
-		displayScores();
-		setHighestScorerOfEpochToCurrentPlayer();
-		incrementEpoch();
-		resetCastles();
-		resetTiles();
-		game.initGameBoard();
+		if(!game.isGameEnded()){
+			displayScores();
+			setHighestScorerOfEpochToCurrentPlayer();
+			incrementEpoch();
+			resetCastlesAllRanks();
+			
+			resetTiles();
+			game.initGameBoard();
+		}
+		
+		if(game.getCurrentEpoch().getEpochNo() == 6){
+			displayWinner();
+		}
 	}
 	
 	/**
@@ -471,6 +602,20 @@ public class GameController {
 		
 		System.out.println("Highest scorer index :" + highestScorerIndex);
 	}
+	
+	private int getHighestScorerForAllEpochs(){
+		int higestScore = 0, highestScorerIndex = -1;
+		
+		for(int i = 0 ; i < game.players.length ; i++){
+			int totalScore = game.players[i].getScoreAllEpochs();
+			if( totalScore > higestScore){
+				higestScore = totalScore;
+				highestScorerIndex = i;
+			}
+		}
+		
+		return highestScorerIndex;
+	}
 
 	/**
      * Displays the scores of the players after epoch end.
@@ -491,10 +636,11 @@ public class GameController {
 	private void incrementEpoch() {
 		int currentEpochNo = game.getCurrentEpoch().getEpochNo();
 		int nextEpochNo = currentEpochNo + 1;
-		if(nextEpochNo <= 3){
+		int maxEpochNo = 6;
+		if(nextEpochNo <= maxEpochNo){
 			game.setCurrentEpoch(new EpochCounter(nextEpochNo));		
 		}
-		else if(nextEpochNo == 4){
+		else if(nextEpochNo == (maxEpochNo+1)){
 			game.setCurrentEpoch(new EpochCounter(nextEpochNo-1));
 		}
 	}
@@ -503,18 +649,35 @@ public class GameController {
 	 * Reset the castles on the game board.
 	 * Returns the rank 1 castles to the player - returns other castles to the game box.
 	 */
-	private void resetCastles() {
+	private void resetCastles(CastleRank rank) {
 		
 		for(int i = 0; i < game.gameBoard.length; i++){
 			for(int j = 0; j < game.gameBoard[0].length; j++){
 				if(game.gameBoard[i][j] instanceof Castle){
 					
 					Castle tempCastle = (Castle) game.gameBoard[i][j];
-					if(tempCastle.getRank() == Castle.CastleRank.ONE){
+					if(tempCastle.getRank() == CastleRank.ONE){
 						int index = game.getPlayerIndexByColor(tempCastle.getColor());
 						game.players[index].rank1Castles.add(tempCastle);
 					}
 					
+					game.gameBoard[i][j] = new Placeholder();
+				}
+			}
+		}
+	}
+		
+	private void resetCastlesAllRanks(){
+		for(int i = 0; i < game.gameBoard.length; i++){
+			for(int j = 0; j < game.gameBoard[0].length; j++){
+				if(game.gameBoard[i][j] instanceof Castle){
+
+					Castle tempCastle = (Castle) game.gameBoard[i][j];
+					
+					int index = game.getPlayerIndexByColor(tempCastle.getColor());
+					game.players[index].rank1Castles.add(tempCastle);
+					
+
 					game.gameBoard[i][j] = new Placeholder();
 				}
 			}
@@ -537,7 +700,7 @@ public class GameController {
 		}
 		
 		GameInstance.shuffleTileBank(game.tileBank);
-		game.assignOneSetOfTilesToPlayers();
+		//game.assignOneSetOfTilesToPlayers();
 	}
 	
 	/**
@@ -837,8 +1000,9 @@ public class GameController {
 		for(int i = 0; i < playerScoreTotal.length ; i++){
 			playerScoreTotal[i] = playerScoreByRow[i] + playerScoreByColumn[i];
 			int playersCurrentScore = game.players[i].evaluateCoinValue();
+			int currentEpochNo = game.getCurrentEpoch().getEpochNo();
 			game.players[i].setEpochScore(game.getCurrentEpoch().getEpochNo() - 1, playerScoreTotal[i]);
-			game.players[i].playerCoins.firstElement().setValue(playerScoreTotal[i] + playersCurrentScore);
+			game.players[i].playerCoins.elementAt(currentEpochNo+1).setValue(playerScoreTotal[i]);
 		}
 		//-------------------------------------------------------------------------------------
 			

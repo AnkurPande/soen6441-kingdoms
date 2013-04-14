@@ -59,7 +59,7 @@ public class Player{
 	
 	@XmlElementWrapper(name="playerScoreByEpoch")
 	@XmlElement(name="epochScore")
-	private int[] epochScore = new int[3];
+	private int[] epochScore = new int[6];
 
 
 	/**
@@ -252,6 +252,9 @@ public class Player{
 		description += "Epoch 1 score :" + this.getEpochScore(0) + "|";
 		description += "Epoch 2 score :" + this.getEpochScore(1) + "|";
 		description += "Epoch 3 score :" + this.getEpochScore(2) + "|";
+		description += "Epoch 4 score :" + this.getEpochScore(3) + "|";
+		description += "Epoch 5 score :" + this.getEpochScore(4) + "|";
+		description += "Epoch 6 score :" + this.getEpochScore(5) + "|";
 		description += "Total score :" + this.getScoreAllEpochs() + "|";
 		description += "Coin value :" + this.evaluateCoinValue() + "|";
 
@@ -301,7 +304,7 @@ public class Player{
 		}
 	}
 	
-	private int getScoreAllEpochs(){
+	public int getScoreAllEpochs(){
 		int sum = 0;
 		
 		for(int i = 0 ; i < this.epochScore.length ; i++){
