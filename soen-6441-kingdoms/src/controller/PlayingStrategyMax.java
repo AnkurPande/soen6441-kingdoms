@@ -22,7 +22,7 @@ public class PlayingStrategyMax implements PlayingStrategy {
 		
 		int currentPlayerIndex = gc.getGame().getCurrentPlayerIndex();
 		
-		boolean placeFirstTileAttempt = false, drawAndPlaceTileAttempt = false, placeCastleAttempt = false;
+		boolean placeFirstTileAttempt = false, placeAndDrawTileAttempt = false, placeCastleAttempt = false;
 		
 		boolean playerHasFirstTile = gc.getGame().players[currentPlayerIndex].hasFirstTile();
 		
@@ -30,25 +30,25 @@ public class PlayingStrategyMax implements PlayingStrategy {
 			TileType playersFirstTileType = gc.getGame().players[currentPlayerIndex].playerTiles.firstElement().getType();
 			
 			if(playersFirstTileType == TileType.RESOURCES){
-				placeFirstTileAttempt = gc.placeFirstTile(currentPlayerIndex, row, col);
+				placeFirstTileAttempt = gc.placeTileAndDraw(row, col);
 			}
 		}
 		
 		if(!placeFirstTileAttempt){
-			drawAndPlaceTileAttempt =  gc.drawAndPlaceTile(row, col);
+			placeAndDrawTileAttempt =  gc.placeTileAndDraw(row, col);
 		}
 		
 		Castle.CastleRank nextAvailableCastleRank = gc.nextAvailableCastleRank(currentPlayerIndex);
-		if(!drawAndPlaceTileAttempt && !placeFirstTileAttempt && nextAvailableCastleRank != null){
+		if(!placeAndDrawTileAttempt && !placeFirstTileAttempt && nextAvailableCastleRank != null){
 			placeCastleAttempt =  gc.placeCastle(currentPlayerIndex, nextAvailableCastleRank, row, col);
 		}
 		
 		
-		if(!placeCastleAttempt && !drawAndPlaceTileAttempt && !placeFirstTileAttempt && playerHasFirstTile){
+		if(!placeCastleAttempt && !placeAndDrawTileAttempt && !placeFirstTileAttempt && playerHasFirstTile){
 			placeFirstTileAttempt = gc.placeFirstTile(currentPlayerIndex, row, col);
 		}
 		
-		if(!placeFirstTileAttempt && !drawAndPlaceTileAttempt && !placeCastleAttempt){
+		if(!placeFirstTileAttempt && !placeAndDrawTileAttempt && !placeCastleAttempt){
 			gc.getGame().gameActionLog += "Player " + currentPlayerIndex + " could not make any moves - passing on to the next player.";
 		}
 	}

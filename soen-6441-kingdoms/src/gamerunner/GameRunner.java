@@ -15,6 +15,7 @@ public class GameRunner {
 	 */
 	public static void main(String[] args) {
 		
+		
 		GameController gameController = new GameController();
 		
 		int noOfPlayers = gameController.getUserInputNoOfPlayers();
@@ -23,9 +24,9 @@ public class GameRunner {
 		
 		GameView gv = new GameView(gameController.getGame(),"EveryTurn");
 		
-		//gameController.playAllEpochs();
+		//gameController.playAllSixEpochs();
 		
-		//gameController.saveGame("test_file1.xml");
+		gameController.saveGame("test_file1.xml");
 		gameController.playEpoch(1);
 		gameController.saveGame("test_file1.xml");
 		gameController.loadAndSetGame("test_file1.xml");
@@ -53,6 +54,36 @@ public class GameRunner {
 		gameController.saveGame("junit_test.xml");
 		gameController.resetGameAtEpochEnd();
 		gameController.saveGame("test_file3r.xml");
+		
+		gameController.playEpoch(4);
+		gameController.saveGame("test_file4.xml");
+		gameController.loadAndSetGame("test_file4.xml");
+		gv.setGame(gameController.getGame());
+		gameController.getGame().addChangeListener(gv);
+		gameController.calculateScore();
+		gameController.saveGame("junit_test.xml");
+		gameController.resetGameAtEpochEnd();
+		gameController.saveGame("test_file4r.xml");
+		
+		gameController.playEpoch(5);
+		gameController.saveGame("test_file5.xml");
+		gameController.loadAndSetGame("test_file5.xml");
+		gv.setGame(gameController.getGame());
+		gameController.getGame().addChangeListener(gv);
+		gameController.calculateScore();
+		gameController.saveGame("junit_test.xml");
+		gameController.resetGameAtEpochEnd();
+		gameController.saveGame("test_file5r.xml");
+		
+		gameController.playEpoch(6);
+		gameController.saveGame("test_file6.xml");
+		gameController.loadAndSetGame("test_file6.xml");
+		gv.setGame(gameController.getGame());
+		gameController.getGame().addChangeListener(gv);
+		gameController.calculateScore();
+		gameController.saveGame("junit_test.xml");
+		gameController.resetGameAtEpochEnd();
+		gameController.saveGame("test_file6r.xml");
 		
 		System.out.println(gameController.getGame().gameActionLog.replace('.','\n'));
 		

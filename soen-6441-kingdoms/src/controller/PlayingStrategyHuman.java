@@ -88,7 +88,7 @@ public class PlayingStrategyHuman implements PlayingStrategy {
 	    
 		do {
 			System.out.println("------------------------------------------------------------------------------------");
-			System.out.println("Move 0 : Place Tile and Replace. Move 1: Place Castle.");
+			System.out.println("Move 0 : Place Tile and Draw New. Move 1: Place Castle.");
 			System.out.println("------------------------------------------------------------------------------------");
 			System.out.print("Please enter the move index number (whole no between 0 and " + maxMoveIndex + ") :");
 			while (!sc.hasNextInt()) {
@@ -121,7 +121,7 @@ public class PlayingStrategyHuman implements PlayingStrategy {
 		boolean moveAttempt = false;
 		switch(moveNo){
 			case 0: //moveAttempt = gc.placeFirstTile(currentPlayerIndex, rowIndex, colIndex);
-					moveAttempt = gc.drawAndPlaceTile(rowIndex, colIndex);
+					moveAttempt = gc.placeTileAndDraw(rowIndex, colIndex);
 					break;
 			case 1: Castle.CastleRank selectedCastleRank = selectCastleRank();
 					moveAttempt = gc.placeCastle(currentPlayerIndex, selectedCastleRank, rowIndex, colIndex);
