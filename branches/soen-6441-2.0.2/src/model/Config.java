@@ -76,6 +76,10 @@ public class Config{
 	public final int MAX_ITERATIONS_PER_EPOCH = 1000;
 	//----------------------------------------------------------------------------
 	
+	public final int COIN_VALUE_TO_END_GAME = 500;
+	
+	public final int MAX_NO_OF_EPOCHS = 6;
+	
 	/**
 	 * Constructor specifying the number of players. The no of players determines the no of rank 1 castles in the game.
 	 * @param noOfPlayers The no of players in the game. 

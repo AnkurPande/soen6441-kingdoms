@@ -23,7 +23,7 @@ public class PlayingStrategyRandom implements PlayingStrategy {
 		ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
 		possibleMoves.add(0);
 		possibleMoves.add(1);
-		possibleMoves.add(2);
+//		possibleMoves.add(2);
 		
 		boolean moveAttempt = false;
 		boolean loopCondition = true;
@@ -31,7 +31,7 @@ public class PlayingStrategyRandom implements PlayingStrategy {
 		while(loopCondition){
 			
 			while(!possibleMoves.contains(randomInt)){
-				randomInt = new Random().nextInt(3);
+				randomInt = new Random().nextInt(2);
 			}
 			
 			moveAttempt = makeMove(randomInt, gc);
@@ -66,8 +66,8 @@ public class PlayingStrategyRandom implements PlayingStrategy {
 		boolean loopCondition = true, randomNotFound = false;
 		int index = 0;
 		while(loopCondition){
-			row =  new Random().nextInt(5);
-			col =  new Random().nextInt(6);
+			row =  new Random().nextInt(gc.getGame().gameBoard[0].length);
+			col =  new Random().nextInt(gc.getGame().gameBoard.length);
 			
 			if(gc.isGameBoardPlaceValidAndVacant(row, col) || ++index > 100){
 				loopCondition = false;
@@ -87,13 +87,13 @@ public class PlayingStrategyRandom implements PlayingStrategy {
 		
 		boolean moveAttempt = false;
 		switch(moveNo){
-			case 0: moveAttempt = gc.drawAndPlaceTile(row, col);
+			case 0: moveAttempt = gc.placeTileAndDraw(row, col);
 					break;
 			case 1: Castle.CastleRank nextAvailableCastleRank = gc.nextAvailableCastleRank(currentPlayerIndex);
 					moveAttempt = gc.placeCastle(currentPlayerIndex, nextAvailableCastleRank, row, col);
 					break;
-			case 2: moveAttempt = gc.placeFirstTile(currentPlayerIndex, row, col);
-					break;
+//			case 2: moveAttempt = gc.placeFirstTile(currentPlayerIndex, row, col);
+//					break;
 			default:break;
 		}
 		
