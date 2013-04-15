@@ -4,6 +4,12 @@ import java.util.Random;
 import java.util.Scanner;
 
 import components.Castle;
+/**
+ * The strategy makes the human player choose the move and  place the tiles and castles on the game board.
+ *  
+ * @author Team B
+ *
+ */
 
 public class PlayingStrategyHuman implements PlayingStrategy {
 	
