@@ -37,6 +37,7 @@ public class GameInstance {
 	@XmlElementWrapper(name="gameBoard")
 	@XmlElement(name="placeOnBoard", nillable=true,defaultValue="")
 	public GameComponents[][] gameBoard;
+	
 	private int emptyPlacesOnBoard;
 
 	@XmlElementWrapper(name="tilebank")
@@ -55,7 +56,7 @@ public class GameInstance {
 
 
 	/**
-	 * Default constructor. Creates a blank by default.
+	 * Default constructor. Creates a blank game by default.
 	 */
 	public GameInstance(){
 		listeners = new ArrayList<PropertyChangeListener>();
@@ -355,6 +356,7 @@ public class GameInstance {
 		this.gameConfig = gameConfig;
 	}
 
+	@XmlElement
 	/**
 	 * Getter for the emptyPlacesOnBoard.
 	 * @return

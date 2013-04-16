@@ -17,6 +17,9 @@ public class PlayingStrategyHuman implements PlayingStrategy {
 	private int selectedMoveIndex = -1;
 	private boolean selectedLocationValidAndVacant = false;
 
+	/**
+	 * This method determines the move a player will make next.
+	 */
 	@Override
 	public void selectAndMakeMove(GameController gc) {
 		
@@ -40,6 +43,10 @@ public class PlayingStrategyHuman implements PlayingStrategy {
 		
 	}
 	
+	/**
+	 * Select location on game board to where a move is to be made by user input.
+	 * @param gc The game controller
+	 */
 	private void selectLocation(GameController gc){
 		
 		int maxColIndex = gc.getGame().gameBoard.length - 1;
@@ -85,6 +92,9 @@ public class PlayingStrategyHuman implements PlayingStrategy {
 		this.selectedColIndex = input;
 	}
 	
+	/**
+	 * Select move based on user input.
+	 */
 	private void selectMove(){
 	
 		int maxMoveIndex = 1;
@@ -140,6 +150,10 @@ public class PlayingStrategyHuman implements PlayingStrategy {
 		return moveAttempt;
 	}
 	
+	/**
+	 * Select the rank of the castle to place.
+	 * @return Return the selected castle rank
+	 */
 	private Castle.CastleRank selectCastleRank(){
 		
 		Castle.CastleRank selectedCastleRank = null;
@@ -169,6 +183,11 @@ public class PlayingStrategyHuman implements PlayingStrategy {
 		return 	selectedCastleRank;
 	}
 	
+	/**
+	 * Determine castle rank from the specified numeric input.
+	 * @param castleRankNo The numeric castle rank no.
+	 * @return The castle rank resolved from the numeric input.
+	 */
 	private Castle.CastleRank determineCastleRank(int castleRankNo){
 		
 		Castle.CastleRank selectedCastleRank = null;

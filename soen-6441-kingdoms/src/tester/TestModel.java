@@ -141,7 +141,7 @@ public class TestModel {
 		assertEquals(p.playerCoins.size(), 0);
 
 		Player pNew = gi.players[3];
-		assertEquals(pNew.playerCoins.size(), 1);
+		assertEquals(pNew.playerCoins.size(), 8);
 
 		int coinValue = pNew.playerCoins.firstElement().getValue();
 		assertEquals(coinValue, 50);
@@ -171,9 +171,13 @@ public class TestModel {
 	 * 
 	 */
 	public void testIsGameEnded(){
+		gi = new GameInstance(new Config(4));		
 		assertFalse(gi.isGameEnded());
-		GameController gc = new GameController(gi);
-		gc.playAllEpochs();
+		
+		GameController gc = new GameController(new Config(4));
+		gc.setGame(gi);
+		
+		gc.playAllSixEpochs();
 		assertTrue(gi.isGameEnded());
 	}
 
