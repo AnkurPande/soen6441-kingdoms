@@ -16,8 +16,10 @@ public class PlayingStrategyHuman implements PlayingStrategy {
 	private int selectedRowIndex = -1, selectedColIndex = -1;
 	private int selectedMoveIndex = -1;
 	private boolean selectedLocationValidAndVacant = false;
+	private Scanner sc;
 
 	@Override
+
 	public void selectAndMakeMove(GameController gc) {
 		
 		boolean moveAttempt = false;
@@ -39,14 +41,17 @@ public class PlayingStrategyHuman implements PlayingStrategy {
 		}while(!moveAttempt);
 		
 	}
-	
+	/**
+	 * Select location to place castle and other items in rows and columns
+	 * @param gc is object for the game controller 
+	 */
 	private void selectLocation(GameController gc){
 		
 		int maxColIndex = gc.getGame().gameBoard.length - 1;
 		int maxRowIndex = gc.getGame().gameBoard[0].length - 1;
 		int input;
 						
-	    Scanner sc = new Scanner(System.in);
+	    sc = new Scanner(System.in);
 	    
 		do {
 			System.out.print("Please enter the column index number (whole no between 0 and " + maxRowIndex + ") :");
@@ -139,7 +144,10 @@ public class PlayingStrategyHuman implements PlayingStrategy {
 		
 		return moveAttempt;
 	}
-	
+	/**
+	 * select castle and than show the castle rank. 
+	 * @return it will return the rank for the selected castle
+	 */
 	private Castle.CastleRank selectCastleRank(){
 		
 		Castle.CastleRank selectedCastleRank = null;
