@@ -31,6 +31,7 @@ public class GameController {
 	
 	private GameInstance game;
 	private Config gameConfig;
+	private boolean interrupted = false;
 	
 	/**
 	 * Constructor with specifying a GameInstance. Creates a new GameController with a specified GameInstace.
@@ -449,6 +450,12 @@ public class GameController {
 		game.assignOneSetOfTilesToPlayers();
 		
 		while(loopCondition){
+			
+			if(this.isInterrupted()){
+				loopCondition = false;
+				break;
+			}
+			
 			game.players[currentPlayerIndex].getStrategy().selectAndMakeMove(this);
 			
 			calculateScore();
@@ -457,7 +464,6 @@ public class GameController {
 			for(int i = 0 ; i < game.players.length ; i++){
 				if(game.players[i].evaluateCoinValue() > this.gameConfig.COIN_VALUE_TO_END_GAME){
 					game.setGameEnded(true);
-					displayWinner();
 				}	
 			}
 			
@@ -466,7 +472,8 @@ public class GameController {
 			
 			game.gameActionLog += "Empty spaces on board:" + game.getEmptyPlacesOnBoard() + ".";
 			iteration++;
-			if(game.isGameEnded() || game.getEmptyPlacesOnBoard() <= 0 || iteration > game.getGameConfig().MAX_ITERATIONS_PER_EPOCH){
+			
+			if(game.isGameEnded() || game.getEmptyPlacesOnBoard() <= 0 || iteration > game.getGameConfig().MAX_ITERATIONS_PER_EPOCH || this.isInterrupted()){
 				loopCondition = false;
 			}
 		}
@@ -506,7 +513,11 @@ public class GameController {
 	public void playEpoch(int epochNoToPlay){
 		int currentEpochNo = game.getCurrentEpoch().getEpochNo();
 		
-		if(currentEpochNo == epochNoToPlay && !game.isGameEnded()){
+		if(currentEpochNo == epochNoToPlay && !game.isGameEnded() && !this.isInterrupted()){
+			System.out.println("------------------------------------------");
+			System.out.println("Starting epoch no: " + epochNoToPlay);
+			System.out.println("------------------------------------------");
+			
 			playOneEpoch();
 		}
 		else if(currentEpochNo != epochNoToPlay)
@@ -516,8 +527,11 @@ public class GameController {
 		else if(game.isGameEnded()){
 			game.gameActionLog += "Can't start epoch no " + epochNoToPlay + " as game has already ended.";
 		}
+		else if(this.isInterrupted()){
+			game.gameActionLog += "Can't start epoch no " + epochNoToPlay + " as game was interrupted by another load game.";
+		}
 		else{
-			game.gameActionLog += "Can't play epoch " + epochNoToPlay + " for unknow reason.";
+			game.gameActionLog += "Can't play epoch " + epochNoToPlay + " for unknown reason.";
 		}
 	}
 	
@@ -543,32 +557,45 @@ public class GameController {
 	
 	public void playAllSixEpochs(){
 		
-		playEpoch(1);
-		resetGameAtEpochEnd();
-		
-		playEpoch(2);
-		resetGameAtEpochEnd();
-		
-		playEpoch(3);
-		resetGameAtEpochEnd();
-
-		playEpoch(4);
-		resetGameAtEpochEnd();
-
-		playEpoch(5);
-		resetGameAtEpochEnd();
-		
-		playEpoch(6);
-		resetGameAtEpochEnd();
+		playAllEpochsFrom(1);
 		
 		game.setGameEnded(true);
+	}
+	
+	public void playAllEpochsFrom(int startingEpochNo){
+		
+		int maxNoOfEpochs = this.game.getGameConfig().MAX_NO_OF_EPOCHS;
+		
+		if(startingEpochNo > 0 && startingEpochNo <= maxNoOfEpochs){
+			
+			for(int i = startingEpochNo ; i <= maxNoOfEpochs ; i++){
+				if(this.isInterrupted()){
+					break;
+				}
+				
+				playEpoch(i);
+				resetGameAtEpochEnd();
+			}
+			
+			game.setGameEnded(true);
+			
+			if(!this.isInterrupted()){
+				System.out.println(this.getGame().gameActionLog.replace('.','\n'));
+			}
+			
+		}
 	}
 	
 	/**
 	 * Resets the game state to the epoch beginning.
 	 */
 	public void resetGameAtEpochEnd() {
-		if(!game.isGameEnded()){
+		
+		if(game.getCurrentEpoch().getEpochNo() == 6){
+			displayWinner();
+		}
+		
+		if(!game.isGameEnded() && !this.isInterrupted()){
 			displayScores();
 			setHighestScorerOfEpochToCurrentPlayer();
 			incrementEpoch();
@@ -578,9 +605,6 @@ public class GameController {
 			game.initGameBoard();
 		}
 		
-		if(game.getCurrentEpoch().getEpochNo() == 6){
-			displayWinner();
-		}
 	}
 	
 	/**
@@ -588,8 +612,9 @@ public class GameController {
 	 */
 	private void setHighestScorerOfEpochToCurrentPlayer() {
 		int higestScore = 0, highestScorerIndex = -1;
+		int currentEpochNo = game.getCurrentEpoch().getEpochNo();
 		for(int i = 0 ; i < game.players.length ; i++){
-			int currentEpochScore = game.players[i].getEpochScore(game.getCurrentEpoch().getEpochNo() - 1);
+			int currentEpochScore = game.players[i].getEpochScore(currentEpochNo - 1);
 			if( currentEpochScore > higestScore){
 				higestScore = currentEpochScore;
 				highestScorerIndex = i;
@@ -600,7 +625,7 @@ public class GameController {
 			game.setCurrentPlayerIndex(highestScorerIndex);
 		}
 		
-		System.out.println("Highest scorer index :" + highestScorerIndex);
+		System.out.println("Highest scorer index for epoch " + currentEpochNo + " :" + highestScorerIndex);
 	}
 	
 	private int getHighestScorerForAllEpochs(){
@@ -626,7 +651,7 @@ public class GameController {
     	System.out.println("-----------------------------------");
     	
 		for(int i = 0; i < game.players.length ; i++){
-			System.out.println(game.players[i].getScoreDescription());
+			System.out.println("Player " + (i+1) + "-> " + game.players[i].getScoreDescription());
 		}
 	}
 	
@@ -744,11 +769,13 @@ public class GameController {
 	
 	private void setPlayerStrategiesByUserInput(){
 		for(int i =  0; i <game.players.length ; i++){
-			System.out.println("------------------------------------------------------------------------------------");
-			System.out.println("Please select strategy for player index: " + i);
-			System.out.println("------------------------------------------------------------------------------------");
-			int selectedStrategyIndex = getUserInputStrategy();
-			game.players[i].setStrategy(getPlayerStrategyByUserInput(selectedStrategyIndex));
+			if(game.players[i].getStrategy() == null){
+				System.out.println("------------------------------------------------------------------------------------");
+				System.out.println("Please select strategy for player index: " + i);
+				System.out.println("------------------------------------------------------------------------------------");
+				int selectedStrategyIndex = getUserInputStrategy();
+				game.players[i].setStrategy(getPlayerStrategyByUserInput(selectedStrategyIndex));
+			}
 		}
 	}
 	
@@ -763,6 +790,7 @@ public class GameController {
 			System.out.println("Strategy 0 : Random. Strategy 1 : Min. Strategy 2 : Max. Strategy 3 : OneByOne. Strategy 4 : Human.");
 			System.out.println("------------------------------------------------------------------------------------");
 			System.out.print("Please enter the strategy index number (whole no between 0 and " + maxStrategyIndex + ") :");
+			
 			while (!sc.hasNextInt()) {
 				System.out.println("Invalid input! Please try again:");
 				sc.next();
@@ -778,6 +806,67 @@ public class GameController {
 		} while (input < 0 || input > maxStrategyIndex);
 		
 		return input;
+	}
+	
+	public String getUserInputSaveFileName(){
+		
+		String fileName = "";				
+	    Scanner sc = new Scanner(System.in);
+	    
+		do {
+			
+			System.out.println("---------------------------------------------");
+			System.out.println("Please enter the file name to save to:");
+			System.out.println("---------------------------------------------");
+			
+			while (!sc.hasNextLine()) {
+				System.out.println("Invalid input! Please try again:");
+				sc.next();
+				System.out.println("Please enter the file name to save to:");
+			}
+			
+			fileName = sc.nextLine();
+			
+			
+			if(fileName == "" ||  fileName.length() <= 0 || fileName.length() > 40){
+				System.out.println("Please enter a valid file name!");
+			}
+			
+		} while (fileName == "" ||  fileName.length() <= 0 || fileName.length() > 40);
+		
+		return fileName;
+	}
+	
+	
+	public String getUserInputLoadFileName(){
+
+		String fileName = "";				
+		Scanner sc = new Scanner(System.in);
+		File file = new File("avoid_null.xml");
+		 
+		do {
+
+			System.out.println("---------------------------------------------");
+			System.out.println("Please enter the file name to load from:");
+			System.out.println("---------------------------------------------");
+
+			while (!sc.hasNextLine()) {
+				System.out.println("Invalid input! Please try again:");
+				sc.next();
+				System.out.println("Please enter the file name to load from:");
+			}
+
+			fileName = sc.nextLine();
+
+			file = new File(fileName);
+			
+			if(fileName == "" ||  fileName.length() <= 0 || fileName.length() > 40 || !file.exists()){
+				System.out.println("Please enter a valid file name!");
+			}
+
+		} while (fileName == "" ||  fileName.length() <= 0 || fileName.length() > 40 || !file.exists());
+
+		return fileName;
 	}
 	
 	
@@ -1102,5 +1191,13 @@ public class GameController {
 		}
 		
 		return result;
+	}
+
+	public boolean isInterrupted() {
+		return interrupted;
+	}
+
+	public void setInterrupted(boolean interrupted) {
+		this.interrupted = interrupted;
 	}
 }
