@@ -31,6 +31,7 @@ public class GameController {
 	
 	private GameInstance game;
 	private Config gameConfig;
+	private boolean interrupted = false;
 	
 	/**
 	 * Constructor with specifying a GameInstance. Creates a new GameController with a specified GameInstace.
@@ -93,6 +94,10 @@ public class GameController {
 		return loadGameState(file);
 	}
 	
+	/**
+	 * This method loads a game from file and sets the GameInstance of the controller to the loaded game.
+	 * @param fileName The file name of the game to load.
+	 */
 	public void loadAndSetGame(String fileName){
 		this.game = loadGame(fileName);
 	}
@@ -160,7 +165,7 @@ public class GameController {
 	}
 	
 	/**
-	 * This method draws a tile from the tile bank and places it on the specified row and coloumn of the game board.
+	 * This method draws a tile from the tile bank and places it on the specified row and column of the game board.
 	 * 
 	 * @param rowOfGameBoard The row index of the game board to place the tile.
 	 * @param colOfGameBoard The column index of the game board to place the tile.
@@ -193,6 +198,12 @@ public class GameController {
 		*/
 	}
 	
+	/**
+	 * This method places a tile on the board and then draws a tile from the tile bank. 
+	 * @param rowOfGameBoard The row index of the game board to place the tile to.
+	 * @param colOfGameBoard The column index of the game board to place the tile to.
+	 * @return Returns true if the draw and place was successful - returns false otherwise.
+	 */
 	public boolean placeTileAndDraw(int rowOfGameBoard, int colOfGameBoard){
 		
 		game.gameActionLog += "Player" + game.getCurrentPlayerIndex() + " requested to perform action 'place tile and draw' at row: " + rowOfGameBoard + ", col: " + colOfGameBoard + ".";
@@ -440,7 +451,7 @@ public class GameController {
 		//setPlayerStrategies();
 		setPlayerStrategiesByUserInput();
 		
-		randomlyPlaceTiles();
+		randomlyPlaceDragonWizardGoldMineTiles();
 		Collections.shuffle(game.tileBank);
 		
 		//Assign three set of tiles to each of the players
@@ -449,6 +460,12 @@ public class GameController {
 		game.assignOneSetOfTilesToPlayers();
 		
 		while(loopCondition){
+			
+			if(this.isInterrupted()){
+				loopCondition = false;
+				break;
+			}
+			
 			game.players[currentPlayerIndex].getStrategy().selectAndMakeMove(this);
 			
 			calculateScore();
@@ -457,7 +474,6 @@ public class GameController {
 			for(int i = 0 ; i < game.players.length ; i++){
 				if(game.players[i].evaluateCoinValue() > this.gameConfig.COIN_VALUE_TO_END_GAME){
 					game.setGameEnded(true);
-					displayWinner();
 				}	
 			}
 			
@@ -466,12 +482,16 @@ public class GameController {
 			
 			game.gameActionLog += "Empty spaces on board:" + game.getEmptyPlacesOnBoard() + ".";
 			iteration++;
-			if(game.isGameEnded() || game.getEmptyPlacesOnBoard() <= 0 || iteration > game.getGameConfig().MAX_ITERATIONS_PER_EPOCH){
+			
+			if(game.isGameEnded() || game.getEmptyPlacesOnBoard() <= 0 || iteration > game.getGameConfig().MAX_ITERATIONS_PER_EPOCH || this.isInterrupted()){
 				loopCondition = false;
 			}
 		}
 	}
 	
+	/**
+	 * Displays the player with the highest score for all epochs.
+	 */
 	private void displayWinner(){
 		System.out.println("*********************************************************");
 		int highestScoringPlayer = getHighestScorerForAllEpochs() + 1;
@@ -479,7 +499,10 @@ public class GameController {
 		System.out.println("*********************************************************");
 	}
 	
-	private void randomlyPlaceTiles(){
+	/**
+	 * Randomly places tiles of type DRAGON, GOLDMINE and WIZARD on the board
+	 */
+	private void randomlyPlaceDragonWizardGoldMineTiles(){
 		
 		for(int i = 0 ; i < game.tileBank.size() ; i++){
 			Tile tempTile = game.tileBank.get(i);
@@ -506,7 +529,11 @@ public class GameController {
 	public void playEpoch(int epochNoToPlay){
 		int currentEpochNo = game.getCurrentEpoch().getEpochNo();
 		
-		if(currentEpochNo == epochNoToPlay && !game.isGameEnded()){
+		if(currentEpochNo == epochNoToPlay && !game.isGameEnded() && !this.isInterrupted()){
+			System.out.println("------------------------------------------");
+			System.out.println("Starting epoch no: " + epochNoToPlay);
+			System.out.println("------------------------------------------");
+			
 			playOneEpoch();
 		}
 		else if(currentEpochNo != epochNoToPlay)
@@ -516,8 +543,11 @@ public class GameController {
 		else if(game.isGameEnded()){
 			game.gameActionLog += "Can't start epoch no " + epochNoToPlay + " as game has already ended.";
 		}
+		else if(this.isInterrupted()){
+			game.gameActionLog += "Can't start epoch no " + epochNoToPlay + " as game was interrupted by another load game.";
+		}
 		else{
-			game.gameActionLog += "Can't play epoch " + epochNoToPlay + " for unknow reason.";
+			game.gameActionLog += "Can't play epoch " + epochNoToPlay + " for unknown reason.";
 		}
 	}
 	
@@ -541,34 +571,55 @@ public class GameController {
 		
 	}
 	
+	/**
+	 * Play all 6 epochs
+	 */
 	public void playAllSixEpochs(){
 		
-		playEpoch(1);
-		resetGameAtEpochEnd();
-		
-		playEpoch(2);
-		resetGameAtEpochEnd();
-		
-		playEpoch(3);
-		resetGameAtEpochEnd();
-
-		playEpoch(4);
-		resetGameAtEpochEnd();
-
-		playEpoch(5);
-		resetGameAtEpochEnd();
-		
-		playEpoch(6);
-		resetGameAtEpochEnd();
+		playAllEpochsFrom(1);
 		
 		game.setGameEnded(true);
+	}
+	
+	/**
+	 * Play all epochs of a game starting from the specified epoch all the way to the end.
+	 * Suppose a game was saved while it was in epoch 3. If the game is loaded - it can start playing from epoch 3 to the end with this method. 
+	 * @param startingEpochNo The epoch no to start playing from.
+	 */
+	public void playAllEpochsFrom(int startingEpochNo){
+		
+		int maxNoOfEpochs = this.game.getGameConfig().MAX_NO_OF_EPOCHS;
+		
+		if(startingEpochNo > 0 && startingEpochNo <= maxNoOfEpochs){
+			
+			for(int i = startingEpochNo ; i <= maxNoOfEpochs ; i++){
+				if(this.isInterrupted()){
+					break;
+				}
+				
+				playEpoch(i);
+				resetGameAtEpochEnd();
+			}
+			
+			game.setGameEnded(true);
+			
+			if(!this.isInterrupted()){
+				System.out.println(this.getGame().gameActionLog.replace('.','\n'));
+			}
+			
+		}
 	}
 	
 	/**
 	 * Resets the game state to the epoch beginning.
 	 */
 	public void resetGameAtEpochEnd() {
-		if(!game.isGameEnded()){
+		
+		if(game.getCurrentEpoch().getEpochNo() == 6){
+			displayWinner();
+		}
+		
+		if(!game.isGameEnded() && !this.isInterrupted()){
 			displayScores();
 			setHighestScorerOfEpochToCurrentPlayer();
 			incrementEpoch();
@@ -578,9 +629,6 @@ public class GameController {
 			game.initGameBoard();
 		}
 		
-		if(game.getCurrentEpoch().getEpochNo() == 6){
-			displayWinner();
-		}
 	}
 	
 	/**
@@ -588,8 +636,9 @@ public class GameController {
 	 */
 	private void setHighestScorerOfEpochToCurrentPlayer() {
 		int higestScore = 0, highestScorerIndex = -1;
+		int currentEpochNo = game.getCurrentEpoch().getEpochNo();
 		for(int i = 0 ; i < game.players.length ; i++){
-			int currentEpochScore = game.players[i].getEpochScore(game.getCurrentEpoch().getEpochNo() - 1);
+			int currentEpochScore = game.players[i].getEpochScore(currentEpochNo - 1);
 			if( currentEpochScore > higestScore){
 				higestScore = currentEpochScore;
 				highestScorerIndex = i;
@@ -600,9 +649,13 @@ public class GameController {
 			game.setCurrentPlayerIndex(highestScorerIndex);
 		}
 		
-		System.out.println("Highest scorer index :" + highestScorerIndex);
+		System.out.println("Highest scorer index for epoch " + currentEpochNo + " :" + highestScorerIndex);
 	}
 	
+	/**
+	 * Calculates and returns the highest scorer index for all epochs.
+	 * @return Returns the index of the highest scoring players for all epochs.
+	 */
 	private int getHighestScorerForAllEpochs(){
 		int higestScore = 0, highestScorerIndex = -1;
 		
@@ -626,7 +679,7 @@ public class GameController {
     	System.out.println("-----------------------------------");
     	
 		for(int i = 0; i < game.players.length ; i++){
-			System.out.println(game.players[i].getScoreDescription());
+			System.out.println("Player " + (i+1) + "-> " + game.players[i].getScoreDescription());
 		}
 	}
 	
@@ -666,7 +719,10 @@ public class GameController {
 			}
 		}
 	}
-		
+	
+	/**
+	 * Take all castles of all ranks from the game board and return them to their respective players.
+	 */
 	private void resetCastlesAllRanks(){
 		for(int i = 0; i < game.gameBoard.length; i++){
 			for(int j = 0; j < game.gameBoard[0].length; j++){
@@ -704,7 +760,7 @@ public class GameController {
 	}
 	
 	/**
-	 * Gets the player strategy for the player specified.
+	 * Gets the player strategy for the player specified. The startegy is assigned based on player index.
 	 * 
 	 * @param playerIndex The player index whose strategy is to be fetched.
 	 * @return Returns the playing strategy of the player index specified.
@@ -720,7 +776,11 @@ public class GameController {
 		}		
 	}
 	
-	
+	/**
+	 * Gets the playing strategy based on the index supplied. This method is used to set player strategy based on user input.
+	 * @param strategyIndex The strategy index to get.
+	 * @return Returns a strategy based on the input.
+	 */
 	private PlayingStrategy getPlayerStrategyByUserInput(int strategyIndex){
 
 		switch(strategyIndex){
@@ -742,16 +802,25 @@ public class GameController {
 		}
 	}
 	
+	/**
+	 * Sets the players strategies based on user input.
+	 */
 	private void setPlayerStrategiesByUserInput(){
 		for(int i =  0; i <game.players.length ; i++){
-			System.out.println("------------------------------------------------------------------------------------");
-			System.out.println("Please select strategy for player index: " + i);
-			System.out.println("------------------------------------------------------------------------------------");
-			int selectedStrategyIndex = getUserInputStrategy();
-			game.players[i].setStrategy(getPlayerStrategyByUserInput(selectedStrategyIndex));
+			if(game.players[i].getStrategy() == null){
+				System.out.println("------------------------------------------------------------------------------------");
+				System.out.println("Please select strategy for player index: " + i);
+				System.out.println("------------------------------------------------------------------------------------");
+				int selectedStrategyIndex = getUserInputStrategy();
+				game.players[i].setStrategy(getPlayerStrategyByUserInput(selectedStrategyIndex));
+			}
 		}
 	}
 	
+	/**
+	 * Gets a valid input from the user to determine the strategy.
+	 * @return Returns a valid strategy index from user input.
+	 */
 	private int getUserInputStrategy(){
 		int maxStrategyIndex = 4;
 		int input;
@@ -763,6 +832,7 @@ public class GameController {
 			System.out.println("Strategy 0 : Random. Strategy 1 : Min. Strategy 2 : Max. Strategy 3 : OneByOne. Strategy 4 : Human.");
 			System.out.println("------------------------------------------------------------------------------------");
 			System.out.print("Please enter the strategy index number (whole no between 0 and " + maxStrategyIndex + ") :");
+			
 			while (!sc.hasNextInt()) {
 				System.out.println("Invalid input! Please try again:");
 				sc.next();
@@ -780,7 +850,78 @@ public class GameController {
 		return input;
 	}
 	
+	/**
+	 * Gets a valid file name from the user to save the game to.
+	 * @return A valid file name to save the game to as input by the user.
+	 */
+	public String getUserInputSaveFileName(){
+		
+		String fileName = "";				
+	    Scanner sc = new Scanner(System.in);
+	    
+		do {
+			
+			System.out.println("---------------------------------------------");
+			System.out.println("Please enter the file name to save to:");
+			System.out.println("---------------------------------------------");
+			
+			while (!sc.hasNextLine()) {
+				System.out.println("Invalid input! Please try again:");
+				sc.next();
+				System.out.println("Please enter the file name to save to:");
+			}
+			
+			fileName = sc.nextLine();
+			
+			
+			if(fileName == "" ||  fileName.length() <= 0 || fileName.length() > 40){
+				System.out.println("Please enter a valid file name!");
+			}
+			
+		} while (fileName == "" ||  fileName.length() <= 0 || fileName.length() > 40);
+		
+		return fileName;
+	}
 	
+	/**
+	 * Gets a valid file name from the user to load the game from.
+	 * @return A valid file name to load the game from as input by the user.
+	 */
+	public String getUserInputLoadFileName(){
+
+		String fileName = "";				
+		Scanner sc = new Scanner(System.in);
+		File file = new File("avoid_null.xml");
+		 
+		do {
+
+			System.out.println("---------------------------------------------");
+			System.out.println("Please enter the file name to load from:");
+			System.out.println("---------------------------------------------");
+
+			while (!sc.hasNextLine()) {
+				System.out.println("Invalid input! Please try again:");
+				sc.next();
+				System.out.println("Please enter the file name to load from:");
+			}
+
+			fileName = sc.nextLine();
+
+			file = new File(fileName);
+			
+			if(fileName == "" ||  fileName.length() <= 0 || fileName.length() > 40 || !file.exists()){
+				System.out.println("Please enter a valid file name!");
+			}
+
+		} while (fileName == "" ||  fileName.length() <= 0 || fileName.length() > 40 || !file.exists());
+
+		return fileName;
+	}
+	
+	/**
+	 * Gets the user to input a valid no of players (whole no between 2 and 4)
+	 * @return The no of players as input by the user (validated).
+	 */
 	public int getUserInputNoOfPlayers(){
 		int maxNoOfPlayers = 4;
 		int input;
@@ -1102,5 +1243,21 @@ public class GameController {
 		}
 		
 		return result;
+	}
+
+	/**
+	 * Check if a game controller is interrupted (a game can be interrupted to load another game).
+	 * @return Returns true if the game is interrupted - returns false otherwise.
+	 */
+	public boolean isInterrupted() {
+		return interrupted;
+	}
+
+	/**
+	 * Set the interrupted status of the game.
+	 * @param interrupted The status to set the interrupted to.
+	 */
+	public void setInterrupted(boolean interrupted) {
+		this.interrupted = interrupted;
 	}
 }

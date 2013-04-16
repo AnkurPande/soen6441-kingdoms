@@ -15,6 +15,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,6 +31,7 @@ import components.Castle.CastleRank;
 import components.GameComponents;
 import components.Tile;
 import components.Tile.TileType;
+import controller.GameController;
 
 /**
  * The GameView class displays the game on the screen in graphical format.
@@ -47,6 +49,7 @@ public class GameView extends JFrame implements PropertyChangeListener {
     
     private final int NO_OF_COLS, NO_OF_ROWS;
     
+    private GameController gc;
     private GameInstance game;
     private Config gameConfig;
     
@@ -56,21 +59,10 @@ public class GameView extends JFrame implements PropertyChangeListener {
      * Constructor. Takes a GameInstance as a parameter and renders the game according to the this GameInsance.
      * @param gi The GameInstance to render.
      */
-	public GameView(GameInstance gi) {
+	public GameView(GameController gc, String statusDisplayFreq) {
     	
-		this.setGame(gi);
-		
-		NO_OF_COLS = game.gameBoard.length;
-		NO_OF_ROWS = game.gameBoard[0].length;
-		
-		initGameWindow();
-        
-        setTitle("Kingdoms");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setVisible(true);
-        pack();
-        
-        gi.addChangeListener(this);
+		this(gc.getGame(), statusDisplayFreq);
+		this.gc = gc;
     }
 	
 	/**
@@ -158,6 +150,17 @@ public class GameView extends JFrame implements PropertyChangeListener {
 		if(this.statusDisplayFreq == "GameEnd" && changedPropertyName == "gameEndStatus"){
 			displayGameStatus();
 		}
+		
+		if(changedPropertyName == "turnCounter" && gameInfoArea.chkSaveGameOnTurnEnd.isSelected()){
+			
+			saveGame();
+		}
+		
+		if(changedPropertyName == "turnCounter" && gameInfoArea.chkLoadGameOnTurnEnd.isSelected()){
+
+			loadGame();
+		}
+		
 
 		try {
 			Thread.sleep(200);
@@ -168,7 +171,7 @@ public class GameView extends JFrame implements PropertyChangeListener {
 		this.board = new BoardArea();
 		add(board, BorderLayout.CENTER);
 		
-		this.gameInfoArea = new GameInfoArea();
+		//this.gameInfoArea = new GameInfoArea();
 		add(gameInfoArea, BorderLayout.WEST);
 		
 		this.pack();
@@ -221,6 +224,31 @@ public class GameView extends JFrame implements PropertyChangeListener {
             System.out.println();
         }
     }
+	
+	private void saveGame(){
+		
+		String fileName = gc.getUserInputSaveFileName();
+		
+		gc.saveGame(fileName);
+		this.gameInfoArea.chkSaveGameOnTurnEnd.setSelected(false);
+	}
+	
+	
+	private void loadGame(){
+		
+		String fileName = gc.getUserInputLoadFileName();
+		
+		this.gc.setInterrupted(true);
+		this.gc = new GameController(this.game.getGameConfig());
+		this.gc.loadAndSetGame(fileName);
+		this.setGame(gc.getGame());
+		this.gameInfoArea.chkLoadGameOnTurnEnd.setSelected(false);
+		this.gc.getGame().addChangeListener(this);
+		
+		int currentEpoch = this.gc.getGame().getCurrentEpoch().getEpochNo();
+		gc.playAllEpochsFrom(currentEpoch);
+
+	}
 
 	/**
      * This class defines the board area of the game.
@@ -639,6 +667,7 @@ public class GameView extends JFrame implements PropertyChangeListener {
     class GameInfoArea extends JPanel {
 		
 		private static final long serialVersionUID = 1L;
+		protected JCheckBox chkSaveGameOnTurnEnd, chkLoadGameOnTurnEnd;
 
 		/**
 		 * Constructor.		   
@@ -655,9 +684,13 @@ public class GameView extends JFrame implements PropertyChangeListener {
 			int currentPlayerIndex = game.getCurrentPlayerIndex();
 			String currentPlayerName = game.players[currentPlayerIndex].getName();
 			JLabel currentPlayer = new JLabel("Current turn is for :" + currentPlayerName);
+			chkSaveGameOnTurnEnd = new JCheckBox("Save Game on Current Turn End.");
+			chkLoadGameOnTurnEnd = new JCheckBox("Load Game on Current Turn End.");
 			
 			add(currentEpoch);
-			add(currentPlayer);
+			add(currentPlayer);			
+			add(chkSaveGameOnTurnEnd);
+			add(chkLoadGameOnTurnEnd);
 		} 
 		 	   
 	}
