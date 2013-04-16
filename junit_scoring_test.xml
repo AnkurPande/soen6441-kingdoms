@@ -9,12 +9,23 @@
             <rank4Castles/>
             <playerCoins>
                 <coin material="GOLD" value="206"/>
+				<coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
             </playerCoins>
             <playerTiles/>
             <playerScoreByEpoch>
                 <epochScore>71</epochScore>
                 <epochScore>62</epochScore>
                 <epochScore>23</epochScore>
+				<epochScore>0</epochScore>
+				<epochScore>0</epochScore>
+				<epochScore>0</epochScore>
+				<epochScore>0</epochScore>
             </playerScoreByEpoch>
         </player>
         <player name="Player2" playerColor="YELLOW">
@@ -33,6 +44,13 @@
             </rank4Castles>
             <playerCoins>
                 <coin material="GOLD" value="74"/>
+				<coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
             </playerCoins>
             <playerTiles>
                 <tile type="RESOURCES" value="6"/>
@@ -42,6 +60,10 @@
                 <epochScore>0</epochScore>
                 <epochScore>5</epochScore>
                 <epochScore>19</epochScore>
+				<epochScore>0</epochScore>
+				<epochScore>0</epochScore>
+				<epochScore>0</epochScore>
+				<epochScore>0</epochScore>
             </playerScoreByEpoch>
         </player>
         <player name="Player3" playerColor="BLUE">
@@ -60,6 +82,13 @@
             </rank4Castles>
             <playerCoins>
                 <coin material="GOLD" value="52"/>
+				<coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
             </playerCoins>
             <playerTiles>
                 <tile type="MOUNTAIN" value="0"/>
@@ -68,6 +97,10 @@
                 <epochScore>0</epochScore>
                 <epochScore>0</epochScore>
                 <epochScore>2</epochScore>
+				<epochScore>0</epochScore>
+				<epochScore>0</epochScore>
+				<epochScore>0</epochScore>
+				<epochScore>0</epochScore>
             </playerScoreByEpoch>
         </player>
         <player name="Player4" playerColor="GREEN">
@@ -77,12 +110,23 @@
             <rank4Castles/>
             <playerCoins>
                 <coin material="GOLD" value="123"/>
+				<coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
+                <coin value="0"/>
             </playerCoins>
             <playerTiles/>
             <playerScoreByEpoch>
                 <epochScore>76</epochScore>
                 <epochScore>2</epochScore>
                 <epochScore>-5</epochScore>
+				<epochScore>0</epochScore>
+				<epochScore>0</epochScore>
+				<epochScore>0</epochScore>
+				<epochScore>0</epochScore>
             </playerScoreByEpoch>
         </player>
     </players>

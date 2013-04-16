@@ -304,6 +304,10 @@ public class Player{
 		}
 	}
 	
+	/**
+	 * Calculates the player score for all epochs.
+	 * @return The players score for all epochs.
+	 */
 	public int getScoreAllEpochs(){
 		int sum = 0;
 		

@@ -56,7 +56,7 @@ public class GameInstance {
 
 
 	/**
-	 * Default constructor. Creates a blank by default.
+	 * Default constructor. Creates a blank game by default.
 	 */
 	public GameInstance(){
 		listeners = new ArrayList<PropertyChangeListener>();
