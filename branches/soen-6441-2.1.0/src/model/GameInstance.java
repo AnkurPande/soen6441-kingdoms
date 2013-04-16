@@ -37,6 +37,7 @@ public class GameInstance {
 	@XmlElementWrapper(name="gameBoard")
 	@XmlElement(name="placeOnBoard", nillable=true,defaultValue="")
 	public GameComponents[][] gameBoard;
+	
 	private int emptyPlacesOnBoard;
 
 	@XmlElementWrapper(name="tilebank")
@@ -355,6 +356,7 @@ public class GameInstance {
 		this.gameConfig = gameConfig;
 	}
 
+	@XmlElement
 	/**
 	 * Getter for the emptyPlacesOnBoard.
 	 * @return
