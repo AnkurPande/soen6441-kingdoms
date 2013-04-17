@@ -2,7 +2,6 @@ package controller;
 
 import java.io.File;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -492,7 +491,7 @@ public class GameController {
 	/**
 	 * Displays the player with the highest score for all epochs.
 	 */
-	private void displayWinner(){
+	public void displayWinner(){
 		System.out.println("*********************************************************");
 		int highestScoringPlayer = getHighestScorerForAllEpochs() + 1;
 		System.out.println("Winner is Player " + highestScoringPlayer);
@@ -502,21 +501,85 @@ public class GameController {
 	/**
 	 * Randomly places tiles of type DRAGON, GOLDMINE and WIZARD on the board
 	 */
-	private void randomlyPlaceDragonWizardGoldMineTiles(){
+	public void randomlyPlaceDragonWizardGoldMineTiles(){
+		
+		int dragonIndex = -1, wizardIndex = -1, goldMineIndex = -1;
 		
 		for(int i = 0 ; i < game.tileBank.size() ; i++){
+			
 			Tile tempTile = game.tileBank.get(i);
 			TileType type = tempTile.getType();
 			
-			if(type == TileType.DRAGON || type == TileType.GOLDMINE || type == TileType.WIZARD){
-				int row =  new Random().nextInt(game.gameBoard[0].length);
-				int col =  new Random().nextInt(game.gameBoard.length);
-				
-				if(this.isGameBoardPlaceValidAndVacant(row, col)){
-					game.tileBank.remove(tempTile);
-					placeComponentOnGameBoard(tempTile,row,col);
-				}
+			if(type == TileType.DRAGON){
+				dragonIndex = i;
 			}
+			
+			if(type == TileType.WIZARD){
+				wizardIndex = i;
+			}
+			
+			if(type == TileType.GOLDMINE){
+				goldMineIndex = i;
+			}		
+			
+		}
+		
+		int row = 0, col = 0;
+		Tile dragonTile = null, wizardTile = null, goldMineTile = null;
+		
+		if(dragonIndex > -1){
+			row =  new Random().nextInt(game.gameBoard[0].length);
+			col =  new Random().nextInt(game.gameBoard.length);
+			
+			while(!this.isGameBoardPlaceValidAndVacant(row,col)){
+				row =  new Random().nextInt(game.gameBoard[0].length);
+				col =  new Random().nextInt(game.gameBoard.length);
+			}
+			
+			dragonTile = game.tileBank.elementAt(dragonIndex);
+			placeComponentOnGameBoard(dragonTile,row,col);
+		}
+		
+		if(wizardIndex > -1){
+			
+			row =  new Random().nextInt(game.gameBoard[0].length);
+			col =  new Random().nextInt(game.gameBoard.length);
+			
+			while(!this.isGameBoardPlaceValidAndVacant(row,col)){
+				row =  new Random().nextInt(game.gameBoard[0].length);
+				col =  new Random().nextInt(game.gameBoard.length);
+			}
+			
+			wizardTile = game.tileBank.elementAt(wizardIndex);
+			placeComponentOnGameBoard(wizardTile,row,col);
+		}
+		
+		
+		if(goldMineIndex > -1){
+			
+			row =  new Random().nextInt(game.gameBoard[0].length);
+			col =  new Random().nextInt(game.gameBoard.length);
+			
+			while(!this.isGameBoardPlaceValidAndVacant(row,col)){
+				row =  new Random().nextInt(game.gameBoard[0].length);
+				col =  new Random().nextInt(game.gameBoard.length);
+			}
+			
+			goldMineTile = game.tileBank.elementAt(goldMineIndex);
+			placeComponentOnGameBoard(goldMineTile,row,col);
+
+		}
+		
+		if(dragonIndex > -1){
+			game.tileBank.remove(dragonTile);
+		}
+		
+		if(wizardIndex > -1){
+			game.tileBank.remove(wizardTile);
+		}
+		
+		if(goldMineIndex > -1){
+			game.tileBank.remove(goldMineTile);
 		}
 		
 		
@@ -781,7 +844,7 @@ public class GameController {
 	 * @param strategyIndex The strategy index to get.
 	 * @return Returns a strategy based on the input.
 	 */
-	private PlayingStrategy getPlayerStrategyByUserInput(int strategyIndex){
+	public PlayingStrategy getPlayerStrategyByIndex(int strategyIndex){
 
 		switch(strategyIndex){
 			case 0:	return new PlayingStrategyRandom();
@@ -805,14 +868,14 @@ public class GameController {
 	/**
 	 * Sets the players strategies based on user input.
 	 */
-	private void setPlayerStrategiesByUserInput(){
+	public void setPlayerStrategiesByUserInput(){
 		for(int i =  0; i <game.players.length ; i++){
 			if(game.players[i].getStrategy() == null){
 				System.out.println("------------------------------------------------------------------------------------");
 				System.out.println("Please select strategy for player index: " + i);
 				System.out.println("------------------------------------------------------------------------------------");
 				int selectedStrategyIndex = getUserInputStrategy();
-				game.players[i].setStrategy(getPlayerStrategyByUserInput(selectedStrategyIndex));
+				game.players[i].setStrategy(getPlayerStrategyByIndex(selectedStrategyIndex));
 			}
 		}
 	}
@@ -821,7 +884,7 @@ public class GameController {
 	 * Gets a valid input from the user to determine the strategy.
 	 * @return Returns a valid strategy index from user input.
 	 */
-	private int getUserInputStrategy(){
+	public int getUserInputStrategy(){
 		int maxStrategyIndex = 4;
 		int input;
 						
@@ -1140,7 +1203,6 @@ public class GameController {
 		//-------------------------------------------------------------------------------------
 		for(int i = 0; i < playerScoreTotal.length ; i++){
 			playerScoreTotal[i] = playerScoreByRow[i] + playerScoreByColumn[i];
-			int playersCurrentScore = game.players[i].evaluateCoinValue();
 			int currentEpochNo = game.getCurrentEpoch().getEpochNo();
 			game.players[i].setEpochScore(game.getCurrentEpoch().getEpochNo() - 1, playerScoreTotal[i]);
 			game.players[i].playerCoins.elementAt(currentEpochNo+1).setValue(playerScoreTotal[i]);
