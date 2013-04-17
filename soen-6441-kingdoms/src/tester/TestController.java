@@ -15,9 +15,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import components.Castle.CastleRank;
+import components.Castle;
+import components.Coin;
+import components.Coin.Material;
 import components.Tile;
+import components.Tile.TileType;
 
 import controller.GameController;
+import controller.PlayingStrategyHuman;
+import controller.PlayingStrategyMax;
+import controller.PlayingStrategyMin;
+import controller.PlayingStrategyRandom;
+import controller.PlayingStrategyTryOneByOne;
 
 /**
  * Class to run tests on the classes inside the "controller" package
@@ -161,6 +170,123 @@ public class TestController {
 		assertTrue(gc.getGame().players[3].getEpochScore(1) == 2);
 		assertTrue(gc.getGame().players[3].getEpochScore(2) == -5);
 		
+	}
+	
+	@Test
+	/**
+	 * Tests the random placement of Dragon, Wizard and GoldMine tile at the beginning of the game.
+	 */
+	public void testRandomTilePlacement(){
+		
+		gi = new GameInstance(new Config(4));
+		gc.setGame(gi);
+		gc.randomlyPlaceDragonWizardGoldMineTiles();
+		
+		boolean checkDragon = false, checkWizard = false, checkGoldMine = false;
+		
+		for(int i = 0; i < gi.gameBoard.length; i++){
+			for(int j = 0; j < gi.gameBoard[0].length; j++){
+				if(gi.gameBoard[i][j] instanceof Tile){
+					Tile temp = (Tile)gi.gameBoard[i][j];
+					
+					if(temp.getType() == TileType.DRAGON){
+						checkDragon = true;
+					}
+					
+					if(temp.getType() == TileType.WIZARD){
+						checkWizard = true;
+					}
+					
+					if(temp.getType() == TileType.GOLDMINE){
+						checkGoldMine = true;
+					}
+				}
+				
+			}
+		}
+		
+		assertTrue(checkDragon);
+		assertTrue(checkWizard);
+		assertTrue(checkGoldMine);
+			
+	}
+	
+	@Test
+	/**
+	 * Tests the user input about no of players
+	 */
+	public void testUserInputNoOfPlayers(){
+		
+		int noOfPlayers = gc.getUserInputNoOfPlayers();
+		gi = new GameInstance(new Config(noOfPlayers));
+		
+		assertTrue(gi.players.length == noOfPlayers);
+	}
+	
+	@Test
+	/**
+	 * Tests the user input to select strategies
+	 */
+	public void testUserInputStrategySelection(){
+		
+		boolean checkStrategy = false;
+		
+		gi = new GameInstance(new Config(4));
+		gc.setGame(gi);
+		int strategyIndex = gc.getUserInputStrategy();
+		
+		gi.players[0].setStrategy(gc.getPlayerStrategyByIndex(strategyIndex));
+		
+		if(strategyIndex == 0 && (gi.players[0].getStrategy() instanceof PlayingStrategyRandom)){
+			checkStrategy = true;
+		}
+		
+		if(strategyIndex == 1 && (gi.players[0].getStrategy() instanceof PlayingStrategyMin)){
+			checkStrategy = true;
+		}
+		
+		if(strategyIndex == 2 && (gi.players[0].getStrategy() instanceof PlayingStrategyMax)){
+			checkStrategy = true;
+		}
+		
+		if(strategyIndex == 3 && (gi.players[0].getStrategy() instanceof PlayingStrategyTryOneByOne)){
+			checkStrategy = true;
+		}
+		
+		if(strategyIndex == 4 && (gi.players[0].getStrategy() instanceof PlayingStrategyHuman)){
+			checkStrategy = true;
+		}
+		
+		assertTrue(checkStrategy);
+	}
+	
+	@Test
+	/**
+	 * Tests the place tile and draw from tile bank move
+	 */
+	public void testPlaceAndDrawTile(){
+		
+		gi = new GameInstance(new Config(4));
+		gi.assignOneSetOfTilesToPlayers();
+		gc.setGame(gi);
+		
+		assertTrue(gc.placeTileAndDraw(0, 0));
+	}
+	
+	@Test
+	/**
+	 * Tests if the game ends when one player reaches high score
+	 */
+	public void testGameEndedForHighScore(){
+		gi = new GameInstance(new Config(4));
+		gi.players[0].playerCoins.add(new Coin(Material.GOLD, gi.getGameConfig().COIN_VALUE_TO_END_GAME)) ;
+		
+		gc.setGame(gi);
+		
+		gc.playAllSixEpochs();
+		gc.displayWinner();
+		
+		assertTrue(gi.isGameEnded());
 	}
 	
 	/**
