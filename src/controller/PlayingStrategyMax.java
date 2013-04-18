@@ -30,12 +30,12 @@ public class PlayingStrategyMax implements PlayingStrategy {
 			TileType playersFirstTileType = gc.getGame().players[currentPlayerIndex].playerTiles.firstElement().getType();
 			
 			if(playersFirstTileType == TileType.RESOURCES){
-				placeFirstTileAttempt = gc.placeTileAndDraw(row, col);
+				placeFirstTileAttempt = gc.placeTileAndDraw(row, col, 0);
 			}
 		}
 		
 		if(!placeFirstTileAttempt){
-			placeAndDrawTileAttempt =  gc.placeTileAndDraw(row, col);
+			placeAndDrawTileAttempt =  gc.placeTileAndDraw(row, col, 0);
 		}
 		
 		Castle.CastleRank nextAvailableCastleRank = gc.nextAvailableCastleRank(currentPlayerIndex);

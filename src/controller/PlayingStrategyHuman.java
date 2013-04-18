@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.Random;
 import java.util.Scanner;
 
 import components.Castle;
@@ -136,10 +135,12 @@ public class PlayingStrategyHuman implements PlayingStrategy {
 		
 		boolean moveAttempt = false;
 		switch(moveNo){
-			case 0: //moveAttempt = gc.placeFirstTile(currentPlayerIndex, rowIndex, colIndex);
-					moveAttempt = gc.placeTileAndDraw(rowIndex, colIndex);
+			case 0: displayPlayerTiles(gc,currentPlayerIndex);
+					int selectedTileIndex = selectTileIndex(gc, currentPlayerIndex);
+					moveAttempt = gc.placeTileAndDraw(rowIndex, colIndex, selectedTileIndex);
 					break;
-			case 1: Castle.CastleRank selectedCastleRank = selectCastleRank();
+			case 1: displayPlayerCastles(gc, currentPlayerIndex);
+					Castle.CastleRank selectedCastleRank = selectCastleRank();
 					moveAttempt = gc.placeCastle(currentPlayerIndex, selectedCastleRank, rowIndex, colIndex);
 					break;
 			case 2: moveAttempt = gc.placeFirstTile(currentPlayerIndex, rowIndex, colIndex);
@@ -205,6 +206,55 @@ public class PlayingStrategyHuman implements PlayingStrategy {
 		}
 		
 		return 	selectedCastleRank;
+	}
+	
+	/**
+	 * Displays the players castles of the specified index.
+	 * @param gc The Game Controller
+	 * @param playerIndex The player index
+	 */
+	private void displayPlayerCastles(GameController gc, int playerIndex){
+		
+		System.out.println("Rank 1 castles: " + gc.getGame().players[playerIndex].rank1Castles.size());
+		System.out.println("Rank 2 castles: " + gc.getGame().players[playerIndex].rank2Castles.size());
+		System.out.println("Rank 3 castles: " + gc.getGame().players[playerIndex].rank3Castles.size());
+		System.out.println("Rank 4 castles: " + gc.getGame().players[playerIndex].rank4Castles.size());
+		
+	}
+	
+	private void displayPlayerTiles(GameController gc, int playerIndex){
+		int noOfTiles = gc.getGame().players[playerIndex].playerTiles.size();
+		
+		for(int i = 0 ; i < noOfTiles ; i++){
+			System.out.println("Tile " + (i) + ": " + gc.getGame().players[playerIndex].playerTiles.elementAt(i).getType().toString() + "(" + gc.getGame().players[playerIndex].playerTiles.elementAt(i).getValue() + ")");
+		}
+	}
+	
+	private int selectTileIndex(GameController gc, int playerIndex){
+		int selectedTileIndex = -1;
+		int maxTileIndex = gc.getGame().players[playerIndex].playerTiles.size() - 1;
+		
+		int input;
+
+		Scanner sc = new Scanner(System.in);
+
+		do {
+			System.out.print("Please enter the index of the tile to place (whole no between 0 and " + maxTileIndex + ") :");
+			while (!sc.hasNextInt()) {
+				System.out.println("Invalid input! Please try again:");
+				sc.next();
+				System.out.print("Please enter the index of the tile to place (whole no between 0 and " + maxTileIndex + ") :");
+			}
+
+			input = sc.nextInt();
+
+			if(input < 0 || input > maxTileIndex){
+				System.out.println("Input must be within the specified range! Please try again:");
+			}
+
+		} while (input < 0 || input > maxTileIndex);
+				
+		return input;
 	}
 
 }

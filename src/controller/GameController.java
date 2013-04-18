@@ -203,12 +203,18 @@ public class GameController {
 	 * @param colOfGameBoard The column index of the game board to place the tile to.
 	 * @return Returns true if the draw and place was successful - returns false otherwise.
 	 */
-	public boolean placeTileAndDraw(int rowOfGameBoard, int colOfGameBoard){
+	public boolean placeTileAndDraw(int rowOfGameBoard, int colOfGameBoard, int selectedTileIndex){
 		
 		game.gameActionLog += "Player" + game.getCurrentPlayerIndex() + " requested to perform action 'place tile and draw' at row: " + rowOfGameBoard + ", col: " + colOfGameBoard + ".";
 		
 		if(!isGameBoardPlaceValidAndVacant(rowOfGameBoard, colOfGameBoard)){
 			game.gameActionLog += "Action 'place tile and draw' failed due to specified location on game board isn't valid or isn't vacant.";
+			return false;
+		}
+		
+		if(selectedTileIndex < 0 || selectedTileIndex >= game.players[game.getCurrentPlayerIndex()].playerTiles.size()){
+			game.gameActionLog += "Action 'place tile and draw' failed due to specified tile index:" +  selectedTileIndex + " isn't valid.";
+			System.out.println(game.gameActionLog);
 			return false;
 		}
 		
@@ -219,7 +225,7 @@ public class GameController {
 			return false;
 		}
 		
-		Tile tileToPlace = game.players[game.getCurrentPlayerIndex()].playerTiles.remove(0);
+		Tile tileToPlace = game.players[game.getCurrentPlayerIndex()].playerTiles.remove(selectedTileIndex);
 		placeComponentOnGameBoard(tileToPlace,rowOfGameBoard,colOfGameBoard);
 		
 		if(game.tileBank.size() > 0 ){
