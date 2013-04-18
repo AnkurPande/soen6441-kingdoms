@@ -87,7 +87,7 @@ public class PlayingStrategyRandom implements PlayingStrategy {
 		
 		boolean moveAttempt = false;
 		switch(moveNo){
-			case 0: moveAttempt = gc.placeTileAndDraw(row, col);
+			case 0: moveAttempt = gc.placeTileAndDraw(row, col, 0);
 					break;
 			case 1: Castle.CastleRank nextAvailableCastleRank = gc.nextAvailableCastleRank(currentPlayerIndex);
 					moveAttempt = gc.placeCastle(currentPlayerIndex, nextAvailableCastleRank, row, col);

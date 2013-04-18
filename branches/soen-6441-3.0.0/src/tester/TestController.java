@@ -103,7 +103,7 @@ public class TestController {
 	 */
 	public void testPlaceFirstTile(){
 		gc.getGame().assignOneSetOfTilesToPlayers();
-		assertTrue(gc.placeTileAndDraw(2, 2));
+		assertTrue(gc.placeTileAndDraw(2, 2, 0));
 		assertFalse(gc.placeFirstTile(-10, 55, 2));
 	}
 	
@@ -141,7 +141,7 @@ public class TestController {
 	 */
 	public void testHasPlayerFirstTile(){
 		gc.getGame().assignOneSetOfTilesToPlayers();
-		gc.placeTileAndDraw(0, 0);
+		gc.placeTileAndDraw(0, 0, 0);
 		assertTrue(gc.hasPlayerFirstTile(1));
 		assertTrue(gc.hasPlayerFirstTile(0));
 	}
@@ -270,7 +270,7 @@ public class TestController {
 		gi.assignOneSetOfTilesToPlayers();
 		gc.setGame(gi);
 		
-		assertTrue(gc.placeTileAndDraw(0, 0));
+		assertTrue(gc.placeTileAndDraw(0, 0, 0));
 	}
 	
 	@Test
