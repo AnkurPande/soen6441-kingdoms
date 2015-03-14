@@ -1,0 +1,1 @@
+This project is about building castles and collecting gold, while avoiding dragons and other hazards. More specifically, it's about implementing a computer-based version of the board game Kingdoms
